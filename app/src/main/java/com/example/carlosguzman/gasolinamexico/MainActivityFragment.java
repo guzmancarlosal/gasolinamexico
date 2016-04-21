@@ -14,6 +14,7 @@ import android.widget.ListView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -21,6 +22,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -43,7 +45,7 @@ public class MainActivityFragment extends Fragment {
                         getActivity(), // The current context (this activity)
                         R.layout.list_view_gas, // The name of the layout ID.
                         R.id.list_view_gas_text, // The ID of the textview to populate.
-                        gasolinaName);
+                        new ArrayList<String>());
       //  gasAdapter mGasolinaAdapter = new gasAdapter(getActivity(),R.layout.list_view_gas);
 
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
@@ -83,7 +85,7 @@ public class MainActivityFragment extends Fragment {
             final String OWM_COMENTARIO = "comment";
 
 
-            Log.d(LOG_TAG, "JSON value returned"+forecastJsonStr);
+
             JSONArray weatherArray = new JSONArray(forecastJsonStr);
            // JSONObject forecastJson = new JSONObject(forecastJsonStr);
             //JSONArray weatherArray = forecastJson.getJSONArray(forecastJsonStr);
@@ -105,7 +107,8 @@ public class MainActivityFragment extends Fragment {
             // now we work exclusively in UTC
             dayTime = new Time();
             String[] resultStrs = new String[numDays];
-/*            for(int i = 0; i < weatherArray.length(); i++) {
+            Log.d(LOG_TAG, "weather array"+weatherArray.length());
+            for(int i = 0; i < weatherArray.length(); i++) {
                 String gasolina;
                 String lugar;
                 String valor;
@@ -117,24 +120,25 @@ public class MainActivityFragment extends Fragment {
                 // Get the JSON object representing the day
                 JSONObject dayGas = weatherArray.getJSONObject(i);
                 //get data from JSON
-                gasolina = dayGas.getString(OWM_VALOR);
-                lugar = dayGas.getString(OWM_VALOR);
+                gasolina = dayGas.getString(OWM_GASOLINA);
+                lugar = dayGas.getString(OWM_LUGAR);
                 valor = dayGas.getString(OWM_VALOR);
-                mes = dayGas.getString(OWM_VALOR);
-                ano = dayGas.getString(OWM_VALOR);
-                comment = dayGas.getString(OWM_VALOR);
+                mes = dayGas.getString(OWM_MES);
+                ano = dayGas.getString(OWM_ANO);
+                comment = dayGas.getString(OWM_COMENTARIO);
 
 
                 // Temperatures are in a child object called "temp".  Try not to name variables
                 // "temp" when working with temperature.  It confuses everybody.
 
-                resultStrs[i] = gasolina + " - " + lugar + " - " + valor + " - " + mes + " - " + ano + " - " + comment;
+                resultStrs[i] = gasolina ;
+                //aqui dejo el resto de las variables+ " - " + lugar + " - " + valor + " - " + mes + " - " + ano + " - " + comment
+
             }
 
             for (String s : resultStrs) {
 
-            }*/
-            Log.d(LOG_TAG, "final result string!"+resultStrs);
+            }
             return resultStrs;
 
         }
@@ -151,7 +155,7 @@ public class MainActivityFragment extends Fragment {
 
             // Will contain the raw JSON response as a string.
             String forecastJsonStr = null;
-            int numDays =  7;
+            int numDays =  3;
 
             try {
                 // Construct the URL for the OpenWeatherMap query
@@ -168,7 +172,6 @@ public class MainActivityFragment extends Fragment {
                         .build();
 
                 URL url = new URL(builtUri.toString());
-                Log.d(LOG_TAG, "this is the URL"+url);
 
                 // Create the request to OpenWeatherMap, and open the connection
                 urlConnection = (HttpURLConnection) url.openConnection();
@@ -233,6 +236,7 @@ public class MainActivityFragment extends Fragment {
             if (result != null){
                 mGasolinaAdapter.clear();
                 for (String dayForecastStr :result){
+                    //Log.d(LOG_TAG, "Looping on"+dayForecastStr);
                     mGasolinaAdapter.add(dayForecastStr);
                 }
             }
