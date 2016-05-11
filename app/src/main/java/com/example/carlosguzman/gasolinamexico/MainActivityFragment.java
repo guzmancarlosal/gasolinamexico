@@ -9,7 +9,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import org.json.JSONArray;
@@ -22,13 +21,12 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
 
 /**
  * A placeholder fragment containing a simple view.
  */
 public class MainActivityFragment extends Fragment {
-    private ArrayAdapter<String> mGasolinaAdapter;
+    private gasAdapter mGasolinaAdapter;
     ListView listView;
     public MainActivityFragment() {
     }
@@ -36,21 +34,31 @@ public class MainActivityFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        String [] gasolinaName = {"magna", "premium","diesel"};
-        String [] gasolinaPrice = {"13.90", "13.89","13.77"};
-
-
-        mGasolinaAdapter =
+        View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+        mGasolinaAdapter = new gasAdapter(getActivity(),R.layout.list_view_gas);
+        final String LOG_TAG = FetchWeatherTask.class.getSimpleName();
+        /* mGasolinaAdapter =
                 new ArrayAdapter<String>(
                         getActivity(), // The current context (this activity)
                         R.layout.list_view_gas, // The name of the layout ID.
                         R.id.list_view_gas_text, // The ID of the textview to populate.
                         new ArrayList<String>());
-      //  gasAdapter mGasolinaAdapter = new gasAdapter(getActivity(),R.layout.list_view_gas);
 
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
         listView = (ListView) rootView.findViewById(R.id.listview_gasolina);
         listView.setAdapter(mGasolinaAdapter);
+        return rootView;*/
+        String[] name = {"Cargando..","Cargando..","Cargando.."};
+        String[] Qty = {"Cargando..","Cargando..","Cargando.."};
+
+        listView = (ListView) rootView.findViewById(R.id.listview_gasolina);
+        listView.setAdapter(mGasolinaAdapter);
+        int i = 0;
+        for (String Name : name){
+            gasolinaClass obj = new gasolinaClass('5',Name, Qty[i]);
+            mGasolinaAdapter.addGas(obj);
+            i++;
+        }
         return rootView;
     }
     public void updateGasolinaPrice() {
@@ -59,8 +67,8 @@ public class MainActivityFragment extends Fragment {
         //SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         String month = "4";
         String year = "2016";
+        //TODO unhardcode this
         weatherTask.execute(month, year);
-        //weatherTask.execute();
     }
     @Override
     public void onStart() {
@@ -83,6 +91,7 @@ public class MainActivityFragment extends Fragment {
             final String OWM_MES = "mes";
             final String OWM_ANO = "ano";
             final String OWM_COMENTARIO = "comment";
+            //TODO: add last period price
 
 
 
@@ -131,8 +140,8 @@ public class MainActivityFragment extends Fragment {
                 // Temperatures are in a child object called "temp".  Try not to name variables
                 // "temp" when working with temperature.  It confuses everybody.
 
-                resultStrs[i] = gasolina ;
-                //aqui dejo el resto de las variables+ " - " + lugar + " - " + valor + " - " + mes + " - " + ano + " - " + comment
+                resultStrs[i] = gasolina+","+lugar+","+valor+","+mes+","+ano+","+comment;
+
 
             }
 
@@ -234,10 +243,14 @@ public class MainActivityFragment extends Fragment {
         @Override
         protected void onPostExecute(String[] result) {
             if (result != null){
+
                 mGasolinaAdapter.clear();
                 for (String dayForecastStr :result){
-                    //Log.d(LOG_TAG, "Looping on"+dayForecastStr);
-                    mGasolinaAdapter.add(dayForecastStr);
+                    //mGasolinaAdapter.add(dayForecastStr);
+                    String[] array = dayForecastStr.split(",");
+                    //gasolina|lugar|valor|mes|ano|comment;
+                    gasolinaClass obj = new gasolinaClass('5',array[0], array[2]);
+                    mGasolinaAdapter.addGas(obj);
                 }
             }
         }

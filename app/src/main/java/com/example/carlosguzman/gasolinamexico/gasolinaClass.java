@@ -4,37 +4,39 @@ package com.example.carlosguzman.gasolinamexico;
  * Created by 501820531 on 4/17/2016.
  */
 public class gasolinaClass {
+    private int gas_resource;
+    private String gas_name;
+    private String gas_price;
 
-    private int fruit_resource;
-    private String fruit_name;
-    private String fruit_qty;
-
-
-
-    public gasolinaClass(int fruit_resource, String fruit_name, String fruit_qty) {
+    public gasolinaClass(int gas_resource, String gas_name, String gas_price) {
         super();
-        this.setFruit_resource(fruit_resource);
-        this.setFruit_name(fruit_name);
-        this.setFruit_qty(fruit_qty);
-    }
-    public int getFruit_resource() {
-        return fruit_resource;
-    }
-    public void setFruit_resource(int fruit_resource) {
-        this.fruit_resource = fruit_resource;
-    }
-    public String getFruit_name() {
-        return fruit_name;
-    }
-    public void setFruit_name(String fruit_name) {
-        this.fruit_name = fruit_name;
-    }
-    public String getFruit_qty() {
-        return fruit_qty;
-    }
-    public void setFruit_qty(String fruit_qty) {
-        this.fruit_qty = fruit_qty;
+        this.setGas_name(gas_name);
+        this.setGas_price(gas_price);
+        this.setGas_resource(gas_resource);
     }
 
+    public int getGas_resource() {
+        return gas_resource;
+    }
+
+    public void setGas_resource(int gas_resource) {
+        this.gas_resource = gas_resource;
+    }
+
+    public String getGas_name() {
+        return gas_name;
+    }
+
+    public void setGas_name(String gas_name) {
+        this.gas_name = gas_name;
+    }
+
+    public String getGas_price() {
+        return gas_price;
+    }
+
+    public void setGas_price(String gas_price) {
+        this.gas_price = gas_price;
+    }
 }
 

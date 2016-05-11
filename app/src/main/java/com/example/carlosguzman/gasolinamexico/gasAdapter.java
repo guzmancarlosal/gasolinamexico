@@ -17,15 +17,16 @@ import java.util.List;
 
 public class gasAdapter extends ArrayAdapter{
     private List list= new ArrayList();
-
     public gasAdapter(Context context, int resource) {
         super(context, resource);
         // TODO Auto-generated constructor stub
     }
-    public void add(gasolinaClass object) {
+    public void addGas(gasolinaClass object) {
         // TODO Auto-generated method stub
+
         list.add(object);
         super.add(object);
+
     }
     static class ImgHolder
     {
@@ -37,6 +38,12 @@ public class gasAdapter extends ArrayAdapter{
     public int getCount() {
         // TODO Auto-generated method stub
         return this.list.size();
+    }
+    @Override
+    public void clear() {
+        // TODO Auto-generated method stub
+        list.clear();
+
     }
     @Override
     public Object getItem(int position) {
@@ -52,7 +59,7 @@ public class gasAdapter extends ArrayAdapter{
         if(convertView == null)
         {
             LayoutInflater inflater = (LayoutInflater) this.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            row = inflater.inflate(R.layout.fragment_main,parent,false);
+            row = inflater.inflate(R.layout.list_view_gas,parent, false);
             holder = new ImgHolder();
            // holder.IMG = (ImageView) row.findViewById(R.id.fruit_img);
             holder.NAME = (TextView) row.findViewById(R.id.list_view_gas_text);
@@ -64,11 +71,9 @@ public class gasAdapter extends ArrayAdapter{
             holder = (ImgHolder) row.getTag();
 
         }
-
         gasolinaClass FR = (gasolinaClass) getItem(position);
-        holder.IMG.setImageResource(FR.getFruit_resource());
-        holder.NAME.setText(FR.getFruit_name());
-        holder.PRICE.setText(FR.getFruit_qty());
+        holder.NAME.setText(FR.getGas_name());
+        holder.PRICE.setText(FR.getGas_price());
         return row;
     }
 
