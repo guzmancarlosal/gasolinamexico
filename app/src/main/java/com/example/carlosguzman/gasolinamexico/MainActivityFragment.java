@@ -21,6 +21,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -36,43 +38,40 @@ public class MainActivityFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
         mGasolinaAdapter = new gasAdapter(getActivity(),R.layout.list_view_gas);
-        final String LOG_TAG = FetchWeatherTask.class.getSimpleName();
-        /* mGasolinaAdapter =
-                new ArrayAdapter<String>(
-                        getActivity(), // The current context (this activity)
-                        R.layout.list_view_gas, // The name of the layout ID.
-                        R.id.list_view_gas_text, // The ID of the textview to populate.
-                        new ArrayList<String>());
 
-        View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-        listView = (ListView) rootView.findViewById(R.id.listview_gasolina);
-        listView.setAdapter(mGasolinaAdapter);
-        return rootView;*/
         String[] name = {"Cargando..","Cargando..","Cargando.."};
         String[] Qty = {"Cargando..","Cargando..","Cargando.."};
+        String[] image = {"diesel","magna","premium"};
 
         listView = (ListView) rootView.findViewById(R.id.listview_gasolina);
         listView.setAdapter(mGasolinaAdapter);
+
         int i = 0;
         for (String Name : name){
-            gasolinaClass obj = new gasolinaClass('5',Name, Qty[i]);
+            gasolinaClass obj = new gasolinaClass(image[i],Name, Qty[i]);
             mGasolinaAdapter.addGas(obj);
             i++;
         }
         return rootView;
     }
     public void updateGasolinaPrice() {
-        final String LOG_TAG = FetchWeatherTask.class.getSimpleName();
         FetchWeatherTask weatherTask = new FetchWeatherTask();
         //SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        String month = "4";
-        String year = "2016";
+        Date date = new Date();
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        int month = cal.get(Calendar.MONTH)+1;
+        int year = cal.get(Calendar.YEAR);
+        int day = cal.get(Calendar.DAY_OF_MONTH);
+        String thisMonth = Integer.toString(month);
+        String thisYear = Integer.toString(year);
         //TODO unhardcode this
-        weatherTask.execute(month, year);
+        final String TAG = "MyActivity";
+        Log.d(TAG, "Carlos url params day "+ day + " today"+ thisMonth+ " month and year "+ thisYear);
+        weatherTask.execute(thisMonth, thisYear);
     }
     @Override
     public void onStart() {
-        final String LOG_TAG = FetchWeatherTask.class.getSimpleName();
         super.onStart();
         updateGasolinaPrice();
     }
@@ -116,7 +115,6 @@ public class MainActivityFragment extends Fragment {
             // now we work exclusively in UTC
             dayTime = new Time();
             String[] resultStrs = new String[numDays];
-            Log.d(LOG_TAG, "weather array"+weatherArray.length());
             for(int i = 0; i < weatherArray.length(); i++) {
                 String gasolina;
                 String lugar;
@@ -135,10 +133,6 @@ public class MainActivityFragment extends Fragment {
                 mes = dayGas.getString(OWM_MES);
                 ano = dayGas.getString(OWM_ANO);
                 comment = dayGas.getString(OWM_COMENTARIO);
-
-
-                // Temperatures are in a child object called "temp".  Try not to name variables
-                // "temp" when working with temperature.  It confuses everybody.
 
                 resultStrs[i] = gasolina+","+lugar+","+valor+","+mes+","+ano+","+comment;
 
@@ -181,7 +175,8 @@ public class MainActivityFragment extends Fragment {
                         .build();
 
                 URL url = new URL(builtUri.toString());
-
+                final String TAG = "MyActivity";
+                Log.d(TAG, "Carlos url final "+ builtUri);
                 // Create the request to OpenWeatherMap, and open the connection
                 urlConnection = (HttpURLConnection) url.openConnection();
                 //urlConnection.setRequestMethod("GET");
@@ -246,11 +241,12 @@ public class MainActivityFragment extends Fragment {
 
                 mGasolinaAdapter.clear();
                 for (String dayForecastStr :result){
-                    //mGasolinaAdapter.add(dayForecastStr);
-                    String[] array = dayForecastStr.split(",");
-                    //gasolina|lugar|valor|mes|ano|comment;
-                    gasolinaClass obj = new gasolinaClass('5',array[0], array[2]);
-                    mGasolinaAdapter.addGas(obj);
+                    if (dayForecastStr != null) {
+                        String[] array = dayForecastStr.split(",");
+                        //gasolina|lugar|valor|mes|ano|comment;
+                        gasolinaClass obj = new gasolinaClass(array[0], array[0], array[2]);
+                        mGasolinaAdapter.addGas(obj);
+                    }
                 }
             }
         }

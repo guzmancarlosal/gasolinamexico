@@ -4,22 +4,22 @@ package com.example.carlosguzman.gasolinamexico;
  * Created by 501820531 on 4/17/2016.
  */
 public class gasolinaClass {
-    private int gas_resource;
+    private String gas_resource;
     private String gas_name;
     private String gas_price;
 
-    public gasolinaClass(int gas_resource, String gas_name, String gas_price) {
+    public gasolinaClass(String gas_resource, String gas_name, String gas_price) {
         super();
         this.setGas_name(gas_name);
         this.setGas_price(gas_price);
         this.setGas_resource(gas_resource);
     }
 
-    public int getGas_resource() {
+    public String getGas_resource() {
         return gas_resource;
     }
 
-    public void setGas_resource(int gas_resource) {
+    public void setGas_resource(String gas_resource) {
         this.gas_resource = gas_resource;
     }
 
