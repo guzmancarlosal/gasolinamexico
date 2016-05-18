@@ -42,13 +42,14 @@ public class MainActivityFragment extends Fragment {
         String[] name = {"Cargando..","Cargando..","Cargando.."};
         String[] Qty = {"Cargando..","Cargando..","Cargando.."};
         String[] image = {"diesel","magna","premium"};
+        String[] prevValue = {"Cargando..","Cargando..","Cargando.."};
 
         listView = (ListView) rootView.findViewById(R.id.listview_gasolina);
         listView.setAdapter(mGasolinaAdapter);
 
         int i = 0;
         for (String Name : name){
-            gasolinaClass obj = new gasolinaClass(image[i],Name, Qty[i]);
+            gasolinaClass obj = new gasolinaClass(image[i],Name, Qty[i],prevValue[i]);
             mGasolinaAdapter.addGas(obj);
             i++;
         }
@@ -85,12 +86,10 @@ public class MainActivityFragment extends Fragment {
 
             // These are the names of the JSON objects that need to be extracted.
             final String OWM_GASOLINA = "gasolina";
-            final String OWM_LUGAR = "lugar";
+            final String OWM_PREVVALUE = "prevValor";
             final String OWM_VALOR = "valor";
             final String OWM_MES = "mes";
             final String OWM_ANO = "ano";
-            final String OWM_COMENTARIO = "comment";
-            //TODO: add last period price
 
 
 
@@ -117,24 +116,23 @@ public class MainActivityFragment extends Fragment {
             String[] resultStrs = new String[numDays];
             for(int i = 0; i < weatherArray.length(); i++) {
                 String gasolina;
-                String lugar;
+                String prevValue;
                 String valor;
                 String mes;
                 String ano;
-                String comment;
+
 
 
                 // Get the JSON object representing the day
                 JSONObject dayGas = weatherArray.getJSONObject(i);
                 //get data from JSON
                 gasolina = dayGas.getString(OWM_GASOLINA);
-                lugar = dayGas.getString(OWM_LUGAR);
+                prevValue = dayGas.getString(OWM_PREVVALUE);
                 valor = dayGas.getString(OWM_VALOR);
                 mes = dayGas.getString(OWM_MES);
                 ano = dayGas.getString(OWM_ANO);
-                comment = dayGas.getString(OWM_COMENTARIO);
 
-                resultStrs[i] = gasolina+","+lugar+","+valor+","+mes+","+ano+","+comment;
+                resultStrs[i] = gasolina+",Anterior: "+prevValue+","+valor+","+mes+","+ano;
 
 
             }
@@ -243,8 +241,8 @@ public class MainActivityFragment extends Fragment {
                 for (String dayForecastStr :result){
                     if (dayForecastStr != null) {
                         String[] array = dayForecastStr.split(",");
-                        //gasolina|lugar|valor|mes|ano|comment;
-                        gasolinaClass obj = new gasolinaClass(array[0], array[0], array[2]);
+                        //gasolina|prevValue|valor|mes|ano;
+                        gasolinaClass obj = new gasolinaClass(array[0], array[0], array[2],array[1]);
                         mGasolinaAdapter.addGas(obj);
                     }
                 }

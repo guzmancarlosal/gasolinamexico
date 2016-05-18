@@ -7,11 +7,13 @@ public class gasolinaClass {
     private String gas_resource;
     private String gas_name;
     private String gas_price;
+    private String prevgas_price;
 
-    public gasolinaClass(String gas_resource, String gas_name, String gas_price) {
+    public gasolinaClass(String gas_resource, String gas_name, String gas_price,String prevGas_price) {
         super();
         this.setGas_name(gas_name);
         this.setGas_price(gas_price);
+        this.setPrevGas_price(prevGas_price);
         this.setGas_resource(gas_resource);
     }
 
@@ -33,6 +35,13 @@ public class gasolinaClass {
 
     public String getGas_price() {
         return gas_price;
+    }
+
+    public void setPrevGas_price(String gas_price) {
+        this.prevgas_price = gas_price;
+    }
+    public String getPrevGas_price() {
+        return prevgas_price;
     }
 
     public void setGas_price(String gas_price) {

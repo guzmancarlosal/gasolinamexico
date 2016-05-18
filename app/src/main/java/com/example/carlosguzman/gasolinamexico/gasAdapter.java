@@ -5,7 +5,6 @@ package com.example.carlosguzman.gasolinamexico;
  */
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +33,7 @@ public class gasAdapter extends ArrayAdapter{
         ImageView IMG;
         TextView NAME;
         TextView PRICE;
+        TextView PREVPRICE;
     }
     @Override
     public int getCount() {
@@ -63,8 +63,9 @@ public class gasAdapter extends ArrayAdapter{
             row = inflater.inflate(R.layout.list_view_gas,parent, false);
             holder = new ImgHolder();
             holder.IMG = (ImageView) row.findViewById(R.id.thumbImage);
-            holder.NAME = (TextView) row.findViewById(R.id.list_view_gas_text);
+            //holder.NAME = (TextView) row.findViewById(R.id.list_view_gas_text);
             holder.PRICE = (TextView) row.findViewById(R.id.list_view_gas_price);
+            holder.PREVPRICE = (TextView) row.findViewById(R.id.list_view_gas_text);
             row.setTag(holder);
         }
         else
@@ -78,7 +79,8 @@ public class gasAdapter extends ArrayAdapter{
         String imageName = FR.getGas_resource();
         int resID = this.getContext().getResources().getIdentifier(imageName, "drawable", this.getContext().getPackageName());
         holder.IMG.setImageResource(resID);
-        holder.NAME.setText(FR.getGas_name());
+        //holder.NAME.setText(FR.getGas_name());
+        holder.PREVPRICE.setText(FR.getPrevGas_price());
         holder.PRICE.setText(FR.getGas_price());
         return row;
     }
