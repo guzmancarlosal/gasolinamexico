@@ -1,5 +1,6 @@
 package com.example.carlosguzman.gasolinamexico;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import org.json.JSONArray;
@@ -53,6 +55,17 @@ public class MainActivityFragment extends Fragment {
             mGasolinaAdapter.addGas(obj);
             i++;
         }
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                String textItem = "this is my custom text";//mGasolinaAdapter.getItem(position);//getItem(position);
+                //Toast.makeText(getActivity(), textItem, Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity(), DetailActivity.class)
+                    .putExtra(Intent.EXTRA_TEXT, textItem);
+                startActivity(intent);
+            }
+        });
         return rootView;
     }
     public void updateGasolinaPrice() {

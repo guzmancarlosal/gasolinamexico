@@ -2,4 +2,6 @@
     <string name="app_name">Precio Gasolina Mexico</string>
     <string name="action_settings">Settings</string>
     <string name="lb_mas">mas..</string>
+    <string name="title_activity_detail">DetailActivity</string>
+    <string name="lb_loading">Cargando...</string>
 </resources>
