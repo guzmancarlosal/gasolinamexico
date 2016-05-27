@@ -66,6 +66,7 @@ public class MainActivityFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
         return rootView;
     }
     public void updateGasolinaPrice() {
