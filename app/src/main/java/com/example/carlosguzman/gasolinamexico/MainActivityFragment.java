@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import org.json.JSONArray;
@@ -41,10 +42,10 @@ public class MainActivityFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
         mGasolinaAdapter = new gasAdapter(getActivity(),R.layout.list_view_gas);
 
-        String[] name = {"Cargando..","Cargando..","Cargando.."};
-        String[] Qty = {"Cargando..","Cargando..","Cargando.."};
-        String[] image = {"diesel","magna","premium"};
-        String[] prevValue = {"Cargando..","Cargando..","Cargando.."};
+        String[] name = {"...","...","..."};
+        String[] Qty = {"...","...","..."};
+        String[] image = {"magna","premium","diesel"};
+        String[] prevValue = {"...","....","..."};
 
         listView = (ListView) rootView.findViewById(R.id.listview_gasolina);
         listView.setAdapter(mGasolinaAdapter);
@@ -59,10 +60,21 @@ public class MainActivityFragment extends Fragment {
 
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                String textItem = "this is my custom text";//mGasolinaAdapter.getItem(position);//getItem(position);
-                //Toast.makeText(getActivity(), textItem, Toast.LENGTH_SHORT).show();
+                String backgroundImageName="";
+                ImageView v = (ImageView) view.findViewById(R.id.thumbImage);
+                int drawable = (Integer) v.getTag();
+                if(drawable == R.drawable.magna){
+                    backgroundImageName = "Magna";
+                }
+                if(drawable == R.drawable.premium){
+                    backgroundImageName = "Premium";
+                }
+                if(drawable == R.drawable.diesel){
+                    backgroundImageName = "Diesel";
+                }
+                //String backgroundImageName = v.getImageResource
                 Intent intent = new Intent(getActivity(), DetailActivity.class)
-                    .putExtra(Intent.EXTRA_TEXT, textItem);
+                    .putExtra(Intent.EXTRA_TEXT, backgroundImageName);
                 startActivity(intent);
             }
         });
@@ -80,9 +92,7 @@ public class MainActivityFragment extends Fragment {
         int day = cal.get(Calendar.DAY_OF_MONTH);
         String thisMonth = Integer.toString(month);
         String thisYear = Integer.toString(year);
-        //TODO unhardcode this
-        final String TAG = "MyActivity";
-        Log.d(TAG, "Carlos url params day "+ day + " today"+ thisMonth+ " month and year "+ thisYear);
+
         weatherTask.execute(thisMonth, thisYear);
     }
     @Override
@@ -163,19 +173,14 @@ public class MainActivityFragment extends Fragment {
             if (params.length == 0) {
                 return null;
             }
-            // These two need to be declared outside the try/catch
-            // so that they can be closed in the finally block.
             HttpURLConnection urlConnection = null;
             BufferedReader reader = null;
 
-            // Will contain the raw JSON response as a string.
             String forecastJsonStr = null;
             int numDays =  3;
 
             try {
-                // Construct the URL for the OpenWeatherMap query
-                // Possible parameters are avaiable at OWM's forecast API page, at
-                // http://openweathermap.org/API#forecast
+
                 final String FORECAST_BASE_URL =
                         "http://areliablewindowcleaning.com/gasolina/gasPrice.php?";
                 final String QUERY_PARAM_MONTH = "m";
@@ -187,11 +192,8 @@ public class MainActivityFragment extends Fragment {
                         .build();
 
                 URL url = new URL(builtUri.toString());
-                final String TAG = "MyActivity";
-                Log.d(TAG, "Carlos url final "+ builtUri);
-                // Create the request to OpenWeatherMap, and open the connection
+
                 urlConnection = (HttpURLConnection) url.openConnection();
-                //urlConnection.setRequestMethod("GET");
                 urlConnection.connect();
 
                 // Read the input stream into a String

@@ -8,7 +8,10 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.carlosguzman.gasolinamexico.DetailActivity"
     tools:showIn="@layout/activity_detail">
-    <TextView android:text="@string/lb_loading" android:layout_width="wrap_content" android:id="@+id/detail_text"
-    android:layout_height="wrap_content" />
+
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/chart"
+        android:layout_width="match_parent"
+        android:layout_height="300dp" />
 
 </RelativeLayout>

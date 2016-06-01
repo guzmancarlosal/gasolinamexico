@@ -79,6 +79,7 @@ public class gasAdapter extends ArrayAdapter{
         String imageName = FR.getGas_resource();
         int resID = this.getContext().getResources().getIdentifier(imageName, "drawable", this.getContext().getPackageName());
         holder.IMG.setImageResource(resID);
+        holder.IMG.setTag(Integer.valueOf(resID));
         //holder.NAME.setText(FR.getGas_name());
         holder.PREVPRICE.setText(FR.getPrevGas_price());
         holder.PRICE.setText(FR.getGas_price());
