@@ -1,4 +1,5 @@
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:configure="com.example.carlosguzman.gasolinamexico.confWidget"
     android:minWidth="3000dp"
     android:minHeight="400dp"
     android:updatePeriodMillis="86400000"

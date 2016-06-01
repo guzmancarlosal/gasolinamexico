@@ -37,6 +37,12 @@
             <meta-data android:name="android.appwidget.provider"
                 android:resource="@xml/widget" />
         </receiver>
+        <activity android:name=".confWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE"></action>
+            </intent-filter>
+
+        </activity>
     </application>
 
 </manifest>
