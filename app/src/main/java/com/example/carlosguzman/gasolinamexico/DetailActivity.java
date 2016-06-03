@@ -19,6 +19,8 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -36,6 +38,7 @@ import java.util.Calendar;
 
 public class DetailActivity extends ActionBarActivity {
     private static final String TAG = "MyActivity";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +77,7 @@ public class DetailActivity extends ActionBarActivity {
         String jsonString;
         private static final String TAG = "MyActivity";
         String forecastStr;
+        private AdView mAdView;
         public DetailFragment() {
         }
 
@@ -239,7 +243,10 @@ public class DetailActivity extends ActionBarActivity {
                 }
             };
             mTask.execute();
-
+            //create the money thing :)
+            mAdView = (AdView) rootView.findViewById(R.id.adView2);
+            AdRequest adRequest = new AdRequest.Builder().build();
+            mAdView.loadAd(adRequest);
             return rootView;
         }
         public String getMonth(int month) {

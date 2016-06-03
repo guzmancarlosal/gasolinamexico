@@ -14,6 +14,9 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -33,12 +36,14 @@ import java.util.Date;
 public class MainActivityFragment extends Fragment {
     private gasAdapter mGasolinaAdapter;
     ListView listView;
+    private AdView mAdView;
     public MainActivityFragment() {
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        //populate list view
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
         mGasolinaAdapter = new gasAdapter(getActivity(),R.layout.list_view_gas);
 
@@ -56,6 +61,7 @@ public class MainActivityFragment extends Fragment {
             mGasolinaAdapter.addGas(obj);
             i++;
         }
+        //set on click listener to each view
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
@@ -72,13 +78,16 @@ public class MainActivityFragment extends Fragment {
                 if(drawable == R.drawable.diesel){
                     backgroundImageName = "Diesel";
                 }
-                //String backgroundImageName = v.getImageResource
+                //add intent to each list item and pass extra_text as data
                 Intent intent = new Intent(getActivity(), DetailActivity.class)
                     .putExtra(Intent.EXTRA_TEXT, backgroundImageName);
                 startActivity(intent);
             }
         });
-
+        //create the money thing :)
+        mAdView = (AdView) rootView.findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
         return rootView;
     }
     public void updateGasolinaPrice() {
