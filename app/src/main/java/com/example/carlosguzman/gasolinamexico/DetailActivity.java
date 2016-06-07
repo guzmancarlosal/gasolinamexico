@@ -203,7 +203,7 @@ public class DetailActivity extends ActionBarActivity {
                             if (dayForecastStr != null) {
                                 String[] array = dayForecastStr.split(",");
                                 //valor|mes|ano;
-                                Log.d(LOG_TAG, "CArlos Test "+array[1]+" with value "+array[0]);
+
                                 Float test = Float.parseFloat(array[0]);
                                 entries.add(new Entry(test, counter));
                                 int thisMonthVal = Integer.parseInt(array[1]);
@@ -225,17 +225,27 @@ public class DetailActivity extends ActionBarActivity {
 
                             }
                         }
-
+                        //Log.d(LOG_TAG, "Carlos Test min and max values"+maxYval+"-"+minYval);
                         LineChart lineChart = (LineChart) rootView.findViewById(R.id.chart);
 
                         LineData data = new LineData(labels, dataset);
+                        lineChart.getAxisLeft().setLabelCount(2, true);
+                        lineChart.getAxisRight().setEnabled(false);
+                        lineChart.getAxisLeft().setStartAtZero(false);
+                        lineChart.setAutoScaleMinMaxEnabled(false);
+                        lineChart.getAxisLeft().setAxisMaxValue(maxYval + 1);
+                        lineChart.getAxisLeft().setAxisMinValue(minYval - 1);
+
+
+
                         dataset.setColors(ColorTemplate.COLORFUL_COLORS); //
+                        dataset.setValueTextSize(10);
                         dataset.setDrawCubic(true);
                         dataset.setDrawFilled(true);
 
                         lineChart.setData(data);
 
-                        lineChart.animateY(5000);
+                        lineChart.animateY(10);
 
 
                     }

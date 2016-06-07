@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="pref_units_options">
+        <item>@string/pref_premium_label_</item>
+        <item>@string/pref_magna_label_</item>
+        <item>@string/pref_diesel_label_</item>
+    </string-array>
+    <string-array name="pref_units_values">
+        <item>@string/pref_premium_label_</item>
+        <item>@string/pref_magna_label_</item>
+        <item>@string/pref_diesel_label_</item>
+    </string-array>
+</resources>

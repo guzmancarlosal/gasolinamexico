@@ -92,7 +92,6 @@ public class MainActivityFragment extends Fragment {
     }
     public void updateGasolinaPrice() {
         FetchWeatherTask weatherTask = new FetchWeatherTask();
-        //SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         Date date = new Date();
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);

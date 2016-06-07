@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <ListPreference
+        android:title="@string/pref_widget_label"
+        android:key="pref_gasWidget"
+        android:dialogTitle="@string/dialogo_widget_setting"
+        android:defaultValue="@string/pref_widget_key"
+        android:entryValues="@array/pref_units_values"
+        android:entries="@array/pref_units_options">
+
+    </ListPreference>
+
+</PreferenceScreen>

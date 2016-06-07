@@ -3,4 +3,6 @@
     <color name="colorPrimary">#038559</color>
     <color name="colorPrimaryDark">#038559</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="colorTextWidget">#FFFFFF</color>
+    <color name="colorBackWidget">#000000</color>
 </resources>

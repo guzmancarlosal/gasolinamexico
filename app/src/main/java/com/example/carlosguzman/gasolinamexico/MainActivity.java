@@ -1,5 +1,6 @@
 package com.example.carlosguzman.gasolinamexico;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -49,6 +50,8 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            //Toast.makeText(MainActivity.this, "Selected", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(this, confWidget.class));
             return true;
         }
 
