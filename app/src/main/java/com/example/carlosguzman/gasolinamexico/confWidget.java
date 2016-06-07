@@ -28,4 +28,6 @@ public class confWidget extends PreferenceActivity implements Preference.OnPrefe
         //Toast.makeText(confWidget.this, stringValue, Toast.LENGTH_SHORT).show();
         return true;
     }
+
+
 }

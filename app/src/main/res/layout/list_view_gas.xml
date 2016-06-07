@@ -35,7 +35,7 @@
         />
 
     <TextView
-        android:id="@+id/list_view_gas_lastprice"
+        android:id="@+id/list_view_gas_nextprice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/list_view_gas_text"

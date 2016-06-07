@@ -5,6 +5,8 @@ package com.example.carlosguzman.gasolinamexico;
  */
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +36,7 @@ public class gasAdapter extends ArrayAdapter{
         TextView NAME;
         TextView PRICE;
         TextView PREVPRICE;
+        TextView NEXTPRICE;
     }
     @Override
     public int getCount() {
@@ -57,19 +60,17 @@ public class gasAdapter extends ArrayAdapter{
         View row;
         row = convertView;
         ImgHolder holder;
-        if(convertView == null)
-        {
+        if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) this.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            row = inflater.inflate(R.layout.list_view_gas,parent, false);
+            row = inflater.inflate(R.layout.list_view_gas, parent, false);
             holder = new ImgHolder();
             holder.IMG = (ImageView) row.findViewById(R.id.thumbImage);
             //holder.NAME = (TextView) row.findViewById(R.id.list_view_gas_text);
             holder.PRICE = (TextView) row.findViewById(R.id.list_view_gas_price);
             holder.PREVPRICE = (TextView) row.findViewById(R.id.list_view_gas_text);
+            holder.NEXTPRICE = (TextView) row.findViewById(R.id.list_view_gas_nextprice);
             row.setTag(holder);
-        }
-        else
-        {
+        } else {
             holder = (ImgHolder) row.getTag();
 
         }
@@ -80,9 +81,24 @@ public class gasAdapter extends ArrayAdapter{
         int resID = this.getContext().getResources().getIdentifier(imageName, "drawable", this.getContext().getPackageName());
         holder.IMG.setImageResource(resID);
         holder.IMG.setTag(Integer.valueOf(resID));
-        //holder.NAME.setText(FR.getGas_name());
-        holder.PREVPRICE.setText(FR.getPrevGas_price());
+        holder.NEXTPRICE.setText("...");
+        if (FR.getGas_price() != "..." ){
+            try {
+                Float todayValue = Float.parseFloat(FR.getGas_price());
+                Float nextValue = Float.parseFloat(FR.getNextGas_price());
+                if (todayValue < nextValue) {
+                    holder.NEXTPRICE.setTextColor(Color.parseColor("#FC0015"));
+                } else {
+                    holder.NEXTPRICE.setTextColor(Color.parseColor("#05953E"));
+                }
+                holder.NEXTPRICE.setText("Sig:" + FR.getNextGas_price());
+            }   catch (NumberFormatException e) {}
+        }
+        holder.PREVPRICE.setText("Ant:"+FR.getPrevGas_price());
+
+        holder.NEXTPRICE.setTypeface(null, Typeface.BOLD);
         holder.PRICE.setText(FR.getGas_price());
+
         return row;
     }
 

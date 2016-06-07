@@ -109,6 +109,7 @@ public class DetailActivity extends ActionBarActivity {
                     String thisYear = Integer.toString(year);
                     String forecastJsonStr = null;
                     String thisurl = "http://areliablewindowcleaning.com/gasolina/gasPrice.php?mode=chart&y=" +thisYear +"&m="+thisMonth+"&gasolina="+forecastStr;
+                    Log.d(LOG_TAG, "carlos test Error on url stream"+thisurl);
                     try {
                         URL url = new URL(thisurl.toString());
                         urlConnection = (HttpURLConnection) url.openConnection();
@@ -199,6 +200,7 @@ public class DetailActivity extends ActionBarActivity {
                         int counter = 0;
                         Float minYval = 0f;
                         Float maxYval = 0f;
+                        Float margin = 0.5f;
                         for (String dayForecastStr :result){
                             if (dayForecastStr != null) {
                                 String[] array = dayForecastStr.split(",");
@@ -233,8 +235,8 @@ public class DetailActivity extends ActionBarActivity {
                         lineChart.getAxisRight().setEnabled(false);
                         lineChart.getAxisLeft().setStartAtZero(false);
                         lineChart.setAutoScaleMinMaxEnabled(false);
-                        lineChart.getAxisLeft().setAxisMaxValue(maxYval + 1);
-                        lineChart.getAxisLeft().setAxisMinValue(minYval - 1);
+                        lineChart.getAxisLeft().setAxisMaxValue(maxYval + margin);
+                        lineChart.getAxisLeft().setAxisMinValue(minYval - margin);
 
 
 

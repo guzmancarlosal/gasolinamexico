@@ -5,7 +5,6 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.format.Time;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,13 +50,14 @@ public class MainActivityFragment extends Fragment {
         String[] Qty = {"...","...","..."};
         String[] image = {"magna","premium","diesel"};
         String[] prevValue = {"...","....","..."};
+        String[] nextValue = {"...","....","..."};
 
         listView = (ListView) rootView.findViewById(R.id.listview_gasolina);
         listView.setAdapter(mGasolinaAdapter);
 
         int i = 0;
         for (String Name : name){
-            gasolinaClass obj = new gasolinaClass(image[i],Name, Qty[i],prevValue[i]);
+            gasolinaClass obj = new gasolinaClass(image[i],Name, Qty[i],prevValue[i],nextValue[i]);
             mGasolinaAdapter.addGas(obj);
             i++;
         }
@@ -119,6 +119,7 @@ public class MainActivityFragment extends Fragment {
             // These are the names of the JSON objects that need to be extracted.
             final String OWM_GASOLINA = "gasolina";
             final String OWM_PREVVALUE = "prevValor";
+            final String OWM_NEXTVALUE = "sigValor";
             final String OWM_VALOR = "valor";
             final String OWM_MES = "mes";
             final String OWM_ANO = "ano";
@@ -126,25 +127,7 @@ public class MainActivityFragment extends Fragment {
 
 
             JSONArray weatherArray = new JSONArray(forecastJsonStr);
-           // JSONObject forecastJson = new JSONObject(forecastJsonStr);
-            //JSONArray weatherArray = forecastJson.getJSONArray(forecastJsonStr);
 
-            // OWM returns daily forecasts based upon the local time of the city that is being
-            // asked for, which means that we need to know the GMT offset to translate this data
-            // properly.
-
-            // Since this data is also sent in-order and the first day is always the
-            // current day, we're going to take advantage of that to get a nice
-            // normalized UTC date for all of our weather.
-
-            Time dayTime = new Time();
-            dayTime.setToNow();
-
-            // we start at the day returned by local time. Otherwise this is a mess.
-            int julianStartDay = Time.getJulianDay(System.currentTimeMillis(), dayTime.gmtoff);
-
-            // now we work exclusively in UTC
-            dayTime = new Time();
             String[] resultStrs = new String[numDays];
             for(int i = 0; i < weatherArray.length(); i++) {
                 String gasolina;
@@ -152,6 +135,7 @@ public class MainActivityFragment extends Fragment {
                 String valor;
                 String mes;
                 String ano;
+                String sigValor;
 
 
 
@@ -160,18 +144,19 @@ public class MainActivityFragment extends Fragment {
                 //get data from JSON
                 gasolina = dayGas.getString(OWM_GASOLINA);
                 prevValue = dayGas.getString(OWM_PREVVALUE);
+                sigValor = dayGas.getString(OWM_NEXTVALUE);
                 valor = dayGas.getString(OWM_VALOR);
                 mes = dayGas.getString(OWM_MES);
                 ano = dayGas.getString(OWM_ANO);
 
-                resultStrs[i] = gasolina+",Anterior: "+prevValue+","+valor+","+mes+","+ano;
-
+                resultStrs[i] = gasolina+","+prevValue+","+valor+","+mes+","+ano+","+sigValor;
 
             }
 
             for (String s : resultStrs) {
 
             }
+
             return resultStrs;
 
         }
@@ -265,8 +250,8 @@ public class MainActivityFragment extends Fragment {
                 for (String dayForecastStr :result){
                     if (dayForecastStr != null) {
                         String[] array = dayForecastStr.split(",");
-                        //gasolina|prevValue|valor|mes|ano;
-                        gasolinaClass obj = new gasolinaClass(array[0], array[0], array[2],array[1]);
+                        //gasolina|prevValue|valor|mes|ano|nextValue;
+                        gasolinaClass obj = new gasolinaClass(array[0], array[0], array[2],array[1],array[5]);
                         mGasolinaAdapter.addGas(obj);
                     }
                 }

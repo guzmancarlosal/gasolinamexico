@@ -41,7 +41,7 @@ public class GasAppWidgetProvider extends AppWidgetProvider {
         final int N = appWidgetIds.length;
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
         String syncConnPref = sharedPref.getString(KEY_PREF_SYNC_CONN, "");
-
+        Log.d(LOG_TAG,"Carlos Test this widget was updated!");
 
         for (int i=0; i<N; i++) {
             final int appWidgetId = appWidgetIds[i];
@@ -58,7 +58,7 @@ public class GasAppWidgetProvider extends AppWidgetProvider {
 
             views.setTextViewText(R.id.wid_fecha, formattedDate);
             mTask = new AsyncTask<String, Void, String[]>() {
-                public static final String LOG_TAG = "MyActivity";
+
                 @Override
                 public String[] doInBackground(String... params) {
 

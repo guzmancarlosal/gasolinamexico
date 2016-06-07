@@ -5,4 +5,6 @@
     <color name="colorAccent">#FF4081</color>
     <color name="colorTextWidget">#FFFFFF</color>
     <color name="colorBackWidget">#000000</color>
+    <color name="colorNextPriceRed">#FC0015</color>
+    <color name="colorNextPriceGreen">#05953E</color>
 </resources>
