@@ -1,33 +1,23 @@
 package com.example.carlosguzman.gasolinamexico;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.ListPreference;
-import android.preference.Preference;
 import android.preference.PreferenceActivity;
+import android.preference.PreferenceManager;
+import android.widget.Toast;
 
-public class confWidget extends PreferenceActivity implements Preference.OnPreferenceChangeListener {
+public class confWidget extends PreferenceActivity implements SharedPreferences.OnSharedPreferenceChangeListener  {
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.pref_widget);
-
+        PreferenceManager.getDefaultSharedPreferences(this).registerOnSharedPreferenceChangeListener(this);
     }
+
 
     @Override
-    public boolean onPreferenceChange(Preference preference, Object value) {
-        String stringValue = value.toString();
-
-        if (preference instanceof ListPreference) {
-            ListPreference listPreference = (ListPreference) preference;
-            int prefIndex = listPreference.findIndexOfValue(stringValue);
-            if (prefIndex >= 0) {
-                preference.setSummary(listPreference.getEntries()[prefIndex]);
-            }
-        } else {
-            preference.setSummary(stringValue);
-        }
-        //Toast.makeText(confWidget.this, stringValue, Toast.LENGTH_SHORT).show();
-        return true;
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        Toast.makeText(getApplicationContext(),"preference changed",Toast.LENGTH_LONG);
     }
-
 
 }

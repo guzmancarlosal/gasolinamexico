@@ -33,7 +33,6 @@ public class gasAdapter extends ArrayAdapter{
     static class ImgHolder
     {
         ImageView IMG;
-        TextView NAME;
         TextView PRICE;
         TextView PREVPRICE;
         TextView NEXTPRICE;
@@ -91,13 +90,14 @@ public class gasAdapter extends ArrayAdapter{
                 } else {
                     holder.NEXTPRICE.setTextColor(Color.parseColor("#05953E"));
                 }
-                holder.NEXTPRICE.setText("Sig:" + FR.getNextGas_price());
+                holder.NEXTPRICE.setText("Sig:$" + FR.getNextGas_price());
             }   catch (NumberFormatException e) {}
         }
-        holder.PREVPRICE.setText("Ant:"+FR.getPrevGas_price());
+        holder.PREVPRICE.setText("Ant:$"+FR.getPrevGas_price());
 
         holder.NEXTPRICE.setTypeface(null, Typeface.BOLD);
-        holder.PRICE.setText(FR.getGas_price());
+        holder.PREVPRICE.setTypeface(null, Typeface.BOLD);
+        holder.PRICE.setText("$"+FR.getGas_price());
 
         return row;
     }

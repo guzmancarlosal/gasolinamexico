@@ -40,10 +40,11 @@ public class GasAppWidgetProvider extends AppWidgetProvider {
     public void onUpdate(Context context, final AppWidgetManager appWidgetManager, final int[] appWidgetIds) {
         final int N = appWidgetIds.length;
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
-        String syncConnPref = sharedPref.getString(KEY_PREF_SYNC_CONN, "");
-        Log.d(LOG_TAG,"Carlos Test this widget was updated!");
+        forecastStr = sharedPref.getString("pref_gasWidget","1");
+        Log.d(LOG_TAG,"Carlos Test this widget was updated!"+sharedPref.getString("pref_gasWidget","1"));
 
         for (int i=0; i<N; i++) {
+            //String syncConnPref = sharedPref.getString(pref_gasWidget, "");
             final int appWidgetId = appWidgetIds[i];
 
             Intent intent = new Intent(context, MainActivity.class);
@@ -53,8 +54,10 @@ public class GasAppWidgetProvider extends AppWidgetProvider {
             String formattedDate = df.format(c.getTime());
 
             views = new RemoteViews(context.getPackageName(), R.layout.activity_widget);
+
             views.setOnClickPendingIntent(R.id.wid_gasolina, pendingIntent);
             views.setOnClickPendingIntent(R.id.wid_precio, pendingIntent);
+            views.setOnClickPendingIntent(R.id.wid_fecha, pendingIntent);
 
             views.setTextViewText(R.id.wid_fecha, formattedDate);
             mTask = new AsyncTask<String, Void, String[]>() {

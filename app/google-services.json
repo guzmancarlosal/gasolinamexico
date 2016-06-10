@@ -1,0 +1,35 @@
+{
+  "project_info": {
+    "project_number": "383216071003",
+    "project_id": "gasolinamexico"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:383216071003:android:b73ed14039edcbae",
+        "android_client_info": {
+          "package_name": "com.example.carlosguzman.gasolinamexico"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCcJhPLxhn68Yts986ucZkm_IqgA7vVHpw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

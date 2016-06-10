@@ -14,4 +14,5 @@
     <string name="pref_premium_label_">Premium</string>
     <string name="pref_diesel_label_">Diesel</string>
     <string name="dialogo_widget_setting">Configura que gasolina quieres ver en Widget de escritorio</string>
+
 </resources>

@@ -18,7 +18,6 @@ import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
@@ -196,7 +195,7 @@ public class DetailActivity extends ActionBarActivity {
                     if (result != null) {
                         ArrayList<Entry> entries = new ArrayList<>();
                         ArrayList<String> labels = new ArrayList<String>();
-                        LineDataSet dataset = new LineDataSet(entries, " meses");
+                        LineDataSet dataset = new LineDataSet(entries, " 12 meses");
                         int counter = 0;
                         Float minYval = 0f;
                         Float maxYval = 0f;
@@ -238,9 +237,6 @@ public class DetailActivity extends ActionBarActivity {
                         lineChart.getAxisLeft().setAxisMaxValue(maxYval + margin);
                         lineChart.getAxisLeft().setAxisMinValue(minYval - margin);
 
-
-
-                        dataset.setColors(ColorTemplate.COLORFUL_COLORS); //
                         dataset.setValueTextSize(10);
                         dataset.setDrawCubic(true);
                         dataset.setDrawFilled(true);
