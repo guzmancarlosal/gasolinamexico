@@ -1,4 +1,4 @@
-package com.example.carlosguzman.gasolinamexico;
+package com.ttpCorp.carlosguzman.preciogasolinamexico;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         toolbar.setSubtitle(formattedDate);
         toolbar.setLogo(R.mipmap.ic_launcher);
-
+        //Receive broadcast from server
         mRegistrationBroadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
@@ -49,6 +49,9 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         };
+
+
+        //appPrefs.registerOnSharedPreferenceChangeListener(listener);
         //Check status on google service
 
         int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(getApplicationContext());

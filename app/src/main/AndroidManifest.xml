@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.carlosguzman.gasolinamexico">
+    package="com.ttpCorp.carlosguzman.preciogasolinamexico">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
-    <permission android:name="com.example.carlosguzman.gasolinamexico.permission.C2D_MESSAGE" android:protectionLevel="signature"/>
+    <permission android:name="com.ttpCorp.carlosguzman.preciogasolinamexico.permission.C2D_MESSAGE" android:protectionLevel="signature"/>
     <uses-permission android:name="com.example.carlosguzman.gasolinamexico.permission.C2D_MESSAGE"/>
 
     <application
@@ -18,7 +18,7 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
         <activity
-            android:name=".MainActivity"
+            android:name="com.ttpCorp.carlosguzman.preciogasolinamexico.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -28,16 +28,16 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".DetailActivity"
+            android:name="com.ttpCorp.carlosguzman.preciogasolinamexico.DetailActivity"
             android:label="@string/title_activity_detail"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName="com.ttpCorp.carlosguzman.preciogasolinamexico.MainActivity">
             <!---android:theme="@style/AppTheme.NoActionBar"-->
 
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.carlosguzman.gasolinamexico.MainActivity" />
+                android:value="com.ttpCorp.carlosguzman.preciogasolinamexico.MainActivity" />
         </activity>
-        <receiver android:name="GasAppWidgetProvider" >
+        <receiver android:name="com.ttpCorp.carlosguzman.preciogasolinamexico.GasAppWidgetProvider" >
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
@@ -53,26 +53,26 @@
                 <category android:name="com.example.carlosguzman.gasolinamexico"/>
             </intent-filter>
         </receiver>
-        <service android:name=".GCMPushReceiverService" android:exported="false">
+        <service android:name="com.ttpCorp.carlosguzman.preciogasolinamexico.GCMPushReceiverService" android:exported="false">
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE"/>
             </intent-filter>
         </service>
-        <service android:name=".GCMRegistrationIntentService" android:exported="false">
+        <service android:name="com.ttpCorp.carlosguzman.preciogasolinamexico.GCMRegistrationIntentService" android:exported="false">
             <intent-filter>
                 <action android:name="com.google.android.gms.iid.InstanceID"/>
             </intent-filter>
         </service>
 
-        <activity android:name=".confWidget"
-            android:parentActivityName=".MainActivity"
+        <activity android:name="com.ttpCorp.carlosguzman.preciogasolinamexico.confWidget"
+            android:parentActivityName="com.ttpCorp.carlosguzman.preciogasolinamexico.MainActivity"
             android:label="@string/lb_settings">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"></action>
-                <category android:name="android.intent.category.LAUNCHER"></category>
+
             </intent-filter>
 
         </activity>

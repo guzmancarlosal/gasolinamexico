@@ -1,4 +1,4 @@
-package com.example.carlosguzman.gasolinamexico;
+package com.ttpCorp.carlosguzman.preciogasolinamexico;
 
 import org.junit.Test;
 

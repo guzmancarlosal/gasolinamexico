@@ -1,4 +1,4 @@
-package com.example.carlosguzman.gasolinamexico;
+package com.ttpCorp.carlosguzman.preciogasolinamexico;
 
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
@@ -35,12 +35,12 @@ public class GasAppWidgetProvider extends AppWidgetProvider {
     String newValue;
     RemoteViews views;
     public static  String LOG_TAG = "MyActivity";
-    public static final String KEY_PREF_SYNC_CONN = "pref_gasWidget";
+    public static final String KEY_PREF_GASOLINA = "pref_gasWidget";
 
     public void onUpdate(Context context, final AppWidgetManager appWidgetManager, final int[] appWidgetIds) {
         final int N = appWidgetIds.length;
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
-        forecastStr = sharedPref.getString("pref_gasWidget","1");
+        forecastStr = sharedPref.getString(KEY_PREF_GASOLINA,"1");
         Log.d(LOG_TAG,"Carlos Test this widget was updated!"+sharedPref.getString("pref_gasWidget","1"));
 
         for (int i=0; i<N; i++) {
