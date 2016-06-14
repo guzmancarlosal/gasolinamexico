@@ -4,6 +4,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
@@ -22,10 +24,16 @@ import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
     private BroadcastReceiver mRegistrationBroadcastReceiver;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        if (isInternetAvailable(getApplicationContext())) //returns true if internet available
+        {
+        } else {
+            Toast.makeText(getApplicationContext(), "Necesitas coneccion a Internet", Toast.LENGTH_LONG).show();
+        }
         Calendar c = Calendar.getInstance();
         SimpleDateFormat df = new SimpleDateFormat("MMMM-yyyy");
         String formattedDate = df.format(c.getTime());
@@ -37,13 +45,13 @@ public class MainActivity extends AppCompatActivity {
         mRegistrationBroadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                if(intent.getAction().endsWith(GCMRegistrationIntentService.REGISTRATION_SUCCESS)) {
+                if (intent.getAction().endsWith(GCMRegistrationIntentService.REGISTRATION_SUCCESS)) {
                     String token = intent.getStringExtra("token");
                     //Toast.makeText(getApplicationContext(), "GMC content" + token, Toast.LENGTH_SHORT).show();
-                }else if (intent.getAction().equals(GCMRegistrationIntentService.REGISTRATION_ERROR)){
-                    Toast.makeText(getApplicationContext(), "GMC registration error!!!",Toast.LENGTH_SHORT).show();
+                } else if (intent.getAction().equals(GCMRegistrationIntentService.REGISTRATION_ERROR)) {
+                    Toast.makeText(getApplicationContext(), "GMC registration error!!!", Toast.LENGTH_SHORT).show();
 
-                }else{
+                } else {
                     //tobedefined
 
                 }
@@ -63,8 +71,8 @@ public class MainActivity extends AppCompatActivity {
             } else {
                 Toast.makeText(getApplicationContext(), "this device does not support for Google play Service!", Toast.LENGTH_SHORT).show();
             }
-        }else{
-            Intent intent = new Intent (this, GCMRegistrationIntentService.class);
+        } else {
+            Intent intent = new Intent(this, GCMRegistrationIntentService.class);
             startService(intent);
         }
     }
@@ -75,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -84,12 +93,14 @@ public class MainActivity extends AppCompatActivity {
         LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver,
                 new IntentFilter(GCMRegistrationIntentService.REGISTRATION_ERROR));
     }
+
     @Override
     protected void onPause() {
         super.onPause();
         Log.w("MainActivity", "onPause");
         LocalBroadcastManager.getInstance(this).unregisterReceiver(mRegistrationBroadcastReceiver);
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -105,5 +116,25 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public boolean isInternetAvailable(Context context) {
+        NetworkInfo info = (NetworkInfo) ((ConnectivityManager)
+                context.getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo();
+
+        if (info == null) {
+            Log.d("My Activity", "no internet connection");
+            return false;
+        } else {
+            if (info.isConnected()) {
+                Log.d("My Activity", " internet connection available...");
+                return true;
+            } else {
+                Log.d("My Activity", " internet connection");
+                return true;
+            }
+
+        }
+
     }
 }
