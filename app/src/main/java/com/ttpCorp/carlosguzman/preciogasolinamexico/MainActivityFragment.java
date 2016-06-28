@@ -36,6 +36,7 @@ public class MainActivityFragment extends Fragment {
     private gasAdapter mGasolinaAdapter;
     ListView listView;
     private AdView mAdView;
+
     public MainActivityFragment() {
     }
 
@@ -43,6 +44,8 @@ public class MainActivityFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         //populate list view
+
+       // Toast.makeText(getActivity(), "strtext"+strtext, Toast.LENGTH_SHORT).show();
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
         mGasolinaAdapter = new gasAdapter(getActivity(),R.layout.list_view_gas);
 
@@ -100,8 +103,8 @@ public class MainActivityFragment extends Fragment {
         int day = cal.get(Calendar.DAY_OF_MONTH);
         String thisMonth = Integer.toString(month);
         String thisYear = Integer.toString(year);
-
-        weatherTask.execute(thisMonth, thisYear);
+        String thisLugar = getArguments().getString("zone");
+        weatherTask.execute(thisMonth, thisYear,thisLugar);
     }
     @Override
     public void onStart() {
@@ -123,6 +126,7 @@ public class MainActivityFragment extends Fragment {
             final String OWM_VALOR = "valor";
             final String OWM_MES = "mes";
             final String OWM_ANO = "ano";
+            final String OWM_LUGAR = "lugar";
 
 
 
@@ -136,6 +140,7 @@ public class MainActivityFragment extends Fragment {
                 String mes;
                 String ano;
                 String sigValor;
+                String lugar;
 
 
 
@@ -178,10 +183,12 @@ public class MainActivityFragment extends Fragment {
                         "http://areliablewindowcleaning.com/gasolina/gasPrice.php?";
                 final String QUERY_PARAM_MONTH = "m";
                 final String QUERY_PARAM_YEAR = "y";
+                final String QUERY_PARAM_LUGAR="lugar";
 
                 Uri builtUri = Uri.parse(FORECAST_BASE_URL).buildUpon()
                         .appendQueryParameter(QUERY_PARAM_MONTH, params[0])
                         .appendQueryParameter(QUERY_PARAM_YEAR, params[1])
+                        .appendQueryParameter(QUERY_PARAM_LUGAR, params[2])
                         .build();
 
                 URL url = new URL(builtUri.toString());

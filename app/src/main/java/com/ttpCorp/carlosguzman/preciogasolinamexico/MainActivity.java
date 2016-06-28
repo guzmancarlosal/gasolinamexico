@@ -7,7 +7,9 @@ import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.content.LocalBroadcastManager;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -24,7 +26,9 @@ import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
     private BroadcastReceiver mRegistrationBroadcastReceiver;
-
+    private Toolbar toolbar;
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         toolbar.setSubtitle(formattedDate);
         toolbar.setLogo(R.mipmap.ic_launcher);
+
         //Receive broadcast from server
         mRegistrationBroadcastReceiver = new BroadcastReceiver() {
             @Override
@@ -57,7 +62,13 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         };
-
+        //create tabs
+        viewPager = (ViewPager) findViewById(R.id.viewpager);
+        setupViewPager(viewPager);
+        tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(viewPager);
+        setupTabIcons();
+        //end create tabs
 
         //appPrefs.registerOnSharedPreferenceChangeListener(listener);
         //Check status on google service
@@ -136,5 +147,28 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
+    }
+    private void setupViewPager(ViewPager viewPager) {
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        MainActivityFragment firstTab = new MainActivityFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("zone", "mexico");
+        firstTab.setArguments(bundle);
+
+        MainActivityFragment secondTab = new MainActivityFragment();
+        Bundle bundle2 = new Bundle();
+        bundle2.putString("zone", "frontera");
+        secondTab.setArguments(bundle2);
+
+
+        adapter.addFragment(firstTab, "México");
+        adapter.addFragment(secondTab, "Frontera");
+       // adapter.addFragment(new MainActivityFragment(), "THREE");
+        viewPager.setAdapter(adapter);
+    }
+    private void setupTabIcons() {
+       /* TextView tabThree = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
+        tabThree.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.caculator, 0, 0);
+        tabLayout.getTabAt(2).setCustomView(tabThree);*/
     }
 }

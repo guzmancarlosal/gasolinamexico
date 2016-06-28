@@ -41,6 +41,9 @@ public class GasAppWidgetProvider extends AppWidgetProvider {
         final int N = appWidgetIds.length;
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
         forecastStr = sharedPref.getString(KEY_PREF_GASOLINA,"1");
+        if (forecastStr == "1") {
+            forecastStr = "Magna";
+        }
         Log.d(LOG_TAG,"Carlos Test this widget was updated!"+sharedPref.getString("pref_gasWidget","1"));
 
         for (int i=0; i<N; i++) {
@@ -174,9 +177,6 @@ public class GasAppWidgetProvider extends AppWidgetProvider {
             };
             mTask.execute();
 
-
-
-            // Tell the AppWidgetManager to perform an update on the current app widget
 
         }
 
