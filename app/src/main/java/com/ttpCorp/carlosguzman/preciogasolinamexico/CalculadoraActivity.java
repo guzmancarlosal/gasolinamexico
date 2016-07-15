@@ -42,7 +42,7 @@ public class CalculadoraActivity  extends Fragment {
     Spinner spinner1;
     private EditText number_cant;
     TextView text_result;
-    String precioGasolina;
+    String precioGasolina = "0";
     String precioMagna;
     String precioPremium;
     String precioDiesel;
@@ -111,7 +111,8 @@ public class CalculadoraActivity  extends Fragment {
                 } else if (itemSelected2.equals("Diesel")) {
                     precioGasolina = precioDiesel;
                 }
-
+                text_result.setText("0");
+                number_cant.setText("");
             }
 
             @Override
@@ -133,24 +134,27 @@ public class CalculadoraActivity  extends Fragment {
                 String num1 = precioGasolina;
                 String num2 = number_cant.getText().toString();
                 String tipo_compra= spinner.getSelectedItem().toString();
-                if(tipo_compra.equals("Por Litros")) {
-                    if (num2.equals("")) {
-                        text_result.setText("$0");
-                    }else if (num1.equals("")) {
+                if(!num2.equals(".")) {
+                    if (tipo_compra.equals("Por Litros") || tipo_compra.equals("Per Liters")) {
+                        if (num2.equals(null) || num2.equals("0") || num2.equals("")) {
                             text_result.setText("$0");
-                    }else{
-                        double result = Double.valueOf(num1) * Double.valueOf(num2);
-                        text_result.setText("$" + result + "");
-                    }
-                }else{
-                    if (num2.equals("")) {
-                        text_result.setText("0 "+ getResources().getString(R.string.lb_litros));
-                    }else if (num1.equals(null)) {
-                        text_result.setText("0 "+ getResources().getString(R.string.lb_litros));
-                    }else{
-                        DecimalFormat  format = new DecimalFormat("0.00");
-                        double result =  Double.valueOf(num2)/Double.valueOf(num1);
-                        text_result.setText( format.format(result) +" "+ getResources().getString(R.string.lb_litros));
+                        } else if (num1.equals(null) || num1.equals("0") || num1.equals("")) {
+                            text_result.setText("$0");
+                        } else {
+                            DecimalFormat format = new DecimalFormat("0.00");
+                            double result = Double.valueOf(num1) * Double.valueOf(num2);
+                            text_result.setText("$" + format.format(result) + "");
+                        }
+                    } else {
+                        if (num2.equals(null) || num2.equals("0") || num2.equals("")) {
+                            text_result.setText("0 " + getResources().getString(R.string.lb_litros));
+                        } else if (num1.equals(null) || num1.equals("0") || num1.equals("")) {
+                            text_result.setText("0 " + getResources().getString(R.string.lb_litros));
+                        } else {
+                            DecimalFormat format = new DecimalFormat("0.00");
+                            double result = Double.valueOf(num2) / Double.valueOf(num1);
+                            text_result.setText(format.format(result) + " " + getResources().getString(R.string.lb_litros));
+                        }
                     }
                 }
             }
