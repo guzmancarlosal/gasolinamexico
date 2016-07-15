@@ -40,13 +40,13 @@ public class CalculadoraActivity  extends Fragment {
     private AdView mAdView;
     Spinner spinner;
     Spinner spinner1;
-    private EditText number_cant;
+    private EditText number_cant ;
     TextView text_result;
     String precioGasolina = "0";
     String precioMagna;
     String precioPremium;
     String precioDiesel;
-
+    String num2 = "";
     public CalculadoraActivity() {
     }
 
@@ -132,7 +132,7 @@ public class CalculadoraActivity  extends Fragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String num1 = precioGasolina;
-                String num2 = number_cant.getText().toString();
+                num2 = number_cant.getText().toString();
                 String tipo_compra= spinner.getSelectedItem().toString();
                 if(!num2.equals(".")) {
                     if (tipo_compra.equals("Por Litros") || tipo_compra.equals("Per Liters")) {

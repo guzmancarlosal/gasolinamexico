@@ -4,14 +4,7 @@
     <string name="lb_mas">more..</string>
     <string name="title_activity_detail">DetailActivity</string>
     <string name="lb_loading">Loading...</string>
-    <!--<string name="banner_ad_unit_id_main">ca-app-pub-3403038737253823/1270974994</string>
-    <string name="banner_ad_unit_id_graph2">ca-app-pub-3403038737253823/6957360992</string>
-    <string name="banner_ad_unit_id_graph">ca-app-pub-3403038737253823/2747708196</string>
-    this is the test id-->
-    <string name="banner_ad_unit_id_main">ca-app-pub-3940256099942544/6300978111</string>
-    <string name="banner_ad_unit_id_graph">ca-app-pub-3940256099942544/6300978111</string>
-    <string name="banner_ad_unit_id_graph2">ca-app-pub-3940256099942544/6300978111</string>
-    <string name="lb_settings">Configuration</string>
+      <string name="lb_settings">Configuration</string>
     <string name="pref_widget_label">Widget</string>
     <string name="pref_widget_key" translatable="false">Magna</string>
 
@@ -42,4 +35,5 @@
     <string name="lb_calcular">Calculate</string>
     <string name="lb_litros">Liters</string>
     <string name="lb_precio">Price</string>
+    <string name="pref_guidewidget">Check your phone user manual to see how to add widgets in your device</string>
 </resources>

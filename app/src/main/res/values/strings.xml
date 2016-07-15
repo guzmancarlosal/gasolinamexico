@@ -42,4 +42,5 @@
     <string name="lb_calcular">Calcular</string>
     <string name="lb_litros">Litros</string>
     <string name="lb_precio">Precio</string>
+    <string name="pref_guidewidget">Consulta el manual de tu teléfono para ver como agregar widgets a tu escritorio</string>
 </resources>
