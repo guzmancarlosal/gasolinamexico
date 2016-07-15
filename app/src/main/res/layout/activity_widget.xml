@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="wrap_content"
-    android:layout_height="wrap_content" android:background="@android:drawable/screen_background_dark_transparent"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:background="@android:drawable/screen_background_dark_transparent"
     android:layout_margin="10dp">
 
     <TextView
@@ -9,16 +9,16 @@
         android:layout_height="wrap_content"
         android:text="Magna"
         android:id="@+id/wid_gasolina"
-        android:textSize="20dp" android:textColor="@color/colorTextWidget" android:shadowColor="@color/colorBackWidget" />
+        android:textSize="30dp" android:textColor="@color/colorTextWidget" android:shadowColor="@color/colorBackWidget" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/wid_precio"
         android:layout_gravity="center_horizontal"
-        android:textSize="40dp"
+        android:textSize="55dp"
         android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/wid_fecha"
-        android:layout_toEndOf="@+id/wid_fecha"
+        android:layout_toRightOf="@+id/wid_gasolina"
+        android:layout_toEndOf="@+id/wid_gasolina"
         android:layout_marginLeft="23dp"
         android:layout_marginStart="23dp"
         android:textColor="@color/colorTextWidget" android:shadowColor="@color/colorBackWidget"/>
