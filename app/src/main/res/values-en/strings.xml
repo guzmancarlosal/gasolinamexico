@@ -1,0 +1,44 @@
+<resources>
+    <string name="app_name">Mexican Gasoline Price</string>
+    <string name="action_settings">Widget</string>
+    <string name="lb_mas">more..</string>
+    <string name="title_activity_detail">DetailActivity</string>
+    <string name="lb_loading">Loading...</string>
+    <!--  <string name="banner_ad_unit_id_main">ca-app-pub-3403038737253823/1270974994</string>
+     <string name="banner_ad_unit_id_graph2">ca-app-pub-3403038737253823/6957360992</string>
+    <string name="banner_ad_unit_id_graph">ca-app-pub-3403038737253823/2747708196</string> this is the test id-->
+    <string name="banner_ad_unit_id_main">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="banner_ad_unit_id_graph">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="banner_ad_unit_id_graph2">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="lb_settings">Configuration</string>
+    <string name="pref_widget_label">Widget</string>
+    <string name="pref_widget_key" translatable="false">Magna</string>
+
+    <string name="pref_units_key">Magna</string>
+    <string name="pref_magna_label_">Magna</string>
+    <string name="pref_premium_label_">Premium</string>
+    <string name="pref_diesel_label_">Diesel</string>
+    <string name="dialogo_widget_setting">Configure what kind of Gasoline you want to see on the Widget</string>
+
+    <string name="lb_calculadora">Calculator</string>
+    <string name="lb_calcula">Estimate your expenses</string>
+    <string name="lb_zona1">Mexico</string>
+    <string name="lb_zona2">Border</string>
+    <string name="lb_calc_instruction1">Type of Shop(liters or Pesos)</string>
+    <string name="lb_calc_instruction2">What kind of gasoline you use?</string>
+    <string-array name="compra_array">
+        <item>Per Liters</item>
+        <item>Per Mexican Pesos</item>
+    </string-array>
+    <string-array name="gasolina_array">
+        <item></item>
+        <item>Magna</item>
+        <item>Premium</item>
+        <item>Diesel</item>
+    </string-array>
+    <string name="number_hint1">Liters</string>
+    <string name="number_hint2">Mexican Pesos</string>
+    <string name="lb_calcular">Calculate</string>
+    <string name="lb_litros">Liters</string>
+    <string name="lb_precio">Price</string>
+</resources>

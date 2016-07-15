@@ -1,17 +1,20 @@
 package com.ttpCorp.carlosguzman.preciogasolinamexico;
 
-import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ImageView;
-import android.widget.ListView;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -26,72 +29,149 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.Calendar;
 import java.util.Date;
 
 /**
- * A placeholder fragment containing a simple view.
+ * Created by 501820531 on 6/28/2016.
  */
-public class MainActivityFragment extends Fragment {
-    private gasAdapter mGasolinaAdapter;
-    ListView listView;
+public class CalculadoraActivity  extends Fragment {
     private AdView mAdView;
+    Spinner spinner;
+    Spinner spinner1;
+    private EditText number_cant;
+    TextView text_result;
+    String precioGasolina;
+    String precioMagna;
+    String precioPremium;
+    String precioDiesel;
 
-    public MainActivityFragment() {
+    public CalculadoraActivity() {
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        //populate list view
-
-       // Toast.makeText(getActivity(), "strtext"+strtext, Toast.LENGTH_SHORT).show();
-        View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-        mGasolinaAdapter = new gasAdapter(getActivity(),R.layout.list_view_gas);
-
-        String[] name = {"...","...","..."};
-        String[] Qty = {"...","...","..."};
-        String[] image = {"magna","premium","diesel"};
-        String[] prevValue = {"...","....","..."};
-        String[] nextValue = {"...","....","..."};
-
-        listView = (ListView) rootView.findViewById(R.id.listview_gasolina);
-        listView.setAdapter(mGasolinaAdapter);
-
-        int i = 0;
-        for (String Name : name){
-            gasolinaClass obj = new gasolinaClass(image[i],Name, Qty[i],prevValue[i],nextValue[i]);
-            mGasolinaAdapter.addGas(obj);
-            i++;
-        }
-        //set on click listener to each view
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        View rootView = inflater.inflate(R.layout.activity_calc, container, false);
+        number_cant = (EditText) rootView.findViewById(R.id.number_cant);
+        text_result = (TextView) rootView.findViewById(R.id.text_result);
+        //populate the compras dropdown
+        spinner = (Spinner) rootView.findViewById(R.id.tipo_compra);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(),
+                R.array.compra_array, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            String itemSelected = "";
 
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                String backgroundImageName="";
-                ImageView v = (ImageView) view.findViewById(R.id.thumbImage);
-                int drawable = (Integer) v.getTag();
-                if(drawable == R.drawable.magna){
-                    backgroundImageName = "Magna";
+            public void onItemSelected(AdapterView<?> adapterView, View view,
+                                       int position, long id) {
+                itemSelected = getResources().getStringArray(R.array.compra_array)[spinner.getSelectedItemPosition()];
+
+                if (itemSelected.equals("Por Pesos")) {
+                    number_cant.getText().clear();
+                    number_cant.setHint(R.string.number_hint2);
+                    number_cant.getText().clear();
+                } else {
+                    number_cant.getText().clear();
+                    number_cant.setHint(R.string.number_hint1);
+                    number_cant.getText().clear();
                 }
-                if(drawable == R.drawable.premium){
-                    backgroundImageName = "Premium";
-                }
-                if(drawable == R.drawable.diesel){
-                    backgroundImageName = "Diesel";
-                }
-                //add intent to each list item and pass extra_text as data
-                Intent intent = new Intent(getActivity(), DetailActivity.class)
-                    .putExtra(Intent.EXTRA_TEXT, backgroundImageName);
-                startActivity(intent);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+                // TODO Auto-generated method stub
+
             }
         });
-        //create the money thing :)
-        mAdView = (AdView) rootView.findViewById(R.id.adView);
+        //populate Gasolina Dropdown
+        spinner1 = (Spinner) rootView.findViewById(R.id.tipo_gasolina);
+        ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(getActivity(),
+                R.array.gasolina_array, android.R.layout.simple_spinner_item);
+        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner1.setAdapter(adapter1);
+
+        spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            String itemSelected2 = "";
+
+
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view,
+                                       int position, long id) {
+                itemSelected2 = getResources().getStringArray(R.array.gasolina_array)[spinner1.getSelectedItemPosition()];
+                if (itemSelected2.equals("Magna")) {
+                    precioGasolina = precioMagna;
+                } else if (itemSelected2.equals("Premium")) {
+                    precioGasolina = precioPremium;
+                } else if (itemSelected2.equals("Diesel")) {
+                    precioGasolina = precioDiesel;
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+                // TODO Auto-generated method stub
+
+            }
+        });
+        //start calculationg
+
+        number_cant.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String num1 = precioGasolina;
+                String num2 = number_cant.getText().toString();
+                String tipo_compra= spinner.getSelectedItem().toString();
+                if(tipo_compra.equals("Por Litros")) {
+                    if (num2.equals("")) {
+                        text_result.setText("$0");
+                    }else if (num1.equals("")) {
+                            text_result.setText("$0");
+                    }else{
+                        double result = Double.valueOf(num1) * Double.valueOf(num2);
+                        text_result.setText("$" + result + "");
+                    }
+                }else{
+                    if (num2.equals("")) {
+                        text_result.setText("0 "+ getResources().getString(R.string.lb_litros));
+                    }else if (num1.equals(null)) {
+                        text_result.setText("0 "+ getResources().getString(R.string.lb_litros));
+                    }else{
+                        DecimalFormat  format = new DecimalFormat("0.00");
+                        double result =  Double.valueOf(num2)/Double.valueOf(num1);
+                        text_result.setText( format.format(result) +" "+ getResources().getString(R.string.lb_litros));
+                    }
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        //Create AD :D
+        mAdView = (AdView) rootView.findViewById(R.id.adViewCalc2);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
         return rootView;
+    }
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        updateGasolinaPrice();
     }
     public void updateGasolinaPrice() {
         FetchWeatherTask weatherTask = new FetchWeatherTask();
@@ -100,15 +180,13 @@ public class MainActivityFragment extends Fragment {
         cal.setTime(date);
         int month = cal.get(Calendar.MONTH)+1;
         int year = cal.get(Calendar.YEAR);
+        int day = cal.get(Calendar.DAY_OF_MONTH);
         String thisMonth = Integer.toString(month);
         String thisYear = Integer.toString(year);
-        String thisLugar = getArguments().getString("zone");
-        weatherTask.execute(thisMonth, thisYear,thisLugar);
-    }
-    @Override
-    public void onStart() {
-        super.onStart();
-        updateGasolinaPrice();
+
+
+
+        weatherTask.execute(thisMonth, thisYear,"mexico");
     }
     public class FetchWeatherTask extends AsyncTask<String, Void, String[]> {
 
@@ -175,7 +253,6 @@ public class MainActivityFragment extends Fragment {
 
             String forecastJsonStr = null;
             int numDays =  3;
-
             try {
 
                 final String FORECAST_BASE_URL =
@@ -191,7 +268,6 @@ public class MainActivityFragment extends Fragment {
                         .build();
 
                 URL url = new URL(builtUri.toString());
-
                 urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.connect();
 
@@ -252,16 +328,26 @@ public class MainActivityFragment extends Fragment {
         protected void onPostExecute(String[] result) {
             if (result != null){
 
-                mGasolinaAdapter.clear();
+
                 for (String dayForecastStr :result){
                     if (dayForecastStr != null) {
                         String[] array = dayForecastStr.split(",");
                         //gasolina|prevValue|valor|mes|ano|nextValue;
-                        gasolinaClass obj = new gasolinaClass(array[0], array[0], array[2],array[1],array[5]);
-                        mGasolinaAdapter.addGas(obj);
+                        //gasolinaClass obj = new gasolinaClass(array[0], array[0], array[2],array[1],array[5]);
+                        //mGasolinaAdapter.addGas(obj);
+                        if (array[0].equals("magna")){
+                            precioMagna =  array[2];
+                        }
+                        if (array[0].equals("premium")){
+                            precioPremium = array[2];
+                        }
+                        if (array[0].equals("diesel")){
+                            precioDiesel = array[2];
+                        }
                     }
                 }
             }
         }
     }
+
 }

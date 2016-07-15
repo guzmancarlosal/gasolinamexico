@@ -5,9 +5,13 @@
     <string name="title_activity_detail">DetailActivity</string>
     <string name="lb_loading">Cargando...</string>
     <!--  <string name="banner_ad_unit_id_main">ca-app-pub-3403038737253823/1270974994</string>
-    <string name="banner_ad_unit_id_graph">ca-app-pub-3403038737253823/2747708196</string> this is the test id-->
+    <string name="banner_ad_unit_id_graph">ca-app-pub-3403038737253823/2747708196</string>
+      <string name="banner_ad_unit_id_graph2">ca-app-pub-3403038737253823/6957360992</string> this is the test id-->
+
+
     <string name="banner_ad_unit_id_main">ca-app-pub-3940256099942544/6300978111</string>
     <string name="banner_ad_unit_id_graph">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="banner_ad_unit_id_graph2">ca-app-pub-3940256099942544/6300978111</string>
     <string name="lb_settings">Configuración</string>
     <string name="pref_widget_label">Widget</string>
     <string name="pref_widget_key" translatable="false">Magna</string>
@@ -19,7 +23,24 @@
     <string name="dialogo_widget_setting">Configura que gasolina quieres ver en Widget de escritorio</string>
 
     <string name="lb_calculadora">Calculadora</string>
-    <string name="lb_calcula">Calgula tu Gasto</string>
+    <string name="lb_calcula">Calcula tu Gasto</string>
     <string name="lb_zona1">México</string>
     <string name="lb_zona2">Frontera</string>
+    <string name="lb_calc_instruction1">Tipo de compra(litros o pesos)</string>
+    <string name="lb_calc_instruction2">¿Qué combustible usas?</string>
+    <string-array name="compra_array">
+        <item>Por Litros</item>
+        <item>Por Pesos</item>
+    </string-array>
+    <string-array name="gasolina_array">
+        <item></item>
+        <item>Magna</item>
+        <item>Premium</item>
+        <item>Diesel</item>
+    </string-array>
+    <string name="number_hint1">Cantidad de litros</string>
+    <string name="number_hint2">Cantidad de pesos</string>
+    <string name="lb_calcular">Calcular</string>
+    <string name="lb_litros">Litros</string>
+    <string name="lb_precio">Precio</string>
 </resources>

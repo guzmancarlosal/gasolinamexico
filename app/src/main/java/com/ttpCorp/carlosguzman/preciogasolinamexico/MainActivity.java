@@ -155,19 +155,19 @@ public class MainActivity extends AppCompatActivity {
         bundle.putString("zone", "mexico");
         firstTab.setArguments(bundle);
 
-        MainActivityFragment secondTab = new MainActivityFragment();
+       /* MainActivityFragment secondTab = new MainActivityFragment();
         Bundle bundle2 = new Bundle();
         bundle2.putString("zone", "frontera");
-        secondTab.setArguments(bundle2);
+        secondTab.setArguments(bundle2);*/
 
 
-        adapter.addFragment(firstTab, "México");
-        adapter.addFragment(secondTab, "Frontera");
-       // adapter.addFragment(new MainActivityFragment(), "THREE");
+        adapter.addFragment(firstTab, getResources().getString(R.string.lb_precio));
+        //adapter.addFragment(secondTab, "Frontera");
+        adapter.addFragment(new CalculadoraActivity(), getResources().getString(R.string.lb_calculadora));
         viewPager.setAdapter(adapter);
     }
     private void setupTabIcons() {
-       /* TextView tabThree = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
+        /*TextView tabThree = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
         tabThree.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.caculator, 0, 0);
         tabLayout.getTabAt(2).setCustomView(tabThree);*/
     }
