@@ -9,8 +9,8 @@ android {
         applicationId "com.ttpCorp.carlosguzman.gasolinamexico"
         minSdkVersion 10
         targetSdkVersion 23
-        versionCode 4
-        versionName "2"
+        versionCode 6
+        versionName "3"
     }
     buildTypes {
         release {

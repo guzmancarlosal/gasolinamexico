@@ -2,14 +2,18 @@ package com.ttpCorp.carlosguzman.preciogasolinamexico;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -29,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
+    SharedPreferences mPrefs;
+    String welcomeScreenShownPref = "welcomeScreenShown";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,6 +91,25 @@ public class MainActivity extends AppCompatActivity {
         } else {
             Intent intent = new Intent(this, GCMRegistrationIntentService.class);
             startService(intent);
+        }
+        mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+        Boolean welcomeScreenShown = mPrefs.getBoolean(welcomeScreenShownPref, false);
+        if (!welcomeScreenShown) {
+            // here you can launch another activity if you like
+            // the code below will display a popup
+
+            String whatsNewTitle = getResources().getString(R.string.whatsNewTitle);
+            String whatsNewText = getResources().getString(R.string.whatsNewText);
+            new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle(whatsNewTitle).setMessage(whatsNewText).setPositiveButton(
+                    R.string.ok, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    }).show();
+            SharedPreferences.Editor editor = mPrefs.edit();
+            editor.putBoolean(welcomeScreenShownPref, true);
+            editor.commit(); // Very important to save the preference
         }
     }
 

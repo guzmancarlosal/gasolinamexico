@@ -36,4 +36,7 @@
     <string name="lb_litros">Liters</string>
     <string name="lb_precio">Price</string>
     <string name="pref_guidewidget">Check your phone user manual to see how to add widgets in your device</string>
+    <string name="whatsNewTitle">Update in Progress</string>
+    <string name="whatsNewText">According with Secretaria de Hacienda these are average prices on the country. We are working on updating our app to give you a better service.</string>
+    <string name="ok">De Acuerdo</string>
 </resources>
