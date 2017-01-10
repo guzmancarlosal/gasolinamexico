@@ -4,13 +4,13 @@
     <string name="lb_mas">mas..</string>
     <string name="title_activity_detail">DetailActivity</string>
     <string name="lb_loading">Cargando...</string>
-   <string name="banner_ad_unit_id_main">ca-app-pub-3403038737253823/1270974994</string>
-   <string name="banner_ad_unit_id_graph">ca-app-pub-3403038737253823/2747708196</string>
-   <string name="banner_ad_unit_id_graph2">ca-app-pub-3403038737253823/6957360992</string>
-   <!--  <!is is the test id
-   <string name="banner_ad_unit_id_main">ca-app-pub-3940256099942544/6300978111</string>
-   <string name="banner_ad_unit_id_graph">ca-app-pub-3940256099942544/6300978111</string>
-   <string name="banner_ad_unit_id_graph2">ca-app-pub-3940256099942544/6300978111</string>-->
+    <!--<string name="banner_ad_unit_id_main">ca-app-pub-3403038737253823/1270974994</string>
+    <string name="banner_ad_unit_id_graph">ca-app-pub-3403038737253823/2747708196</string>
+    <string name="banner_ad_unit_id_graph2">ca-app-pub-3403038737253823/6957360992</string>
+      <!is is the test id-->
+    <string name="banner_ad_unit_id_main">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="banner_ad_unit_id_graph">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="banner_ad_unit_id_graph2">ca-app-pub-3940256099942544/6300978111</string>
     <string name="lb_settings">Configuración</string>
     <string name="pref_widget_label">Widget</string>
     <string name="pref_widget_key" translatable="false">Magna</string>
@@ -43,7 +43,23 @@
     <string name="lb_litros">Litros</string>
     <string name="lb_precio">Precio</string>
     <string name="pref_guidewidget">Consulta el manual de tu teléfono para ver como agregar widgets a tu escritorio</string>
-    <string name="whatsNewTitle">Cambios en progreso</string>
-    <string name="whatsNewText">De acuerdo a la Secretaria de Hacienda estos son  los precios promedio en el pais. Estamos trabajando para actualizar nuestra aplicacion y darte un mejor servicio.</string>
-    <string name="ok">De Acuerdo</string>
+    <string name="whatsNewTitle">Por favor Selecciona tu Estado</string>
+    <string name="ok">Guardar</string>
+
+    <!--dialogo-->
+
+    <string name="selectEstado">Selecciona tu Estado:</string>
+    <string name="selectMunicipio">Selecciona tu Municipio:</string>
+
+    <string name="aviso_title">Aviso</string>
+    <string name="aviso">Los Precios Mostrados son los proporcionados en la pagina de la Secretaria De Energia, no nos hacemos responsables de la no aplicacion de los precios en tu zona</string>
+    <string name="entendido">Entendido</string>
+
+    <string name="si">Si</string>
+    <string name="Luego">Mas tarde</string>
+    <string name="gracias">Gracias por usar nuestra app!</string>
+    <string name="gracias_text">Nos encantaria recibir una valoracion de tu parte</string>
+
+    <string name="topbarText">Region: Mexico</string>
+
 </resources>

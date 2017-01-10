@@ -1,9 +1,11 @@
 package com.ttpCorp.carlosguzman.preciogasolinamexico;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -36,6 +38,7 @@ public class MainActivityFragment extends Fragment {
     private gasAdapter mGasolinaAdapter;
     ListView listView;
     private AdView mAdView;
+    SharedPreferences mPrefs;
 
     public MainActivityFragment() {
     }
@@ -120,13 +123,11 @@ public class MainActivityFragment extends Fragment {
 
             // These are the names of the JSON objects that need to be extracted.
             final String OWM_GASOLINA = "gasolina";
-            final String OWM_PREVVALUE = "prevValor";
-            final String OWM_NEXTVALUE = "sigValor";
+            //final String OWM_PREVVALUE = "prevValor";
+           // final String OWM_NEXTVALUE = "sigValor";
             final String OWM_VALOR = "valor";
             final String OWM_MES = "mes";
             final String OWM_ANO = "ano";
-            final String OWM_LUGAR = "lugar";
-
 
 
             JSONArray weatherArray = new JSONArray(forecastJsonStr);
@@ -134,12 +135,12 @@ public class MainActivityFragment extends Fragment {
             String[] resultStrs = new String[numDays];
             for(int i = 0; i < weatherArray.length(); i++) {
                 String gasolina;
-                String prevValue;
+                //String prevValue;
                 String valor;
                 String mes;
                 String ano;
-                String sigValor;
-                String lugar;
+                /*String sigValor;
+                String lugar;*/
 
 
 
@@ -147,14 +148,15 @@ public class MainActivityFragment extends Fragment {
                 JSONObject dayGas = weatherArray.getJSONObject(i);
                 //get data from JSON
                 gasolina = dayGas.getString(OWM_GASOLINA);
-                prevValue = dayGas.getString(OWM_PREVVALUE);
-                sigValor = dayGas.getString(OWM_NEXTVALUE);
+                //prevValue = dayGas.getString(OWM_PREVVALUE);
+                //sigValor = dayGas.getString(OWM_NEXTVALUE);
                 valor = dayGas.getString(OWM_VALOR);
                 mes = dayGas.getString(OWM_MES);
                 ano = dayGas.getString(OWM_ANO);
 
-                resultStrs[i] = gasolina+","+prevValue+","+valor+","+mes+","+ano+","+sigValor;
-
+                //resultStrs[i] = gasolina+","+prevValue+","+valor+","+mes+","+ano+","+sigValor;
+                resultStrs[i] = gasolina+", ,"+valor+","+mes+","+ano+", ";
+                //Log.d("urlDebug", "url: "+gasolina+", ,"+valor+","+mes+","+ano+", ");
             }
 
             for (String s : resultStrs) {
@@ -177,21 +179,29 @@ public class MainActivityFragment extends Fragment {
             int numDays =  3;
 
             try {
-
-                final String FORECAST_BASE_URL =
+                mPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+                final String getRegion = mPrefs.getString("getReg", "");
+                //Log.d("urlDebug", "url: "+ getRegion);
+                String FORECAST_BASE_URL =
                         "http://areliablewindowcleaning.com/gasolina/gasPrice.php?";
-                final String QUERY_PARAM_MONTH = "m";
+                if (getRegion != ""){
+                    FORECAST_BASE_URL =
+                            "http://areliablewindowcleaning.com/gasolina/regions.php?";
+
+                }
                 final String QUERY_PARAM_YEAR = "y";
-                final String QUERY_PARAM_LUGAR="lugar";
+                final String QUERY_PARAM_MONTH = "m";
+                final String QUERY_PARAM_MODE = "mode";
+                final String QUERY_PARAM_REGIONID = "regionID";
 
                 Uri builtUri = Uri.parse(FORECAST_BASE_URL).buildUpon()
-                        .appendQueryParameter(QUERY_PARAM_MONTH, params[0])
                         .appendQueryParameter(QUERY_PARAM_YEAR, params[1])
-                        .appendQueryParameter(QUERY_PARAM_LUGAR, params[2])
+                        .appendQueryParameter(QUERY_PARAM_MODE, "getRegionPrice")
+                        .appendQueryParameter(QUERY_PARAM_REGIONID,getRegion)
                         .build();
 
                 URL url = new URL(builtUri.toString());
-
+                //Log.d("urlDebug", "url: "+ url);
                 urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.connect();
 

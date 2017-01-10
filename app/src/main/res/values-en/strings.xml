@@ -36,7 +36,20 @@
     <string name="lb_litros">Liters</string>
     <string name="lb_precio">Price</string>
     <string name="pref_guidewidget">Check your phone user manual to see how to add widgets in your device</string>
-    <string name="whatsNewTitle">Update in Progress</string>
-    <string name="whatsNewText">According with Secretaria de Hacienda these are average prices on the country. We are working on updating our app to give you a better service.</string>
-    <string name="ok">De Acuerdo</string>
+    <string name="whatsNewTitle">Please select your Mexican State</string>
+    <string name="ok">Save</string>
+    <!--dialogo-->
+    <string name="selectEstado">Select your State:</string>
+    <string name="selectMunicipio">Select your County:</string>
+
+    <string name="aviso">The Gasoline prices are provided by  Secretaria De Energia web page, we are not responsible if those are not applied in your zone</string>
+    <string name="entendido">Got it</string>
+
+    <string name="evaluanos">Are you enjoying our app? Would you like to evaluate it?</string>
+    <string name="si">Yes</string>
+    <string name="Luego">Later</string>
+    <string name="gracias">Thank you for using our app</string>
+    <string name="gracias_text">We would love to receive an app review from you!</string>
+
+    <string name="topbarText">Region: Mexico</string>
 </resources>

@@ -44,7 +44,7 @@ public class GasAppWidgetProvider extends AppWidgetProvider {
         if (forecastStr == "1") {
             forecastStr = "Magna";
         }
-        Log.d(LOG_TAG,"Carlos Test this widget was updated!"+sharedPref.getString("pref_gasWidget","1"));
+        //Log.d(LOG_TAG,"Carlos Test this widget was updated!"+sharedPref.getString("pref_gasWidget","1"));
 
         for (int i=0; i<N; i++) {
             //String syncConnPref = sharedPref.getString(pref_gasWidget, "");

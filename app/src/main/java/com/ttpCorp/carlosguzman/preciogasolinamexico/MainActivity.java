@@ -1,5 +1,6 @@
 package com.ttpCorp.carlosguzman.preciogasolinamexico;
 
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -8,6 +9,7 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.TabLayout;
@@ -17,12 +19,13 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesUtil;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -34,7 +37,10 @@ public class MainActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private ViewPager viewPager;
     SharedPreferences mPrefs;
-    String welcomeScreenShownPref = "welcomeScreenShown";
+    public int munIDs [] = new int[50];
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +57,8 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         toolbar.setSubtitle(formattedDate);
         toolbar.setLogo(R.mipmap.ic_launcher);
-
+        //TODO: descomentar esta pieza para mas tarde.
+        /*
         //Receive broadcast from server
         mRegistrationBroadcastReceiver = new BroadcastReceiver() {
             @Override
@@ -67,19 +74,14 @@ public class MainActivity extends AppCompatActivity {
 
                 }
             }
-        };
+        };*/
         //create tabs
-        viewPager = (ViewPager) findViewById(R.id.viewpager);
-        setupViewPager(viewPager);
-        tabLayout = (TabLayout) findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(viewPager);
-        setupTabIcons();
+
         //end create tabs
 
-        //appPrefs.registerOnSharedPreferenceChangeListener(listener);
+        //TODO uncomment this section too
         //Check status on google service
-
-        int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(getApplicationContext());
+       /*int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(getApplicationContext());
         if (ConnectionResult.SUCCESS != resultCode) {
             if (GooglePlayServicesUtil.isUserRecoverableError(resultCode)) {
                 Toast.makeText(getApplicationContext(), "Google Play Sevice is not install/enabled in this device!", Toast.LENGTH_SHORT).show();
@@ -91,28 +93,160 @@ public class MainActivity extends AppCompatActivity {
         } else {
             Intent intent = new Intent(this, GCMRegistrationIntentService.class);
             startService(intent);
-        }
+        }*/
+        //end status google service
+        //pop up de inicio
         mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        final Activity activity = this;
 
-        Boolean welcomeScreenShown = mPrefs.getBoolean(welcomeScreenShownPref, false);
-        if (!welcomeScreenShown) {
-            // here you can launch another activity if you like
-            // the code below will display a popup
-
-            String whatsNewTitle = getResources().getString(R.string.whatsNewTitle);
-            String whatsNewText = getResources().getString(R.string.whatsNewText);
+        //Entendido
+        final Boolean welcomeScreen1 = mPrefs.getBoolean("entendido", false);
+        if (!welcomeScreen1) {
+            String whatsNewTitle = getResources().getString(R.string.aviso_title);
+            String whatsNewText = getResources().getString(R.string.aviso);
             new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle(whatsNewTitle).setMessage(whatsNewText).setPositiveButton(
-                    R.string.ok, new DialogInterface.OnClickListener() {
+                    R.string.entendido, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.dismiss();
                         }
                     }).show();
             SharedPreferences.Editor editor = mPrefs.edit();
-            editor.putBoolean(welcomeScreenShownPref, true);
+            editor.putBoolean("entendido", true);
             editor.commit(); // Very important to save the preference
+        }//fin entendido
+        //evaluanos inicio
+        //Entendido
+        //final String evaluanos = "evaluanos";
+        final Boolean evaluanos = mPrefs.getBoolean("evaluanos", false);
+        int counterEval  = mPrefs.getInt("counterEval", 0);
+        if (!evaluanos){
+            counterEval++;
+            SharedPreferences.Editor editor = mPrefs.edit();
+            editor.putInt("counterEval", counterEval);
+            editor.commit();
         }
-    }
 
+        if (!evaluanos && (counterEval % 5) ==0) {
+            String whatsNewTitle = getResources().getString(R.string.gracias);
+            String whatsNewText = getResources().getString(R.string.gracias_text);
+            new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle(whatsNewTitle).setMessage(whatsNewText).setPositiveButton(
+                    R.string.si, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            SharedPreferences.Editor editor = mPrefs.edit();
+                            editor.putBoolean("evaluanos", true);
+                            editor.commit();
+                            MainActivity.this.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.ttpCorp.carlosguzman.gasolinamexico")));
+
+                            dialog.dismiss();
+                        }
+                    }).setNegativeButton(
+                    R.string.Luego, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+
+                            dialog.dismiss();
+                        }
+                    }
+            ).show();
+
+            // Very important to save the preference
+        }//fin entendido
+        //evaluanos Fin
+
+        //Preparing views
+        final String getRegion = "getReg";
+        final String getEstado = "getEst";
+        final String getMunicipio = "getMun";
+        final String getLoc= "getLocation";
+        final Boolean getLocation = mPrefs.getBoolean(getLoc, false);
+        final String myRegion = mPrefs.getString("myReg", "");
+        if (!getLocation) {
+            LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+            View layout = inflater.inflate(R.layout.dialog_layout, null);
+            final Spinner estadoBox = (Spinner) layout.findViewById(R.id.dd_estado);
+
+            //Building dialog
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setView(layout);
+            builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    //Save Estado preference
+                    SharedPreferences.Editor editor = mPrefs.edit();
+                    String savedEstado = estadoBox.getSelectedItem().toString();
+                    editor.putString(getEstado, savedEstado);
+                    editor.commit();
+
+                    String sstadoID = getEntityID(savedEstado);
+                    //Log.d("savedPref", "savedPref Estado ID" + sstadoID);
+                    //end save Estado
+                    //prepare 2nd popup
+                    LayoutInflater inflater1 = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+                    View layout1 = inflater1.inflate(R.layout.dialog_mun, null);
+                    final Spinner municipioBox = (Spinner) layout1.findViewById(R.id.dd_municipio);
+
+                    new DownloadJSON(activity, layout1, "getMunicipio").execute(sstadoID);
+                    AlertDialog.Builder builder2 = new AlertDialog.Builder(MainActivity.this);
+                    builder2.setView(layout1);
+                    builder2.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog2, int which) {
+
+                            SharedPreferences.Editor editor = mPrefs.edit();
+                            String savedRegion = municipioBox.getSelectedItem().toString();
+                            String regionID = getEntityID(savedRegion);
+                            editor.putString(getRegion, regionID);
+                            editor.putBoolean(getLoc, true);
+                            editor.putString("myReg", savedRegion);
+                            TextView tv = (TextView)findViewById(R.id.title_Tag);
+                            tv.setText("Region: "+savedRegion);
+                            editor.commit();
+                            //Log.d("savedPref", "savedPref Municipio." + );
+                            viewPager = (ViewPager) findViewById(R.id.viewpager);
+                            setupViewPager(viewPager);
+                            tabLayout = (TabLayout) findViewById(R.id.tabs);
+                            tabLayout.setupWithViewPager(viewPager);
+                            setupTabIcons();
+                        }
+                    });
+                    AlertDialog dialog2 = builder2.create();
+                    dialog2.show();
+
+                }
+            });
+            new DownloadJSON(this,layout,"getEstado").execute();
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        } else{
+            viewPager = (ViewPager) findViewById(R.id.viewpager);
+            setupViewPager(viewPager);
+            tabLayout = (TabLayout) findViewById(R.id.tabs);
+            tabLayout.setupWithViewPager(viewPager);
+            setupTabIcons();
+            if(myRegion != "") {
+                TextView tv = (TextView)findViewById(R.id.title_Tag);
+                tv.setText("Region: "+myRegion);
+            }
+
+        }
+        //String getEstado="getEstado";
+        //fin del popup
+
+    }
+    public String getEntityID(String edo) {
+
+        String id="";
+
+        for (int i=0; i<98;i++) {
+            String s = ((MyApplication) this.getApplication()).getRegionesList(i);
+            //Log.d("savedPref", "looping: " + s + "pos:"+i);
+            if(edo == s ){
+                id =  ((MyApplication) this.getApplication()).getRegionesID(i);
+                //Log.d("savedPref", "savedPref Estado ID" + s);
+            }
+
+        }
+        return id;
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

@@ -1,8 +1,10 @@
 package com.ttpCorp.carlosguzman.preciogasolinamexico;
 
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -47,6 +49,7 @@ public class CalculadoraActivity  extends Fragment {
     String precioPremium;
     String precioDiesel;
     String num2 = "";
+    SharedPreferences mPrefs;
     public CalculadoraActivity() {
     }
 
@@ -207,7 +210,7 @@ public class CalculadoraActivity  extends Fragment {
             final String OWM_VALOR = "valor";
             final String OWM_MES = "mes";
             final String OWM_ANO = "ano";
-            final String OWM_LUGAR = "lugar";
+
 
 
 
@@ -221,21 +224,16 @@ public class CalculadoraActivity  extends Fragment {
                 String mes;
                 String ano;
                 String sigValor;
-                String lugar;
-
-
 
                 // Get the JSON object representing the day
                 JSONObject dayGas = weatherArray.getJSONObject(i);
-                //get data from JSON
                 gasolina = dayGas.getString(OWM_GASOLINA);
-                prevValue = dayGas.getString(OWM_PREVVALUE);
-                sigValor = dayGas.getString(OWM_NEXTVALUE);
                 valor = dayGas.getString(OWM_VALOR);
                 mes = dayGas.getString(OWM_MES);
                 ano = dayGas.getString(OWM_ANO);
 
-                resultStrs[i] = gasolina+","+prevValue+","+valor+","+mes+","+ano+","+sigValor;
+                //resultStrs[i] = gasolina+","+prevValue+","+valor+","+mes+","+ano+","+sigValor;
+                resultStrs[i] = gasolina+", ,"+valor+","+mes+","+ano+", ";
 
             }
 
@@ -259,22 +257,33 @@ public class CalculadoraActivity  extends Fragment {
             int numDays =  3;
             try {
 
-                final String FORECAST_BASE_URL =
+                mPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+                final String getRegion = mPrefs.getString("getReg", "");
+                //Log.d("urlDebug", "url: "+ getRegion);
+                String FORECAST_BASE_URL =
                         "http://areliablewindowcleaning.com/gasolina/gasPrice.php?";
+                if (getRegion != ""){
+                    FORECAST_BASE_URL =
+                            "http://areliablewindowcleaning.com/gasolina/regions.php?";
+
+                }
+
                 final String QUERY_PARAM_MONTH = "m";
                 final String QUERY_PARAM_YEAR = "y";
                 final String QUERY_PARAM_LUGAR="lugar";
+                final String QUERY_PARAM_REGIONID = "regionID";
+                final String QUERY_PARAM_MODE = "mode";
 
                 Uri builtUri = Uri.parse(FORECAST_BASE_URL).buildUpon()
-                        .appendQueryParameter(QUERY_PARAM_MONTH, params[0])
                         .appendQueryParameter(QUERY_PARAM_YEAR, params[1])
-                        .appendQueryParameter(QUERY_PARAM_LUGAR, params[2])
+                        .appendQueryParameter(QUERY_PARAM_MODE, "getRegionPrice")
+                        .appendQueryParameter(QUERY_PARAM_REGIONID,getRegion)
                         .build();
 
                 URL url = new URL(builtUri.toString());
                 urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.connect();
-
+                Log.d("urlDebug", "url: "+ url);
                 // Read the input stream into a String
                 InputStream inputStream = urlConnection.getInputStream();
                 StringBuffer buffer = new StringBuffer();
@@ -348,6 +357,7 @@ public class CalculadoraActivity  extends Fragment {
                         if (array[0].equals("diesel")){
                             precioDiesel = array[2];
                         }
+                        //Log.d("urlDebug", "precioDiesel: "+precioDiesel+",precioPremium ,"+precioPremium+",precioMagna"+precioMagna);
                     }
                 }
             }
