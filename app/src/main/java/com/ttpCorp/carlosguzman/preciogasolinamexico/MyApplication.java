@@ -8,8 +8,8 @@ import android.app.Application;
 public class MyApplication extends Application {
 
 
-    private String regionesList[] =  new String [100];
-    private String regionesIDs[] =  new String[100];
+    private String regionesList[] =  new String [1000];
+    private String regionesIDs[] =  new String[1000];
 
 
     public String getRegionesList(int i) {
