@@ -27,6 +27,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -58,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         toolbar.setSubtitle(formattedDate);
         toolbar.setLogo(R.mipmap.ic_launcher);
         //TODO: descomentar esta pieza para mas tarde.
-        /*
+
         //Receive broadcast from server
         mRegistrationBroadcastReceiver = new BroadcastReceiver() {
             @Override
@@ -74,14 +77,14 @@ public class MainActivity extends AppCompatActivity {
 
                 }
             }
-        };*/
+        };
         //create tabs
 
         //end create tabs
 
-        //TODO uncomment this section too
+
         //Check status on google service
-       /*int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(getApplicationContext());
+       int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(getApplicationContext());
         if (ConnectionResult.SUCCESS != resultCode) {
             if (GooglePlayServicesUtil.isUserRecoverableError(resultCode)) {
                 Toast.makeText(getApplicationContext(), "Google Play Sevice is not install/enabled in this device!", Toast.LENGTH_SHORT).show();
@@ -93,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
             Intent intent = new Intent(this, GCMRegistrationIntentService.class);
             startService(intent);
-        }*/
+        }
         //end status google service
         //pop up de inicio
         mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
@@ -116,7 +119,6 @@ public class MainActivity extends AppCompatActivity {
         }//fin entendido
         //evaluanos inicio
         //Entendido
-        //final String evaluanos = "evaluanos";
         final Boolean evaluanos = mPrefs.getBoolean("evaluanos", false);
         int counterEval  = mPrefs.getInt("counterEval", 0);
         if (!evaluanos){
@@ -135,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
                             SharedPreferences.Editor editor = mPrefs.edit();
                             editor.putBoolean("evaluanos", true);
                             editor.commit();
-                            MainActivity.this.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.ttpCorp.carlosguzman.gasolinamexico")));
+                            MainActivity.this.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.ttpCorp.carlosguzman.gasolinamexico")));
 
                             dialog.dismiss();
                         }
@@ -147,8 +149,6 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
             ).show();
-
-            // Very important to save the preference
         }//fin entendido
         //evaluanos Fin
 
@@ -175,15 +175,12 @@ public class MainActivity extends AppCompatActivity {
                     String savedEstado = estadoBox.getSelectedItem().toString();
                     editor.putString(getEstado, savedEstado);
                     editor.commit();
-
                     String sstadoID = getEntityID(savedEstado);
-                    //Log.d("savedPref", "savedPref Estado ID" + sstadoID);
                     //end save Estado
                     //prepare 2nd popup
                     LayoutInflater inflater1 = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
                     View layout1 = inflater1.inflate(R.layout.dialog_mun, null);
                     final Spinner municipioBox = (Spinner) layout1.findViewById(R.id.dd_municipio);
-
                     new DownloadJSON(activity, layout1, "getMunicipio").execute(sstadoID);
                     AlertDialog.Builder builder2 = new AlertDialog.Builder(MainActivity.this);
                     builder2.setView(layout1);
@@ -228,7 +225,6 @@ public class MainActivity extends AppCompatActivity {
             }
 
         }
-        //String getEstado="getEstado";
         //fin del popup
 
     }
@@ -282,6 +278,11 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.action_settings) {
             //Toast.makeText(MainActivity.this, "Selected", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(this, confWidget.class));
+            return true;
+        }
+        if (id == R.id.action_region) {
+            //Toast.makeText(MainActivity.this, "Selected", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(this, confRegion.class));
             return true;
         }
 

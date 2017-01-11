@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -201,7 +202,7 @@ public class MainActivityFragment extends Fragment {
                         .build();
 
                 URL url = new URL(builtUri.toString());
-                //Log.d("urlDebug", "url: "+ url);
+                //Log.d("urlDebug_fragment", "url: "+ url);
                 urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.connect();
 
@@ -229,7 +230,9 @@ public class MainActivityFragment extends Fragment {
                 forecastJsonStr = buffer.toString();
 
             } catch (IOException e) {
+                Toast.makeText(getActivity(), "Error de Coneccion!", Toast.LENGTH_SHORT).show();
                 Log.e(LOG_TAG, "Error ", e);
+
                 // If the code didn't successfully get the weather data, there's no point in attemping
                 // to parse it.
                 return null;

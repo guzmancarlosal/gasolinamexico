@@ -5,7 +5,6 @@ package com.ttpCorp.carlosguzman.preciogasolinamexico;
  */
 
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -80,12 +79,12 @@ public class gasAdapter extends ArrayAdapter{
         int resID = this.getContext().getResources().getIdentifier(imageName, "drawable", this.getContext().getPackageName());
         holder.IMG.setImageResource(resID);
         holder.IMG.setTag(Integer.valueOf(resID));
-        holder.NEXTPRICE.setText("...");
+        /*holder.NEXTPRICE.setText("...");
         if (FR.getGas_price() != "..." ){
-            try {
+             try {
                 Float todayValue = Float.parseFloat(FR.getGas_price());
                 Float nextValue = Float.parseFloat(FR.getNextGas_price());
-                if (todayValue < nextValue) {
+               if (todayValue < nextValue) {
                     holder.NEXTPRICE.setTextColor(Color.parseColor("#FC0015"));
                 } else {
                     holder.NEXTPRICE.setTextColor(Color.parseColor("#05953E"));
@@ -94,7 +93,7 @@ public class gasAdapter extends ArrayAdapter{
             }   catch (NumberFormatException e) {}
         }
         holder.PREVPRICE.setText("Ant:$"+FR.getPrevGas_price());
-
+        */
         holder.NEXTPRICE.setTypeface(null, Typeface.BOLD);
         holder.PREVPRICE.setTypeface(null, Typeface.BOLD);
         holder.PRICE.setText("$"+FR.getGas_price());

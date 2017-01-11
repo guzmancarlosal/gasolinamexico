@@ -37,6 +37,7 @@ public class GasAppWidgetProvider extends AppWidgetProvider {
     public static  String LOG_TAG = "MyActivity";
     public static final String KEY_PREF_GASOLINA = "pref_gasWidget";
 
+
     public void onUpdate(Context context, final AppWidgetManager appWidgetManager, final int[] appWidgetIds) {
         final int N = appWidgetIds.length;
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
@@ -61,7 +62,7 @@ public class GasAppWidgetProvider extends AppWidgetProvider {
             views.setOnClickPendingIntent(R.id.wid_gasolina, pendingIntent);
             views.setOnClickPendingIntent(R.id.wid_precio, pendingIntent);
             views.setOnClickPendingIntent(R.id.wid_fecha, pendingIntent);
-
+            final String getRegion = sharedPref.getString("getReg", "");
             views.setTextViewText(R.id.wid_fecha, formattedDate);
             mTask = new AsyncTask<String, Void, String[]>() {
 
@@ -76,7 +77,15 @@ public class GasAppWidgetProvider extends AppWidgetProvider {
                     String thisMonth = Integer.toString(month);
                     String thisYear = Integer.toString(year);
                     String forecastJsonStr = null;
+                    //mPrefs = sharedPref.getDefaultSharedPreferences(MainActivity.this);
+
+
                     String thisurl = "http://areliablewindowcleaning.com/gasolina/gasPrice.php?mode=gasolina&y=" +thisYear +"&m="+thisMonth+"&gasolina="+forecastStr;
+                    if (getRegion != ""){
+                        thisurl=  "http://areliablewindowcleaning.com/gasolina/regions.php?mode=getRegionPrice&regionID="+getRegion+"&gasolinaID="+forecastStr;
+
+                    }
+                    //Log.d("urlDebug_widget", "url: "+ thisurl);
 
                     try {
                         URL url = new URL(thisurl.toString());

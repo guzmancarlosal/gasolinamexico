@@ -15,6 +15,11 @@
         android:layout_width="match_parent"
         android:layout_height="300dp" />
 
+    <android.support.v7.widget.AppCompatTextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/lbchartguidance"
+        android:layout_below="@id/chart"/>
     <com.google.android.gms.ads.AdView
         android:id="@+id/adView2"
         android:layout_width="match_parent"
@@ -22,5 +27,6 @@
         ads:adUnitId="@string/banner_ad_unit_id_graph"
         ads:adSize="BANNER"
         android:layout_below="@+id/chart"/>
+
 
 </RelativeLayout>

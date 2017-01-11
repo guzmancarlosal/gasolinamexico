@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -135,37 +136,45 @@ public class DownloadJSON extends AsyncTask<String, Void, String[]> {
     }
     @Override
     protected void onPostExecute(String[] result) {
-        //Log.d(LOG_TAG, "idRegion."+result);
-        String [] arrayEntity = new String [result.length];
-        String [] arrayID = new String [result.length];
-        int i=0;
-        for (String dayForecastStr :result) {
-            String[] tmparray = dayForecastStr.split(",");
-            arrayEntity[i]= tmparray[0];
-            arrayID[i]= tmparray[1];
-            ((MyApplication) mActivity.getApplication()).setRegionesList(tmparray[0],i);
-            ((MyApplication) mActivity.getApplication()).setRegionesIDs(tmparray[1],i);
-            i++;
-        }
-        if (result != null){
-            if (thisMethod =="getEstado") {
-                Spinner autoInstitute = (Spinner) mContext.findViewById(R.id.dd_estado);
-                final ArrayAdapter<String> instituteApapdter =
-                        new ArrayAdapter<String>(mActivity, android.R.layout.simple_list_item_1, arrayEntity);
-                autoInstitute.setAdapter(instituteApapdter);
+        Log.d(LOG_TAG, "idRegion."+result);
+        try {
+            String [] arrayEntity = new String [result.length];
+            String [] arrayID = new String [result.length];
+            int i=0;
+            for (String dayForecastStr :result) {
+                String[] tmparray = dayForecastStr.split(",");
+                arrayEntity[i]= tmparray[0];
+                arrayID[i]= tmparray[1];
+                ((MyApplication) mActivity.getApplication()).setRegionesList(tmparray[0],i);
+                ((MyApplication) mActivity.getApplication()).setRegionesIDs(tmparray[1],i);
+                i++;
+            }
+            if (result != null){
+                if (thisMethod =="getEstado") {
+                    Spinner autoInstitute = (Spinner) mContext.findViewById(R.id.dd_estado);
+                    final ArrayAdapter<String> instituteApapdter =
+                            new ArrayAdapter<String>(mActivity, android.R.layout.simple_list_item_1, arrayEntity);
+                    autoInstitute.setAdapter(instituteApapdter);
 
-            } else if (thisMethod =="getMunicipio") {
+                } else if (thisMethod =="getMunicipio") {
 
-                Spinner autoInstitute1 = (Spinner) mContext.findViewById(R.id.dd_municipio);
-                Log.d(LOG_TAG, "Lo hicimos en postExecute.");
-                //((MainActivity) mContext.getApplication()).setSomeVariable("foo");
-                final ArrayAdapter<String> instituteApapdter1 =
-                        new ArrayAdapter<String>(mActivity, android.R.layout.simple_list_item_1, arrayEntity);
-                autoInstitute1.setAdapter(instituteApapdter1);
+                    Spinner autoInstitute1 = (Spinner) mContext.findViewById(R.id.dd_municipio);
+                    Log.d(LOG_TAG, "Lo hicimos en postExecute.");
+                    //((MainActivity) mContext.getApplication()).setSomeVariable("foo");
+                    final ArrayAdapter<String> instituteApapdter1 =
+                            new ArrayAdapter<String>(mActivity, android.R.layout.simple_list_item_1, arrayEntity);
+                    autoInstitute1.setAdapter(instituteApapdter1);
+
+                }
+
 
             }
-
-
+        } catch (Exception e) {
+            Toast.makeText(mActivity, "Error de Coneccion!", Toast.LENGTH_LONG).show();
+            /*Intent i = getBaseContext().getPackageManager()
+                    .getLaunchIntentForPackage( getBaseContext().getPackageName() );
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);*/
         }
     }
 }

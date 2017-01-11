@@ -7,7 +7,7 @@
         android:defaultValue="@string/pref_widget_key"
         android:entryValues="@array/pref_units_values"
         android:entries="@array/pref_units_options">
-
     </ListPreference>
+
 
 </PreferenceScreen>

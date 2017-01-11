@@ -52,4 +52,5 @@
     <string name="gracias_text">We would love to receive an app review from you!</string>
 
     <string name="topbarText">Region: Mexico</string>
+    <string name="lb_configRegion">Change region</string>
 </resources>

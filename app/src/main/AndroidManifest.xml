@@ -78,6 +78,16 @@
             </intent-filter>
 
         </activity>
+        <activity android:name="com.ttpCorp.carlosguzman.preciogasolinamexico.confRegion"
+            android:parentActivityName="com.ttpCorp.carlosguzman.preciogasolinamexico.MainActivity"
+            android:label="@string/lb_settings">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"></action>
+
+            </intent-filter>
+
+        </activity>
         <activity android:name="com.google.android.gms.ads.AdActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"></activity>
     </application>
