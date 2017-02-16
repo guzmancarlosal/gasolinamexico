@@ -1,13 +1,13 @@
 <resources>
     <string name="app_name">Precio Gasolina México</string>
     <string name="action_settings">Widget</string>
-    <string name="lb_mas">mas..</string>
+    <string name="lb_mas">más..</string>
     <string name="title_activity_detail">DetailActivity</string>
     <string name="lb_loading">Cargando...</string>
-    <string name="banner_ad_unit_id_main">ca-app-pub-3403038737253823/1270974994</string>
-    <string name="banner_ad_unit_id_graph">ca-app-pub-3403038737253823/2747708196</string>
-    <string name="banner_ad_unit_id_graph2">ca-app-pub-3403038737253823/6957360992</string>
-      <!--<!is is the test id
+     <string name="banner_ad_unit_id_main">ca-app-pub-3403038737253823/1270974994</string>
+     <string name="banner_ad_unit_id_graph">ca-app-pub-3403038737253823/2747708196</string>
+     <string name="banner_ad_unit_id_graph2">ca-app-pub-3403038737253823/6957360992</string>
+    <!--  !is is the test id
     <string name="banner_ad_unit_id_main">ca-app-pub-3940256099942544/6300978111</string>
     <string name="banner_ad_unit_id_graph">ca-app-pub-3940256099942544/6300978111</string>
     <string name="banner_ad_unit_id_graph2">ca-app-pub-3940256099942544/6300978111</string>-->
@@ -60,8 +60,8 @@
     <string name="gracias">Gracias por usar nuestra app!</string>
     <string name="gracias_text">Nos encantaría recibir una valoración de tu parte</string>
 
-    <string name="topbarText">Region: México</string>
-    <string name="lb_configRegion">Cambia tu region</string>
+    <string name="topbarText">Región: México</string>
+    <string name="lb_configRegion">Cambia tu región</string>
 
     <string name="lbchartguidance">A partir de Enero del 2017, estamos mostrando el precio promedio de todo el país</string>
 

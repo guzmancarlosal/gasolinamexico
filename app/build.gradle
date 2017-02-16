@@ -9,8 +9,8 @@ android {
         applicationId "com.ttpCorp.carlosguzman.gasolinamexico"
         minSdkVersion 10
         targetSdkVersion 23
-        versionCode 8
-        versionName "Regionalizacion"
+        versionCode 10
+        versionName "Nuevo Icono"
     }
     buildTypes {
         release {

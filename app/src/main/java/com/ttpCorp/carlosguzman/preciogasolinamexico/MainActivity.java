@@ -97,9 +97,11 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(this, GCMRegistrationIntentService.class);
             startService(intent);
         }
+
         //end status google service
         //pop up de inicio
         mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        //mPrefs.edit().clear().commit();
         final Activity activity = this;
 
         //Entendido
@@ -118,7 +120,6 @@ public class MainActivity extends AppCompatActivity {
             editor.commit(); // Very important to save the preference
         }//fin entendido
         //evaluanos inicio
-        //Entendido
         final Boolean evaluanos = mPrefs.getBoolean("evaluanos", false);
         int counterEval  = mPrefs.getInt("counterEval", 0);
         if (!evaluanos){
@@ -197,7 +198,7 @@ public class MainActivity extends AppCompatActivity {
                             TextView tv = (TextView)findViewById(R.id.title_Tag);
                             tv.setText("Region: "+savedRegion);
                             editor.commit();
-                            //Log.d("savedPref", "savedPref Municipio." + );
+                            //Log.d("savedPref", "savedPref Municipio." +savedRegion );
                             viewPager = (ViewPager) findViewById(R.id.viewpager);
                             setupViewPager(viewPager);
                             tabLayout = (TabLayout) findViewById(R.id.tabs);
@@ -232,12 +233,12 @@ public class MainActivity extends AppCompatActivity {
 
         String id="";
 
-        for (int i=0; i<98;i++) {
+        for (int i=0; i<200;i++) {
             String s = ((MyApplication) this.getApplication()).getRegionesList(i);
-            //Log.d("savedPref", "looping: " + s + "pos:"+i);
+            Log.d("savedPref", "looping: " + s + "pos:"+i);
             if(edo == s ){
                 id =  ((MyApplication) this.getApplication()).getRegionesID(i);
-                //Log.d("savedPref", "savedPref Estado ID" + s);
+                Log.d("savedPref", "savedPref Estado ID" + s);
             }
 
         }

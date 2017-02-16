@@ -187,13 +187,15 @@ public class MainActivityFragment extends Fragment {
                         "http://areliablewindowcleaning.com/gasolina/gasPrice.php?";
                 if (getRegion != ""){
                     FORECAST_BASE_URL =
-                            "http://areliablewindowcleaning.com/gasolina/regions.php?";
+                            "http://areliablewindowcleaning.com/gasolina/regionsdiario.php?";
 
                 }
+                Log.d("urldebug",FORECAST_BASE_URL);
                 final String QUERY_PARAM_YEAR = "y";
                 final String QUERY_PARAM_MONTH = "m";
                 final String QUERY_PARAM_MODE = "mode";
                 final String QUERY_PARAM_REGIONID = "regionID";
+
 
                 Uri builtUri = Uri.parse(FORECAST_BASE_URL).buildUpon()
                         .appendQueryParameter(QUERY_PARAM_YEAR, params[1])

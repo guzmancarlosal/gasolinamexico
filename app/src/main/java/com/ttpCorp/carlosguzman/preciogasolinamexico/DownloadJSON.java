@@ -49,7 +49,7 @@ public class DownloadJSON extends AsyncTask<String, Void, String[]> {
         }else {
 
         }
-        //Log.d(LOG_TAG, "url "+thisurl+" method "+thisMethod);
+        Log.d(LOG_TAG, "url "+thisurl+" method "+thisMethod);
         try {
             URL url = new URL(thisurl.toString());
             urlConnection = (HttpURLConnection) url.openConnection();
@@ -170,7 +170,7 @@ public class DownloadJSON extends AsyncTask<String, Void, String[]> {
 
             }
         } catch (Exception e) {
-            Toast.makeText(mActivity, "Error de Coneccion!", Toast.LENGTH_LONG).show();
+            Toast.makeText(mActivity, "Estamos en Mantenimiento Disculpa las molestias!", Toast.LENGTH_LONG).show();
             /*Intent i = getBaseContext().getPackageManager()
                     .getLaunchIntentForPackage( getBaseContext().getPackageName() );
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
