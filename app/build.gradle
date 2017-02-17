@@ -1,15 +1,15 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.google.gms.google-services'
+
 
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
 
     defaultConfig {
-        applicationId "com.ttpCorp.carlosguzman.gasolinamexico"
+        applicationId "com.ttpCorp.carlosguzman.preciogasolinamexico"
         minSdkVersion 10
         targetSdkVersion 23
-        versionCode 10
+        versionCode 11
         versionName "Nuevo Icono"
     }
     buildTypes {
@@ -25,7 +25,11 @@ repositories {
 dependencies {
     compile 'com.android.support:appcompat-v7:23.0.1'
     compile 'com.android.support:design:23.0.1'
-    compile 'com.google.android.gms:play-services-ads:9.0.2'
+
     compile 'com.github.PhilJay:MPAndroidChart:v2.1.6'
-    compile 'com.google.android.gms:play-services-gcm:9.0.2'
+    compile 'com.google.firebase:firebase-core:10.0.1'
+    compile 'com.google.firebase:firebase-messaging:10.0.1'
+    compile 'com.google.firebase:firebase-ads:10.0.1'
+    compile 'com.google.firebase:firebase-config:10.0.1'
 }
+apply plugin: 'com.google.gms.google-services'

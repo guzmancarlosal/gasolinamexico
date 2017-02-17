@@ -49,7 +49,7 @@ public class DownloadJSON extends AsyncTask<String, Void, String[]> {
         }else {
 
         }
-        Log.d(LOG_TAG, "url "+thisurl+" method "+thisMethod);
+        //Log.d(LOG_TAG, "url "+thisurl+" method "+thisMethod);
         try {
             URL url = new URL(thisurl.toString());
             urlConnection = (HttpURLConnection) url.openConnection();
@@ -136,7 +136,7 @@ public class DownloadJSON extends AsyncTask<String, Void, String[]> {
     }
     @Override
     protected void onPostExecute(String[] result) {
-        Log.d(LOG_TAG, "idRegion."+result);
+        //Log.d(LOG_TAG, "idRegion."+result);
         try {
             String [] arrayEntity = new String [result.length];
             String [] arrayID = new String [result.length];
@@ -159,7 +159,7 @@ public class DownloadJSON extends AsyncTask<String, Void, String[]> {
                 } else if (thisMethod =="getMunicipio") {
 
                     Spinner autoInstitute1 = (Spinner) mContext.findViewById(R.id.dd_municipio);
-                    Log.d(LOG_TAG, "Lo hicimos en postExecute.");
+                    //Log.d(LOG_TAG, "Lo hicimos en postExecute.");
                     //((MainActivity) mContext.getApplication()).setSomeVariable("foo");
                     final ArrayAdapter<String> instituteApapdter1 =
                             new ArrayAdapter<String>(mActivity, android.R.layout.simple_list_item_1, arrayEntity);

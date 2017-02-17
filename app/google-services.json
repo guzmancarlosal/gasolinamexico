@@ -1,20 +1,27 @@
 {
   "project_info": {
-    "project_number": "383216071003",
-    "project_id": "gasolinamexico"
+    "project_number": "516001872567",
+    "firebase_url": "https://admob-app-id-7317508590.firebaseio.com",
+    "project_id": "admob-app-id-7317508590",
+    "storage_bucket": "admob-app-id-7317508590.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:383216071003:android:b73ed14039edcbae",
+        "mobilesdk_app_id": "1:516001872567:android:4939c7647990427a",
         "android_client_info": {
-          "package_name": "com.example.carlosguzman.gasolinamexico"
+          "package_name": "com.xikma.carlosguzman.licuados"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "516001872567-6kjm19vjv4c9s4mo7njnos7d7f6k0prn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
-          "current_key": "AIzaSyCcJhPLxhn68Yts986ucZkm_IqgA7vVHpw"
+          "current_key": "AIzaSyCaQ4vZHjgDtzvAvzLDve4_2dPUBx2F7uM"
         }
       ],
       "services": {
@@ -26,7 +33,38 @@
           "other_platform_oauth_client": []
         },
         "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:516001872567:android:4438868036bd3789",
+        "android_client_info": {
+          "package_name": "com.ttpCorp.carlosguzman.preciogasolinamexico"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "516001872567-6kjm19vjv4c9s4mo7njnos7d7f6k0prn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCaQ4vZHjgDtzvAvzLDve4_2dPUBx2F7uM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
           "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
         }
       }
     }

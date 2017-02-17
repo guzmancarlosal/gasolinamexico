@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.ttpCorp.carlosguzman.preciogasolinamexico"
-    android:versionCode="">
+    package="com.ttpCorp.carlosguzman.preciogasolinamexico">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.WAKE_LOCK"/>
-    <permission android:name="com.ttpCorp.carlosguzman.preciogasolinamexico.permission.C2D_MESSAGE" android:protectionLevel="signature"/>
-    <uses-permission android:name="com.example.carlosguzman.gasolinamexico.permission.C2D_MESSAGE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <permission
+        android:name="com.ttpCorp.carlosguzman.preciogasolinamexico.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="com.ttpCorp.carlosguzman.preciogasolinamexico.permission.C2D_MESSAGE" />
 
     <application
         android:name=".MyApplication"
@@ -16,80 +18,75 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <meta-data
-            android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />
         <activity
-            android:name="com.ttpCorp.carlosguzman.preciogasolinamexico.MainActivity"
+            android:name=".MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
-            android:name="com.ttpCorp.carlosguzman.preciogasolinamexico.DetailActivity"
+            android:name=".DetailActivity"
             android:label="@string/title_activity_detail"
-            android:parentActivityName="com.ttpCorp.carlosguzman.preciogasolinamexico.MainActivity">
-            <!---android:theme="@style/AppTheme.NoActionBar"-->
+            android:parentActivityName=".MainActivity">
+
+            <!-- -android:theme="@style/AppTheme.NoActionBar" -->
 
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.ttpCorp.carlosguzman.preciogasolinamexico.MainActivity" />
         </activity>
-        <receiver android:name="com.ttpCorp.carlosguzman.preciogasolinamexico.GasAppWidgetProvider" >
+
+        <receiver android:name=".GasAppWidgetProvider">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
-            <meta-data android:name="android.appwidget.provider"
+
+            <meta-data
+                android:name="android.appwidget.provider"
                 android:resource="@xml/widget" />
         </receiver>
-        <receiver
-            android:name="com.google.android.gms.gcm.GcmReceiver"
-            android:exported="true"
-            android:permission="com.google.android.c2dm.permission.SEND">
+
+        <service android:name=".MyFirebaseMessagingService">
             <intent-filter>
-                <action android:name="com.google.android.c2dm.intent.RECEIVE"/>
-                <category android:name="com.example.carlosguzman.gasolinamexico"/>
-            </intent-filter>
-        </receiver>
-        <service android:name="com.ttpCorp.carlosguzman.preciogasolinamexico.GCMPushReceiverService" android:exported="false">
-            <intent-filter>
-                <action android:name="com.google.android.c2dm.intent.RECEIVE"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-        <service android:name="com.ttpCorp.carlosguzman.preciogasolinamexico.GCMRegistrationIntentService" android:exported="false">
+        <service android:name=".MyFirebaseInstanceIDService">
             <intent-filter>
-                <action android:name="com.google.android.gms.iid.InstanceID"/>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
 
-        <activity android:name="com.ttpCorp.carlosguzman.preciogasolinamexico.confWidget"
-            android:parentActivityName="com.ttpCorp.carlosguzman.preciogasolinamexico.MainActivity"
-            android:label="@string/lb_settings">
+        <activity
+            android:name=".confWidget"
+            android:label="@string/lb_settings"
+            android:parentActivityName=".MainActivity">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
             </intent-filter>
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"></action>
-
+                <action android:name="android.intent.action.MAIN" />
             </intent-filter>
-
         </activity>
-        <activity android:name="com.ttpCorp.carlosguzman.preciogasolinamexico.confRegion"
-            android:parentActivityName="com.ttpCorp.carlosguzman.preciogasolinamexico.MainActivity"
-            android:label="@string/lb_settings">
-
+        <activity
+            android:name=".confRegion"
+            android:label="@string/lb_settings"
+            android:parentActivityName=".MainActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"></action>
-
+                <action android:name="android.intent.action.MAIN" />
             </intent-filter>
-
         </activity>
-        <activity android:name="com.google.android.gms.ads.AdActivity"
-            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"></activity>
+        <activity
+            android:name="com.google.android.gms.ads.AdActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize" />
+        <activity android:name=".Welcome"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
     </application>
 
 </manifest>

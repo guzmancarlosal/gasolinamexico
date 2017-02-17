@@ -283,7 +283,7 @@ public class CalculadoraActivity  extends Fragment {
                 URL url = new URL(builtUri.toString());
                 urlConnection = (HttpURLConnection) url.openConnection();
                 urlConnection.connect();
-                Log.d("urlDebug", "url: "+ url);
+                //Log.d("urlDebug", "url: "+ url);
                 // Read the input stream into a String
                 InputStream inputStream = urlConnection.getInputStream();
                 StringBuffer buffer = new StringBuffer();

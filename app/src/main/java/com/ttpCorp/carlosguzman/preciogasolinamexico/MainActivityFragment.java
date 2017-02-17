@@ -190,7 +190,7 @@ public class MainActivityFragment extends Fragment {
                             "http://areliablewindowcleaning.com/gasolina/regionsdiario.php?";
 
                 }
-                Log.d("urldebug",FORECAST_BASE_URL);
+                //Log.d("urldebug",FORECAST_BASE_URL);
                 final String QUERY_PARAM_YEAR = "y";
                 final String QUERY_PARAM_MONTH = "m";
                 final String QUERY_PARAM_MODE = "mode";

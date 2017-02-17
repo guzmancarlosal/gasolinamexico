@@ -5,7 +5,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -26,9 +25,6 @@ import android.view.View;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesUtil;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -63,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         //TODO: descomentar esta pieza para mas tarde.
 
         //Receive broadcast from server
-        mRegistrationBroadcastReceiver = new BroadcastReceiver() {
+        /*mRegistrationBroadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
                 if (intent.getAction().endsWith(GCMRegistrationIntentService.REGISTRATION_SUCCESS)) {
@@ -77,14 +73,14 @@ public class MainActivity extends AppCompatActivity {
 
                 }
             }
-        };
+        };*/
         //create tabs
 
         //end create tabs
 
 
         //Check status on google service
-       int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(getApplicationContext());
+       /*int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(getApplicationContext());
         if (ConnectionResult.SUCCESS != resultCode) {
             if (GooglePlayServicesUtil.isUserRecoverableError(resultCode)) {
                 Toast.makeText(getApplicationContext(), "Google Play Sevice is not install/enabled in this device!", Toast.LENGTH_SHORT).show();
@@ -96,8 +92,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
             Intent intent = new Intent(this, GCMRegistrationIntentService.class);
             startService(intent);
-        }
-
+        }*/
         //end status google service
         //pop up de inicio
         mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
@@ -254,11 +249,20 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Log.w("MainActivity", "onResume");
-        LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver,
-                new IntentFilter(GCMRegistrationIntentService.REGISTRATION_SUCCESS));
-        LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver,
-                new IntentFilter(GCMRegistrationIntentService.REGISTRATION_ERROR));
+        if (getIntent().getExtras() != null) {
+            Bundle b = getIntent().getExtras();
+            boolean cameFromNotification = b.getBoolean("fromNotification",false);
+            String alertMsj = b.getString("messageAlert");
+            if (cameFromNotification) {
+                new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Precio Gasolina").setMessage(alertMsj).setPositiveButton(
+                        R.string.ok, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        }).show();
+            }
+        }
+
     }
 
     @Override
