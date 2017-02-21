@@ -11,6 +11,7 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
@@ -26,6 +27,11 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -37,8 +43,13 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager viewPager;
     SharedPreferences mPrefs;
     public int munIDs [] = new int[50];
-
-
+    private FirebaseRemoteConfig mFirebaseRemoteConfig;
+    private static final String application_offline_message = "gasolina_offline_message";
+    private static final String gasolina_offline = "gasolina_offline";
+    private static final String gasolina_custom_message = "gasolina_custom_message";
+    public String welcomeMessage;
+    public String customMjs;
+    public Boolean isAppOffline = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,49 +67,52 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         toolbar.setSubtitle(formattedDate);
         toolbar.setLogo(R.mipmap.ic_launcher);
-        //TODO: descomentar esta pieza para mas tarde.
+        //get my Firebaseconnection
+        mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
+        FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder()
+                .setDeveloperModeEnabled(BuildConfig.DEBUG)
+                .build();
+        mFirebaseRemoteConfig.setConfigSettings(configSettings);
+        long cacheExpiration = 50;
 
-        //Receive broadcast from server
-        /*mRegistrationBroadcastReceiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                if (intent.getAction().endsWith(GCMRegistrationIntentService.REGISTRATION_SUCCESS)) {
-                    String token = intent.getStringExtra("token");
-                    //Toast.makeText(getApplicationContext(), "GMC content" + token, Toast.LENGTH_SHORT).show();
-                } else if (intent.getAction().equals(GCMRegistrationIntentService.REGISTRATION_ERROR)) {
-                    Toast.makeText(getApplicationContext(), "GMC registration error!!!", Toast.LENGTH_SHORT).show();
+        mFirebaseRemoteConfig.fetch(cacheExpiration)
+                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            mFirebaseRemoteConfig.activateFetched();
+                        } else {
 
-                } else {
-                    //tobedefined
+                        }
+                        welcomeMessage = mFirebaseRemoteConfig.getString(application_offline_message);
+                        isAppOffline = mFirebaseRemoteConfig.getBoolean(gasolina_offline);
+                        if (isAppOffline) {
+                            new AlertDialog.Builder(MainActivity.this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Atención").setMessage(welcomeMessage).setPositiveButton(
+                                    "Ok", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
 
-                }
-            }
-        };*/
-        //create tabs
+                                            dialog.dismiss();
+                                            finish();
+                                        }
+                                    }).show();
 
-        //end create tabs
+                        }
+                        customMjs = mFirebaseRemoteConfig.getString(gasolina_custom_message);
+                        if(!customMjs.isEmpty()) {
+                            new AlertDialog.Builder(MainActivity.this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Atención").setMessage(customMjs).setPositiveButton(
+                                    "Ok", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
 
+                                            dialog.dismiss();
+                                        }
+                                    }).show();
+                        }
 
-        //Check status on google service
-       /*int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(getApplicationContext());
-        if (ConnectionResult.SUCCESS != resultCode) {
-            if (GooglePlayServicesUtil.isUserRecoverableError(resultCode)) {
-                Toast.makeText(getApplicationContext(), "Google Play Sevice is not install/enabled in this device!", Toast.LENGTH_SHORT).show();
-                // so notification.
-                GooglePlayServicesUtil.showErrorNotification(resultCode, getApplicationContext());
-            } else {
-                Toast.makeText(getApplicationContext(), "this device does not support for Google play Service!", Toast.LENGTH_SHORT).show();
-            }
-        } else {
-            Intent intent = new Intent(this, GCMRegistrationIntentService.class);
-            startService(intent);
-        }*/
-        //end status google service
+                    }
+                });
         //pop up de inicio
         mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-        //mPrefs.edit().clear().commit();
         final Activity activity = this;
-
         //Entendido
         final Boolean welcomeScreen1 = mPrefs.getBoolean("entendido", false);
         if (!welcomeScreen1) {
@@ -249,11 +263,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        Log.d("resumming","step1");
         if (getIntent().getExtras() != null) {
             Bundle b = getIntent().getExtras();
             boolean cameFromNotification = b.getBoolean("fromNotification",false);
             String alertMsj = b.getString("messageAlert");
-            if (cameFromNotification) {
+            Log.d("resumming","step2"+cameFromNotification);
+            Log.d("resumming","step3"+alertMsj);
+            if (cameFromNotification==true) {
                 new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Precio Gasolina").setMessage(alertMsj).setPositiveButton(
                         R.string.ok, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {

@@ -40,25 +40,25 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         // Check if message contains a notification payload.
         if (remoteMessage.getNotification() != null) {
 
-            Intent intent = new Intent(this, MainActivity.class);
-            intent.putExtra("fromNotification", true);
-            intent.putExtra("messageAlert", remoteMessage.getNotification().getBody());
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            int requestCode = 0;
-            PendingIntent pendingIntent = PendingIntent.getActivity(this, requestCode, intent, PendingIntent.FLAG_ONE_SHOT);
-            Uri sound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-            NotificationCompat.Builder noBuilder = new NotificationCompat.Builder(this)
-                    .setSmallIcon(R.mipmap.ic_launcher)
-                    .setContentTitle("Gasolina Mexico")
-                    .setContentText(remoteMessage.getNotification().getBody())
-                    .setAutoCancel(true)
-                    .setContentIntent(pendingIntent)
-                    .setSound(sound)
-                    .setPriority(Notification.PRIORITY_HIGH)
-                    .setStyle(new NotificationCompat.BigTextStyle()
-                            .bigText(remoteMessage.getNotification().getBody()));
-            NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
-            notificationManager.notify(0, noBuilder.build());
+           Intent intent = new Intent(this, MainActivity.class);
+           intent.putExtra("fromNotification", true);
+           intent.putExtra("messageAlert", remoteMessage.getNotification().getBody());
+           intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+           int requestCode = 0;
+           PendingIntent pendingIntent = PendingIntent.getActivity(this, requestCode, intent, PendingIntent.FLAG_ONE_SHOT);
+           Uri sound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+           NotificationCompat.Builder noBuilder = new NotificationCompat.Builder(this)
+                           .setSmallIcon(R.mipmap.ic_launcher)
+                           .setContentTitle("Gasolina Mexico")
+                           .setContentText(remoteMessage.getNotification().getBody())
+                           .setAutoCancel(true)
+                           .setContentIntent(pendingIntent)
+                           .setSound(sound)
+                           .setPriority(Notification.PRIORITY_HIGH)
+                           .setStyle(new NotificationCompat.BigTextStyle()
+                                   .bigText(remoteMessage.getNotification().getBody()));
+           NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+           notificationManager.notify(0, noBuilder.build());
         }
 
 
