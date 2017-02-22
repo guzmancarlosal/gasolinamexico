@@ -25,7 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         ads:adUnitId="@string/banner_ad_unit_id_graph"
-        ads:adSize="BANNER"
+        ads:adSize="FLUID"
         android:layout_below="@+id/chart"/>
 
 

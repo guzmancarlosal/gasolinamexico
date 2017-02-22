@@ -6,7 +6,7 @@
     <string name="lb_loading">Loading...</string>
       <string name="lb_settings">Configuration</string>
     <string name="pref_widget_label">Widget</string>
-    <string name="pref_widget_key" translatable="false">Magna</string>
+    <string name="pref_widget_key">Magna</string>
 
     <string name="pref_units_key">Magna</string>
     <string name="pref_magna_label_">Magna</string>
@@ -45,7 +45,7 @@
     <string name="aviso">The Gasoline prices are provided by  Secretaria De Energia web page, we are not responsible if those are not applied in your zone</string>
     <string name="entendido">Got it</string>
 
-    <string name="evaluanos">Are you enjoying our app? Would you like to evaluate it?</string>
+
     <string name="si">Yes</string>
     <string name="Luego">Later</string>
     <string name="gracias">Thank you for using our app</string>
@@ -53,4 +53,8 @@
 
     <string name="topbarText">Region: Mexico</string>
     <string name="lb_configRegion">Change region</string>
+    <string name="lb_aboutus">About us</string>
+    <string name="aviso_title">Notice</string>
+
+    <string name="lbchartguidance">From Jan 2017, we are showing only average price per month</string>
 </resources>

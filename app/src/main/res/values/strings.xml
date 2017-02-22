@@ -4,16 +4,17 @@
     <string name="lb_mas">más..</string>
     <string name="title_activity_detail">DetailActivity</string>
     <string name="lb_loading">Cargando...</string>
-    <!--  <string name="banner_ad_unit_id_main">ca-app-pub-3403038737253823/1270974994</string>
-    <string name="banner_ad_unit_id_graph">ca-app-pub-3403038737253823/2747708196</string>
-    <string name="banner_ad_unit_id_graph2">ca-app-pub-3403038737253823/6957360992</string>
-     those are the test id-->
-    <string name="banner_ad_unit_id_main">ca-app-pub-3940256099942544/6300978111</string>
-    <string name="banner_ad_unit_id_graph">ca-app-pub-3940256099942544/6300978111</string>
-    <string name="banner_ad_unit_id_graph2">ca-app-pub-3940256099942544/6300978111</string>
+      <string name="banner_ad_unit_id_main"  translatable="false">ca-app-pub-3403038737253823/1270974994</string>
+    <string name="banner_ad_unit_id_graph"  translatable="false">ca-app-pub-3403038737253823/2747708196</string>
+    <string name="banner_ad_unit_id_graph2"  translatable="false">ca-app-pub-3403038737253823/6957360992</string>
+    <!--those are the test id
+   <string name="banner_ad_unit_id_main">ca-app-pub-3940256099942544/6300978111</string>
+   <string name="banner_ad_unit_id_graph">ca-app-pub-3940256099942544/6300978111</string>
+   <string name="banner_ad_unit_id_graph2">ca-app-pub-3940256099942544/6300978111</string>
+   <string name="banner_ad_inter">ca-app-pub-3940256099942544/1033173712</string>-->
     <string name="lb_settings">Configuración</string>
     <string name="pref_widget_label">Widget</string>
-    <string name="pref_widget_key" translatable="false">Magna</string>
+    <string name="pref_widget_key">Magna</string>
 
     <string name="pref_units_key">Magna</string>
     <string name="pref_magna_label_">Magna</string>
@@ -44,7 +45,7 @@
     <string name="lb_precio">Precio</string>
     <string name="pref_guidewidget">Consulta el manual de tu teléfono para ver como agregar widgets a tu escritorio</string>
     <string name="whatsNewTitle">Por favor Selecciona tu Estado</string>
-    <string name="ok">Guardar</string>
+    <string name="ok">Ok</string>
 
     <!--dialogo-->
 
@@ -52,7 +53,7 @@
     <string name="selectMunicipio">Selecciona tu Municipio:</string>
 
     <string name="aviso_title">Aviso</string>
-    <string name="aviso">Los Precios Mostrados son los proporcionados en la página de la Secretaria De Energia, no nos hacemos responsables de la no aplicación de los precios en tu zona</string>
+    <string name="aviso">Los Precios Mostrados son los proporcionados en la página de la Secretaria De Energía, no nos hacemos responsables de la NO aplicación de los precios en tu zona</string>
     <string name="entendido">Entendido</string>
 
     <string name="si">Si</string>
@@ -64,5 +65,5 @@
     <string name="lb_configRegion">Cambia tu región</string>
 
     <string name="lbchartguidance">A partir de Enero del 2017, estamos mostrando el precio promedio de todo el país</string>
-
+    <string name="lb_aboutus">Quiénes somos</string>
 </resources>

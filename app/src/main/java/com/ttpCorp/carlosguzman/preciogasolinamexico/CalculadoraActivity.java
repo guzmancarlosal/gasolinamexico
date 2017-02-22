@@ -168,6 +168,7 @@ public class CalculadoraActivity  extends Fragment {
             }
         });
         //Create AD :D
+
         mAdView = (AdView) rootView.findViewById(R.id.adViewCalc2);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);

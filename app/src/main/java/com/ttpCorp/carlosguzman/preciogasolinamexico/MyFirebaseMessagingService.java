@@ -12,6 +12,8 @@ import android.support.v4.app.NotificationCompat;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
+import java.util.Random;
+
 /**
  * Created by 501820531 on 2/16/2017.
  */
@@ -38,28 +40,33 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         }
 
         // Check if message contains a notification payload.
-        if (remoteMessage.getNotification() != null) {
+        //if (remoteMessage.getNotification() != null) {
 
-           Intent intent = new Intent(this, MainActivity.class);
-           intent.putExtra("fromNotification", true);
-           intent.putExtra("messageAlert", remoteMessage.getNotification().getBody());
-           intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-           int requestCode = 0;
-           PendingIntent pendingIntent = PendingIntent.getActivity(this, requestCode, intent, PendingIntent.FLAG_ONE_SHOT);
-           Uri sound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-           NotificationCompat.Builder noBuilder = new NotificationCompat.Builder(this)
-                           .setSmallIcon(R.mipmap.ic_launcher)
-                           .setContentTitle("Gasolina Mexico")
-                           .setContentText(remoteMessage.getNotification().getBody())
-                           .setAutoCancel(true)
-                           .setContentIntent(pendingIntent)
-                           .setSound(sound)
-                           .setPriority(Notification.PRIORITY_HIGH)
-                           .setStyle(new NotificationCompat.BigTextStyle()
-                                   .bigText(remoteMessage.getNotification().getBody()));
-           NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
-           notificationManager.notify(0, noBuilder.build());
-        }
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.putExtra("fromNotification", true);
+            intent.putExtra("messageAlert", remoteMessage.getNotification().getBody());
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            int requestCode = 0;
+            PendingIntent pendingIntent = PendingIntent.getActivity(this, requestCode, intent, PendingIntent.FLAG_ONE_SHOT);
+            Uri sound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+            NotificationCompat.Builder noBuilder = new NotificationCompat.Builder(this)
+                            .setSmallIcon(R.mipmap.ic_launcher)
+                            .setContentTitle("Gasolina Mexico")
+                            .setContentText(remoteMessage.getNotification().getBody())
+                            .setAutoCancel(true)
+                            .setContentIntent(pendingIntent)
+                            .setSound(sound)
+                            .setPriority(Notification.PRIORITY_HIGH)
+                            .setStyle(new NotificationCompat.BigTextStyle()
+                                    .bigText(remoteMessage.getNotification().getBody()));
+            NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+            Random r = new Random();
+            int Low = 1;
+            int High = 1000;
+            int Result = r.nextInt(High-Low) + Low;
+            //Log.d("logonrecive","result"+Result);
+            notificationManager.notify(Result, noBuilder.build());
+        //}
 
 
         // Also if you intend on generating your own notifications as a result of a received FCM

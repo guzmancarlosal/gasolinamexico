@@ -13,7 +13,6 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
-import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -265,20 +264,18 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         Log.d("resumming","step1");
         if (getIntent().getExtras() != null) {
-            Bundle b = getIntent().getExtras();
-            boolean cameFromNotification = b.getBoolean("fromNotification",false);
-            String alertMsj = b.getString("messageAlert");
-            Log.d("resumming","step2"+cameFromNotification);
-            Log.d("resumming","step3"+alertMsj);
-            if (cameFromNotification==true) {
-                new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Precio Gasolina").setMessage(alertMsj).setPositiveButton(
-                        R.string.ok, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        }).show();
-            }
-        }
+           Bundle b = getIntent().getExtras();
+           boolean cameFromNotification = b.getBoolean("fromNotification",false);
+           String alertMsj = b.getString("messageAlert");
+           if (cameFromNotification) {
+                   new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Precio Gasolina").setMessage(alertMsj).setPositiveButton(
+                                   R.string.ok, new DialogInterface.OnClickListener() {
+                                           public void onClick(DialogInterface dialog, int which) {
+                                                   dialog.dismiss();
+                                               }
+                                       }).show();
+               }
+           }
 
     }
 
@@ -286,7 +283,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         Log.w("MainActivity", "onPause");
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(mRegistrationBroadcastReceiver);
+
     }
 
     @Override
@@ -305,6 +302,11 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.action_region) {
             //Toast.makeText(MainActivity.this, "Selected", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(this, confRegion.class));
+            return true;
+        }
+        if (id == R.id.action_aboutus) {
+
+            MainActivity.this.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://XikmaApps.com")));
             return true;
         }
 
