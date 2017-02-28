@@ -4,14 +4,16 @@
     <string name="lb_mas">más..</string>
     <string name="title_activity_detail">DetailActivity</string>
     <string name="lb_loading">Cargando...</string>
-      <string name="banner_ad_unit_id_main"  translatable="false">ca-app-pub-3403038737253823/1270974994</string>
+    <!-- <string name="banner_ad_unit_id_main"  translatable="false">ca-app-pub-3403038737253823/1270974994</string>
     <string name="banner_ad_unit_id_graph"  translatable="false">ca-app-pub-3403038737253823/2747708196</string>
     <string name="banner_ad_unit_id_graph2"  translatable="false">ca-app-pub-3403038737253823/6957360992</string>
-    <!--those are the test id
-   <string name="banner_ad_unit_id_main">ca-app-pub-3940256099942544/6300978111</string>
-   <string name="banner_ad_unit_id_graph">ca-app-pub-3940256099942544/6300978111</string>
-   <string name="banner_ad_unit_id_graph2">ca-app-pub-3940256099942544/6300978111</string>
-   <string name="banner_ad_inter">ca-app-pub-3940256099942544/1033173712</string>-->
+    <string name="banner_ad_unit_id_calc"  translatable="false">ca-app-pub-3403038737253823/4019355394</string>
+    <!-se are the test id-->
+    <string name="banner_ad_unit_id_main">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="banner_ad_unit_id_graph">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="banner_ad_unit_id_graph2">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="banner_ad_inter">ca-app-pub-3940256099942544/1033173712</string>
+    <string name="banner_ad_unit_id_calc"  translatable="false">ca-app-pub-3940256099942544/1033173712</string>
     <string name="lb_settings">Configuración</string>
     <string name="pref_widget_label">Widget</string>
     <string name="pref_widget_key">Magna</string>
@@ -66,4 +68,6 @@
 
     <string name="lbchartguidance">A partir de Enero del 2017, estamos mostrando el precio promedio de todo el país</string>
     <string name="lb_aboutus">Quiénes somos</string>
+    <string name="lb_MunSelect">Por disposición oficial sólo se publican los municipios con más de dos gasolineras</string>
+    <string name="lb_compartir">Compartir</string>
 </resources>

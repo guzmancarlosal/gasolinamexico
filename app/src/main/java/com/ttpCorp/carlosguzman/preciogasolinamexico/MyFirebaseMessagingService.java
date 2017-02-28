@@ -1,6 +1,5 @@
 package com.ttpCorp.carlosguzman.preciogasolinamexico;
 
-import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -11,8 +10,6 @@ import android.support.v4.app.NotificationCompat;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
-
-import java.util.Random;
 
 /**
  * Created by 501820531 on 2/16/2017.
@@ -31,8 +28,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     public void onMessageReceived(RemoteMessage remoteMessage) {
         // TODO(developer): Handle FCM messages here.
         // Not getting messages here? See why this may be: https://goo.gl/39bRNJ
-
-
+        super.onMessageReceived(remoteMessage);
+        sendNotification( remoteMessage.getNotification().getBody());
         // Check if message contains a data payload.
         if (remoteMessage.getData().size() > 0) {
 
@@ -42,30 +39,23 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         // Check if message contains a notification payload.
         //if (remoteMessage.getNotification() != null) {
 
-            Intent intent = new Intent(this, MainActivity.class);
+            Intent intent = new Intent(MyFirebaseMessagingService.this, MainActivity.class);
             intent.putExtra("fromNotification", true);
             intent.putExtra("messageAlert", remoteMessage.getNotification().getBody());
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            int requestCode = 0;
-            PendingIntent pendingIntent = PendingIntent.getActivity(this, requestCode, intent, PendingIntent.FLAG_ONE_SHOT);
+            PendingIntent pendingIntent = PendingIntent.getActivity(MyFirebaseMessagingService.this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
+
             Uri sound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-            NotificationCompat.Builder noBuilder = new NotificationCompat.Builder(this)
-                            .setSmallIcon(R.mipmap.ic_launcher)
-                            .setContentTitle("Gasolina Mexico")
-                            .setContentText(remoteMessage.getNotification().getBody())
-                            .setAutoCancel(true)
-                            .setContentIntent(pendingIntent)
-                            .setSound(sound)
-                            .setPriority(Notification.PRIORITY_HIGH)
-                            .setStyle(new NotificationCompat.BigTextStyle()
-                                    .bigText(remoteMessage.getNotification().getBody()));
-            NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
-            Random r = new Random();
-            int Low = 1;
-            int High = 1000;
-            int Result = r.nextInt(High-Low) + Low;
-            //Log.d("logonrecive","result"+Result);
-            notificationManager.notify(Result, noBuilder.build());
+            NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this)
+                .setSmallIcon(R.drawable.ic_on)
+                .setContentTitle("Gasolina Mexico")
+                .setContentText(remoteMessage.getNotification().getBody())
+                .setAutoCancel(true)
+                .setSound(sound)
+                .setContentIntent(pendingIntent);
+
+        NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.notify(1, mBuilder.build());
+
         //}
 
 
@@ -80,23 +70,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
      * @param messageBody FCM message body received.
      */
     private void sendNotification(String messageBody) {
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
-                PendingIntent.FLAG_ONE_SHOT);
 
-        Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
-                //.setSmallIcon(R.drawable.ic_stat_ic_notification)
-                .setContentTitle("Precio Gasolina")
-                .setContentText(messageBody)
-                .setAutoCancel(true)
-                .setSound(defaultSoundUri)
-                .setContentIntent(pendingIntent);
-
-        NotificationManager notificationManager =
-                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-
-        notificationManager.notify(0 /* ID of notification */, notificationBuilder.build());
     }
+
 }

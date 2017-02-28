@@ -160,6 +160,23 @@ public class MainActivity extends AppCompatActivity {
             ).show();
         }//fin entendido
         //evaluanos Fin
+        Bundle bundle=getIntent().getExtras();
+        if (bundle != null) {
+            String alertMsj = bundle.getString("custom");
+            if (!alertMsj.isEmpty()){
+                new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Precio Gasolina").setMessage(alertMsj).setPositiveButton(
+                    R.string.ok, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    }).show();
+            }
+
+        }
+
+
+
+
 
         //Preparing views
         final String getRegion = "getReg";
@@ -204,7 +221,7 @@ public class MainActivity extends AppCompatActivity {
                             editor.putBoolean(getLoc, true);
                             editor.putString("myReg", savedRegion);
                             TextView tv = (TextView)findViewById(R.id.title_Tag);
-                            tv.setText("Region: "+savedRegion);
+                            tv.setText("Región: "+savedRegion);
                             editor.commit();
                             //Log.d("savedPref", "savedPref Municipio." +savedRegion );
                             viewPager = (ViewPager) findViewById(R.id.viewpager);
@@ -262,8 +279,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Log.d("resumming","step1");
-        if (getIntent().getExtras() != null) {
+        Intent fcmIntent = getIntent();
+        //Log.d("resumming","step1");
+        if (fcmIntent.getExtras() != null) {
            Bundle b = getIntent().getExtras();
            boolean cameFromNotification = b.getBoolean("fromNotification",false);
            String alertMsj = b.getString("messageAlert");
@@ -276,9 +294,32 @@ public class MainActivity extends AppCompatActivity {
                                        }).show();
                }
            }
+        getIntent().removeExtra("messageAlert");
+        getIntent().removeExtra("fromNotification");
 
     }
+    @Override
+    protected void onNewIntent(Intent intent)   {
+        super.onNewIntent(intent);
+        Intent fcmIntent = getIntent();
+        Log.d("resumming","step1");
+        if (fcmIntent.getExtras() != null) {
+            Bundle b = getIntent().getExtras();
+            boolean cameFromNotification = b.getBoolean("fromNotification",false);
+            String alertMsj = b.getString("messageAlert");
+            if (cameFromNotification) {
+                new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Precio Gasolina").setMessage(alertMsj).setPositiveButton(
+                        R.string.ok, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        }).show();
+            }
+        }
+        getIntent().removeExtra("messageAlert");
+        getIntent().removeExtra("fromNotification");
 
+    }
     @Override
     protected void onPause() {
         super.onPause();
