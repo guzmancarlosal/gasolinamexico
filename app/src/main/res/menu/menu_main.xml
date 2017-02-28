@@ -18,11 +18,11 @@
         android:orderInCategory="100"
         android:title="@string/lb_aboutus"
         app:showAsAction="never" />
-    <item
+    <!--TODO: agregar Share button<item
         android:id="@+id/menu_item_share"
         app:showAsAction="ifRoom"
         android:title="@string/lb_compartir"
         app:actionProviderClass=
-            "android.support.v7.widget.ShareActionProvider" />
+            "android.support.v7.widget.ShareActionProvider" />-->
 
 </menu>
