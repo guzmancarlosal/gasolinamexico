@@ -163,7 +163,7 @@ public class MainActivity extends AppCompatActivity {
         Bundle bundle=getIntent().getExtras();
         if (bundle != null) {
             String alertMsj = bundle.getString("custom");
-            if (!alertMsj.isEmpty()){
+            if (alertMsj!= null){
                 new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Precio Gasolina").setMessage(alertMsj).setPositiveButton(
                     R.string.ok, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {

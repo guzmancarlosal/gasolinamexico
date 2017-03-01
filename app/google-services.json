@@ -39,9 +39,9 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:516001872567:android:4438868036bd3789",
+        "mobilesdk_app_id": "1:516001872567:android:dac168dd23145620",
         "android_client_info": {
-          "package_name": "com.ttpCorp.carlosguzman.preciogasolinamexico"
+          "package_name": "com.ttpCorp.carlosguzman.gasolinamexico"
         }
       },
       "oauth_client": [
