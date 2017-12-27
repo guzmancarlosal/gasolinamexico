@@ -40,7 +40,7 @@ import java.util.Date;
  */
 public class CalculadoraActivity  extends Fragment {
     private AdView mAdView;
-    private AdView mAdView2;
+
     Spinner spinner;
     Spinner spinner1;
     private EditText number_cant ;

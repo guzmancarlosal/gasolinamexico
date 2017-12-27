@@ -3,14 +3,15 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+    buildToolsVersion '25.0.0'
 
     defaultConfig {
         applicationId "com.ttpCorp.carlosguzman.gasolinamexico"
         minSdkVersion 10
         targetSdkVersion 23
-        versionCode 12
-        versionName "Nuevo Icono"
+        versionCode 13
+        versionName "Firebase1"
+        vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
         release {
@@ -23,13 +24,15 @@ repositories {
     maven { url "https://jitpack.io" }
 }
 dependencies {
+
+
     compile 'com.android.support:appcompat-v7:23.0.1'
     compile 'com.android.support:design:23.0.1'
-
     compile 'com.github.PhilJay:MPAndroidChart:v2.1.6'
     compile 'com.google.firebase:firebase-core:10.0.1'
     compile 'com.google.firebase:firebase-messaging:10.0.1'
     compile 'com.google.firebase:firebase-ads:10.0.1'
     compile 'com.google.firebase:firebase-config:10.0.1'
+    compile 'com.android.support:support-vector-drawable:23.4.0'
 }
 apply plugin: 'com.google.gms.google-services'

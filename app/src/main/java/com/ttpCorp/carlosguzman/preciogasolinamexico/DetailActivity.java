@@ -108,7 +108,7 @@ public class DetailActivity extends ActionBarActivity {
                     String thisYear = Integer.toString(year);
                     String forecastJsonStr = null;
                     String thisurl = "http://areliablewindowcleaning.com/gasolina/gasPrice.php?mode=chart&y=" +thisYear +"&m="+thisMonth+"&gasolina="+forecastStr;
-                    //Log.d(LOG_TAG, "carlos test Error on url stream"+thisurl);
+                    Log.d(LOG_TAG, "carlos test Error on url stream"+thisurl);
                     try {
                         URL url = new URL(thisurl.toString());
                         urlConnection = (HttpURLConnection) url.openConnection();

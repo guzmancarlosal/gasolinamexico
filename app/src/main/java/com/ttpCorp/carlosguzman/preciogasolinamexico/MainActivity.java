@@ -12,6 +12,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
@@ -32,7 +34,9 @@ import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -41,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private ViewPager viewPager;
     SharedPreferences mPrefs;
+    SharedPreferences prefs;
     public int munIDs [] = new int[50];
     private FirebaseRemoteConfig mFirebaseRemoteConfig;
     private static final String application_offline_message = "gasolina_offline_message";
@@ -66,6 +71,12 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         toolbar.setSubtitle(formattedDate);
         toolbar.setLogo(R.mipmap.ic_launcher);
+        mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        prefs= this.getSharedPreferences("Favoritos", 0);
+        final Activity activity = this;
+        final String all_vals =prefs.getString("Favoritos", "");
+        final List<String> list = Arrays.asList(all_vals.split(","));
+        final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         //get my Firebaseconnection
         mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
         FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder()
@@ -110,8 +121,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
         //pop up de inicio
-        mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-        final Activity activity = this;
+
         //Entendido
         final Boolean welcomeScreen1 = mPrefs.getBoolean("entendido", false);
         if (!welcomeScreen1) {
@@ -160,19 +170,7 @@ public class MainActivity extends AppCompatActivity {
             ).show();
         }//fin entendido
         //evaluanos Fin
-        Bundle bundle=getIntent().getExtras();
-        if (bundle != null) {
-            String alertMsj = bundle.getString("custom");
-            if (alertMsj!= null){
-                new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Precio Gasolina").setMessage(alertMsj).setPositiveButton(
-                    R.string.ok, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    }).show();
-            }
 
-        }
 
 
 
@@ -215,7 +213,7 @@ public class MainActivity extends AppCompatActivity {
                         public void onClick(DialogInterface dialog2, int which) {
 
                             SharedPreferences.Editor editor = mPrefs.edit();
-                            String savedRegion = municipioBox.getSelectedItem().toString();
+                            final String savedRegion = municipioBox.getSelectedItem().toString();
                             String regionID = getEntityID(savedRegion);
                             editor.putString(getRegion, regionID);
                             editor.putBoolean(getLoc, true);
@@ -229,6 +227,25 @@ public class MainActivity extends AppCompatActivity {
                             tabLayout = (TabLayout) findViewById(R.id.tabs);
                             tabLayout.setupWithViewPager(viewPager);
                             setupTabIcons();
+                            Log.d("favoritos2"," hola a Nah"+savedRegion);
+                            Log.d("favoritos3"," hola a Nah"+list);
+                            if (list.contains(savedRegion)) {
+                                fab.setVisibility(View.INVISIBLE);
+                            } else{
+                                fab.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        if (addLike(savedRegion)) {
+                                            Snackbar.make(view, "Region Agregada a Favoritos", Snackbar.LENGTH_LONG)
+                                                    .setAction("Action", null).show();
+                                            //fab.setImageDrawable(getResources().getDrawable(R.drawable.ic_heartfull));
+                                            fab.setVisibility(View.INVISIBLE);
+                                            saveArray(savedRegion);
+                                        }
+
+                                    }
+                                });
+                            }
                         }
                     });
                     AlertDialog dialog2 = builder2.create();
@@ -240,18 +257,43 @@ public class MainActivity extends AppCompatActivity {
             AlertDialog dialog = builder.create();
             dialog.show();
         } else{
+
+
             viewPager = (ViewPager) findViewById(R.id.viewpager);
             setupViewPager(viewPager);
             tabLayout = (TabLayout) findViewById(R.id.tabs);
             tabLayout.setupWithViewPager(viewPager);
             setupTabIcons();
+
             if(myRegion != "") {
+                SharedPreferences.Editor editor = mPrefs.edit();
                 TextView tv = (TextView)findViewById(R.id.title_Tag);
                 tv.setText("Region: "+myRegion);
+                editor.putString("myReg", myRegion);
+                editor.commit();
             }
 
         }
         //fin del popup
+        Log.d("favoritos2"," hola a toods"+myRegion);
+        Log.d("favoritos3"," hola a toods"+list);
+        if (list.contains(myRegion)) {
+            fab.setVisibility(View.INVISIBLE);
+        } else{
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (addLike(myRegion)) {
+                        Snackbar.make(view, "Region Agregada a Favoritos", Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
+                        //fab.setImageDrawable(getResources().getDrawable(R.drawable.ic_heartfull));
+                        fab.setVisibility(View.INVISIBLE);
+                        saveArray(myRegion);
+                    }
+
+                }
+            });
+        }
 
     }
     public String getEntityID(String edo) {
@@ -380,14 +422,15 @@ public class MainActivity extends AppCompatActivity {
         bundle.putString("zone", "mexico");
         firstTab.setArguments(bundle);
 
-       /* MainActivityFragment secondTab = new MainActivityFragment();
+        fav.DetailFragment secondTab = new fav.DetailFragment();
         Bundle bundle2 = new Bundle();
-        bundle2.putString("zone", "frontera");
-        secondTab.setArguments(bundle2);*/
+        bundle2.putString("EXTRA_TITLE", "favoritos");
+        secondTab.setArguments(bundle2);
+
 
 
         adapter.addFragment(firstTab, getResources().getString(R.string.lb_precio));
-        //adapter.addFragment(secondTab, "Frontera");
+        adapter.addFragment(secondTab, "Favoritos");
         adapter.addFragment(new CalculadoraActivity(), getResources().getString(R.string.lb_calculadora));
         viewPager.setAdapter(adapter);
     }
@@ -395,5 +438,29 @@ public class MainActivity extends AppCompatActivity {
         /*TextView tabThree = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
         tabThree.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.caculator, 0, 0);
         tabLayout.getTabAt(2).setCustomView(tabThree);*/
+    }
+    public boolean addLike(String lID){
+        //URL url = new URL(""+lID);
+        //HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+        //new DownloadJSON(this,this.findViewById(android.R.id.content),"addLike").execute(lID);
+        return true;
+    }
+    public boolean saveArray(String id) {
+        Log.d("favoritos","estamos en Saved array"+id);
+        prefs= this.getSharedPreferences("Favoritos", 0);
+        SharedPreferences.Editor editor = prefs.edit();
+        Log.d("favoritos","estamos en Saved array"+prefs.getString("Favoritos", "")+","+id);
+        editor.putString("Favoritos",prefs.getString("Favoritos", "")+","+id);
+        return editor.commit();
+
+
+    }
+    public boolean removeArray(String id) {
+        mPrefs= this.getSharedPreferences("Favoritos", 0);
+        SharedPreferences.Editor editor = mPrefs.edit();
+        String finalpref =  mPrefs.getString("Favoritos", "");
+        finalpref = finalpref.replace(","+id, "");
+        editor.putString("Favoritos",finalpref);
+        return editor.commit();
     }
 }

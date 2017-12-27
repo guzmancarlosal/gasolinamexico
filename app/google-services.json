@@ -46,6 +46,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "516001872567-blnh5f5qjhi0lrhaecqj18pmc4oovsak.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ttpCorp.carlosguzman.gasolinamexico",
+            "certificate_hash": "dd80b7ba1a03dfe7eb48ad1d9e884d7a25e2d76c"
+          }
+        },
+        {
           "client_id": "516001872567-6kjm19vjv4c9s4mo7njnos7d7f6k0prn.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -60,8 +68,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "516001872567-6kjm19vjv4c9s4mo7njnos7d7f6k0prn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2

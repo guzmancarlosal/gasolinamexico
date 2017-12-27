@@ -46,10 +46,12 @@ public class DownloadJSON extends AsyncTask<String, Void, String[]> {
             thisurl = "http://areliablewindowcleaning.com/gasolina/regions.php?mode=getEstados";
         }else if(thisMethod == "getMunicipio") {
             thisurl = "http://areliablewindowcleaning.com/gasolina/regions.php?mode=getMunicipios&estadoID="+params[0];
+        }else if(thisMethod == "getFavoritos") {
+            thisurl = "http://areliablewindowcleaning.com/gasolina/regions.php?mode=getFav&municipioID=1,37";
         }else {
 
         }
-        //Log.d(LOG_TAG, "url "+thisurl+" method "+thisMethod);
+        Log.d(LOG_TAG, "url "+thisurl+" method "+thisMethod);
         try {
             URL url = new URL(thisurl.toString());
             urlConnection = (HttpURLConnection) url.openConnection();
@@ -126,6 +128,7 @@ public class DownloadJSON extends AsyncTask<String, Void, String[]> {
                 //Log.d(LOG_TAG, "idRegion."+id);
 
             }
+        }else if(thisMethod == "getFavoritos") {
         }
         //Log.d(LOG_TAG, "Metodo:"+thisMethod+" Resultado:" + resultStrs);
         for (String s : resultStrs) {
@@ -164,6 +167,7 @@ public class DownloadJSON extends AsyncTask<String, Void, String[]> {
                     final ArrayAdapter<String> instituteApapdter1 =
                             new ArrayAdapter<String>(mActivity, android.R.layout.simple_list_item_1, arrayEntity);
                     autoInstitute1.setAdapter(instituteApapdter1);
+                } else if (thisMethod =="getFavoritos") {
 
                 }
 

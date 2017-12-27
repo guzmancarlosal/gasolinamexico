@@ -1,4 +1,4 @@
-package com.ttpCorp.carlosguzman.gasolinamexico;
+package com.ttpCorp.carlosguzman.preciogasolinamexico;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;
