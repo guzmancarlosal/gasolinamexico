@@ -43,7 +43,7 @@ public class DownloadJSON extends AsyncTask<String, Void, String[]> {
         BufferedReader reader = null;
         String forecastJsonStr = null;
         if (thisMethod == "getEstado") {
-            thisurl = "http://areliablewindowcleaning.com/gasolina/regions.php?mode=getEstados";
+            thisurl = "http://gasolina.webxikma.com/api.cfm?mode=getEstados";
         }else if(thisMethod == "getMunicipio") {
             thisurl = "http://areliablewindowcleaning.com/gasolina/regions.php?mode=getMunicipios&estadoID="+params[0];
         }else if(thisMethod == "getFavoritos") {

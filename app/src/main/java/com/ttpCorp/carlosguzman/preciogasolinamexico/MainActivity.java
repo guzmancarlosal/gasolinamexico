@@ -24,6 +24,8 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.JavascriptInterface;
+import android.webkit.WebView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -59,24 +61,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        if (isInternetAvailable(getApplicationContext())) //returns true if internet available
-        {
-        } else {
-            Toast.makeText(getApplicationContext(), "Necesitas coneccion a Internet", Toast.LENGTH_LONG).show();
-        }
+
         Calendar c = Calendar.getInstance();
         SimpleDateFormat df = new SimpleDateFormat("MMMM-yyyy");
-        String formattedDate = df.format(c.getTime());
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        toolbar.setSubtitle(formattedDate);
-        toolbar.setLogo(R.mipmap.ic_launcher);
+
         mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         prefs= this.getSharedPreferences("Favoritos", 0);
-        final Activity activity = this;
         final String all_vals =prefs.getString("Favoritos", "");
         final List<String> list = Arrays.asList(all_vals.split(","));
-        final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        //final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         //get my Firebaseconnection
         mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
         FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder()
@@ -84,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
                 .build();
         mFirebaseRemoteConfig.setConfigSettings(configSettings);
         long cacheExpiration = 50;
-
+        final Activity activity = this;
         mFirebaseRemoteConfig.fetch(cacheExpiration)
                 .addOnCompleteListener(this, new OnCompleteListener<Void>() {
                     @Override
@@ -102,7 +95,8 @@ public class MainActivity extends AppCompatActivity {
                                         public void onClick(DialogInterface dialog, int which) {
 
                                             dialog.dismiss();
-                                            finish();
+                                            activity.finish();
+                                            System.exit(0);
                                         }
                                     }).show();
 
@@ -147,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
             editor.commit();
         }
 
-        if (!evaluanos && (counterEval % 5) ==0) {
+        if (!evaluanos && (counterEval % 3) ==0) {
             String whatsNewTitle = getResources().getString(R.string.gracias);
             String whatsNewText = getResources().getString(R.string.gracias_text);
             new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle(whatsNewTitle).setMessage(whatsNewText).setPositiveButton(
@@ -171,13 +165,31 @@ public class MainActivity extends AppCompatActivity {
         }//fin entendido
         //evaluanos Fin
 
+        //adding webview
 
+        if (isInternetAvailable(getApplicationContext())) //returns true if internet available
+        {
+            WebView webView = (WebView)findViewById(R.id.web_view);
+            webView.loadUrl("http://gasolina.webxikma.com/precio.cfm");
 
+            webView.getSettings().setJavaScriptEnabled(true);
+            webView.addJavascriptInterface(new WebViewJavaScriptInterface(this), "app");
+        } else {
+            new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Alerta").setMessage("Necesitas Coneccion a Internet").setPositiveButton(
+                    R.string.entendido, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            activity.finish();
+                            System.exit(0);
+                        }
+                    }).show();
+        }
 
+        //this line removes all sharedPreferences.
+        //PreferenceManager.getDefaultSharedPreferences(getBaseContext()).edit().clear().apply();
 
 
         //Preparing views
-        final String getRegion = "getReg";
+        /*final String getRegion = "getReg";
         final String getEstado = "getEst";
         final String getMunicipio = "getMun";
         final String getLoc= "getLocation";
@@ -275,8 +287,7 @@ public class MainActivity extends AppCompatActivity {
 
         }
         //fin del popup
-        Log.d("favoritos2"," hola a toods"+myRegion);
-        Log.d("favoritos3"," hola a toods"+list);
+
         if (list.contains(myRegion)) {
             fab.setVisibility(View.INVISIBLE);
         } else{
@@ -293,8 +304,34 @@ public class MainActivity extends AppCompatActivity {
 
                 }
             });
-        }
+        }*/
 
+    }
+    public class WebViewJavaScriptInterface{
+        private Context context;
+        /*
+         * Need a reference to the context in order to sent a post message
+         */
+        public WebViewJavaScriptInterface(Context context){
+            this.context = context;
+        }
+        /*
+         * This method can be called from Android. @JavascriptInterface
+         * required after SDK version 17.
+         */
+        @JavascriptInterface
+        public void makeToast(String message, boolean lengthLong){
+            Toast.makeText(context, message, (lengthLong ? Toast.LENGTH_LONG : Toast.LENGTH_SHORT)).show();
+        }
+        //FUNCION QUE AGREGA EL ESTADO Y EL MUNICIPIO CUANDO ENTRAS POR PRIMERA VEZ.
+        @JavascriptInterface
+        public void addMyMun(String mun, String edo){
+
+            SharedPreferences.Editor editor = mPrefs.edit();
+            editor.putString("edo", edo);
+            editor.putString("mun", mun);
+            editor.commit();
+        }
     }
     public String getEntityID(String edo) {
 
