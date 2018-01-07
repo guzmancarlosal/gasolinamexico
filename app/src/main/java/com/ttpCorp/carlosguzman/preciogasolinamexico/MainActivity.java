@@ -1,5 +1,7 @@
 package com.ttpCorp.carlosguzman.preciogasolinamexico;
 
+import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -38,7 +40,9 @@ import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -56,12 +60,14 @@ public class MainActivity extends AppCompatActivity {
     public String welcomeMessage;
     public String customMjs;
     public Boolean isAppOffline = true;
+    public WebView webView;
+    public String thisurl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        webView = (WebView)findViewById(R.id.web_view);
         Calendar c = Calendar.getInstance();
         SimpleDateFormat df = new SimpleDateFormat("MMMM-yyyy");
 
@@ -69,6 +75,8 @@ public class MainActivity extends AppCompatActivity {
         prefs= this.getSharedPreferences("Favoritos", 0);
         final String all_vals =prefs.getString("Favoritos", "");
         final List<String> list = Arrays.asList(all_vals.split(","));
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.addJavascriptInterface(new WebViewJavaScriptInterface(this), "app");
         //final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         //get my Firebaseconnection
         mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
@@ -165,15 +173,18 @@ public class MainActivity extends AppCompatActivity {
         }//fin entendido
         //evaluanos Fin
 
-        //adding webview
 
+        //get all shared preferences and check them.
+        /*Map<String,?> keys = mPrefs.getAll();
+
+        for(Map.Entry<String,?> entry : keys.entrySet()){
+            Log.d("DebugGasolina values",entry.getKey() + ": " + entry.getValue().toString());
+        }*/
+        //adding webview
         if (isInternetAvailable(getApplicationContext())) //returns true if internet available
         {
-            WebView webView = (WebView)findViewById(R.id.web_view);
-            webView.loadUrl("http://gasolina.webxikma.com/precio.cfm");
+            loadApp();
 
-            webView.getSettings().setJavaScriptEnabled(true);
-            webView.addJavascriptInterface(new WebViewJavaScriptInterface(this), "app");
         } else {
             new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Alerta").setMessage("Necesitas Coneccion a Internet").setPositiveButton(
                     R.string.entendido, new DialogInterface.OnClickListener() {
@@ -315,23 +326,82 @@ public class MainActivity extends AppCompatActivity {
         public WebViewJavaScriptInterface(Context context){
             this.context = context;
         }
-        /*
-         * This method can be called from Android. @JavascriptInterface
-         * required after SDK version 17.
-         */
+
         @JavascriptInterface
-        public void makeToast(String message, boolean lengthLong){
-            Toast.makeText(context, message, (lengthLong ? Toast.LENGTH_LONG : Toast.LENGTH_SHORT)).show();
+        public void makeToast(String message){
+            Toast.makeText(context, message, Toast.LENGTH_LONG).show();
         }
         //FUNCION QUE AGREGA EL ESTADO Y EL MUNICIPIO CUANDO ENTRAS POR PRIMERA VEZ.
         @JavascriptInterface
         public void addMyMun(String mun, String edo){
 
             SharedPreferences.Editor editor = mPrefs.edit();
-            editor.putString("edo", edo);
-            editor.putString("mun", mun);
+            editor.putString("shared_edoID", edo);
+            editor.putString("shared_munID", mun);
             editor.commit();
+            loadApp();
         }
+        @JavascriptInterface
+        public void clearPreferences(String item){
+            Log.d("DebugGasolina method","used "+item);
+            if (item.equals("edo")) {
+                PreferenceManager.getDefaultSharedPreferences(getBaseContext()).edit().remove("shared_edoID").commit();
+            }else if (item.equals("mun")){
+                PreferenceManager.getDefaultSharedPreferences(getBaseContext()).edit().remove("shared_munID").commit();
+            }else if (item.equals("all")){
+                Log.d("DebugGasolina method","ALL");
+                PreferenceManager.getDefaultSharedPreferences(getBaseContext()).edit().clear().apply();
+            }else{
+                Log.d("DebugGasolina method","no action taken");
+            }
+            Map<String,?> keys = mPrefs.getAll();
+
+            for(Map.Entry<String,?> entry : keys.entrySet()){
+                Log.d("DebugGasolina method",entry.getKey() + ": " + entry.getValue().toString());
+            }
+            loadApp();
+        }
+
+
+
+    }
+
+    public void loadApp() {
+        Log.d("DebugGasolina method","Reloading...0");
+
+        Log.d("DebugGasolina method","Reloading...1");
+        thisurl = "http://gasolina.webxikma.com/precio.cfm";
+        Log.d("DebugGasolina method","Reloading...2");
+        final String nameMun = mPrefs.getString("shared_munID", "");
+        final String nameEdo = mPrefs.getString("shared_edoID", "");
+        Log.d("DebugGasolina method","Reloading...3");
+        if (nameMun != "" && nameEdo != ""){
+            thisurl = thisurl + "?estadoID="+nameEdo+"&municipioID="+nameMun;
+            Log.d("DebugGasolina method","Reloading...3.1");
+        }else{
+            PreferenceManager.getDefaultSharedPreferences(getBaseContext()).edit().remove("shared_munID").commit();
+            PreferenceManager.getDefaultSharedPreferences(getBaseContext()).edit().remove("shared_edoID").commit();
+            Log.d("DebugGasolina method","Reloading...3.2");
+        }
+        Log.d("DebugGasolina method","Reloading...4");
+        Log.d("DebugGasolina method","Reloading...5"+thisurl);
+        webView.post(new Runnable() {
+            @Override
+            public void run() {
+                webviewLoadURL(thisurl);
+            }
+        });
+        Log.d("DebugGasolina method","Reloading...6");
+        Log.d("DebugGasolina method","Done...");
+
+
+    }
+    public void webviewLoadURL(String url) {
+        Log.d("app", "now loading " + url);
+        webView.clearHistory();
+        webView.clearFormData();
+        webView.clearCache(true);
+        webView.loadUrl(url);
     }
     public String getEntityID(String edo) {
 
@@ -471,17 +541,26 @@ public class MainActivity extends AppCompatActivity {
         adapter.addFragment(new CalculadoraActivity(), getResources().getString(R.string.lb_calculadora));
         viewPager.setAdapter(adapter);
     }
-    private void setupTabIcons() {
-        /*TextView tabThree = (TextView) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
-        tabThree.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.caculator, 0, 0);
-        tabLayout.getTabAt(2).setCustomView(tabThree);*/
+    public String getUsername() {
+        AccountManager manager = AccountManager.get(this);
+        Account[] accounts = manager.getAccountsByType("com.google");
+        List<String> possibleEmails = new LinkedList<String>();
+
+        for (Account account : accounts) {
+
+            possibleEmails.add(account.name);
+        }
+
+        if (!possibleEmails.isEmpty() && possibleEmails.get(0) != null) {
+            String email = possibleEmails.get(0);
+            String[] parts = email.split("@");
+
+            if (parts.length > 1)
+                return parts[0];
+        }
+        return null;
     }
-    public boolean addLike(String lID){
-        //URL url = new URL(""+lID);
-        //HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-        //new DownloadJSON(this,this.findViewById(android.R.id.content),"addLike").execute(lID);
-        return true;
-    }
+
     public boolean saveArray(String id) {
         Log.d("favoritos","estamos en Saved array"+id);
         prefs= this.getSharedPreferences("Favoritos", 0);
