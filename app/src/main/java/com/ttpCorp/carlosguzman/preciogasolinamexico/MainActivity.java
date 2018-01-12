@@ -3,35 +3,37 @@ package com.ttpCorp.carlosguzman.preciogasolinamexico;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.design.widget.TabLayout;
+
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
-import android.widget.Spinner;
-import android.widget.TextView;
+import android.webkit.WebViewClient;
 import android.widget.Toast;
 
+
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
@@ -43,12 +45,12 @@ import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 
 public class MainActivity extends AppCompatActivity {
     private BroadcastReceiver mRegistrationBroadcastReceiver;
-    private Toolbar toolbar;
-    private TabLayout tabLayout;
+
     private ViewPager viewPager;
     SharedPreferences mPrefs;
     SharedPreferences prefs;
@@ -62,19 +64,22 @@ public class MainActivity extends AppCompatActivity {
     public Boolean isAppOffline = true;
     public WebView webView;
     public String thisurl;
+    public ProgressDialog progressBar;
+    private AdView mAdView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        webView = (WebView)findViewById(R.id.web_view);
+        webView = (WebView)findViewById(R.id.webview);
         Calendar c = Calendar.getInstance();
         SimpleDateFormat df = new SimpleDateFormat("MMMM-yyyy");
+        mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+        //toolbar.setBackgroundColor((Color.parseColor("#80000000")));
 
         mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-        prefs= this.getSharedPreferences("Favoritos", 0);
-        final String all_vals =prefs.getString("Favoritos", "");
-        final List<String> list = Arrays.asList(all_vals.split(","));
         webView.getSettings().setJavaScriptEnabled(true);
         webView.addJavascriptInterface(new WebViewJavaScriptInterface(this), "app");
         //final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -122,6 +127,7 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                 });
+
         //pop up de inicio
 
         //Entendido
@@ -175,11 +181,11 @@ public class MainActivity extends AppCompatActivity {
 
 
         //get all shared preferences and check them.
-        /*Map<String,?> keys = mPrefs.getAll();
+        Map<String,?> keys = mPrefs.getAll();
 
         for(Map.Entry<String,?> entry : keys.entrySet()){
             Log.d("DebugGasolina values",entry.getKey() + ": " + entry.getValue().toString());
-        }*/
+        }
         //adding webview
         if (isInternetAvailable(getApplicationContext())) //returns true if internet available
         {
@@ -349,55 +355,125 @@ public class MainActivity extends AppCompatActivity {
             }else if (item.equals("mun")){
                 PreferenceManager.getDefaultSharedPreferences(getBaseContext()).edit().remove("shared_munID").commit();
             }else if (item.equals("all")){
-                Log.d("DebugGasolina method","ALL");
+                //Log.d("DebugGasolina method","ALL");
                 PreferenceManager.getDefaultSharedPreferences(getBaseContext()).edit().clear().apply();
             }else{
-                Log.d("DebugGasolina method","no action taken");
+                //Log.d("DebugGasolina method","no action taken");
             }
             Map<String,?> keys = mPrefs.getAll();
 
             for(Map.Entry<String,?> entry : keys.entrySet()){
-                Log.d("DebugGasolina method",entry.getKey() + ": " + entry.getValue().toString());
+                //Log.d("DebugGasolina method",entry.getKey() + ": " + entry.getValue().toString());
             }
             loadApp();
         }
 
+        @JavascriptInterface
+        public String getUsername() {
 
+            String possibleEmail=null;
+            Account[] accounts = AccountManager.get(getApplicationContext()).getAccounts();
+            //Account[] accounts = accountManager.getAccountsByType("com.google");
+            List<String> possibleEmails = new LinkedList<String>();
+            Pattern emailPattern = Patterns.EMAIL_ADDRESS; // API level 8+
+            for (Account account : accounts) {
+
+                possibleEmails.add(account.name);
+                if (emailPattern.matcher(account.name).matches()) {
+                    possibleEmail = account.name;
+
+                }
+            }
+            if (!possibleEmails.isEmpty() && possibleEmails.get(0) != null) {
+                String email = possibleEmails.get(0);
+                String[] parts = email.split("@");
+                if (parts.length > 1)
+
+                    return parts[0];
+            }
+            return null;
+        }
+        @JavascriptInterface
+        public void saveArray(String id) {
+            Log.d("DebugGasolina","estamos en Saved array"+id);
+            String favList = mPrefs.getString("Favoritos", "0");
+            SharedPreferences.Editor editor = mPrefs.edit();
+            Log.d("DebugGasolina","estamos en Saved array"+favList+","+id);
+            editor.putString("Favoritos",favList+","+id);
+            editor.commit();
+
+
+        }
+        @JavascriptInterface
+        public void removeArray(String id) {
+
+            SharedPreferences.Editor editor = mPrefs.edit();
+            String finalpref =  mPrefs.getString("Favoritos", "");
+            finalpref = finalpref.replace(","+id, "");
+            editor.putString("Favoritos",finalpref);
+            editor.commit();
+        }
 
     }
 
     public void loadApp() {
-        Log.d("DebugGasolina method","Reloading...0");
 
-        Log.d("DebugGasolina method","Reloading...1");
         thisurl = "http://gasolina.webxikma.com/precio.cfm";
-        Log.d("DebugGasolina method","Reloading...2");
+        final android.app.AlertDialog alertDialog = new android.app.AlertDialog.Builder(this).create();
+        progressBar = ProgressDialog.show(this,"Precio Gasolina Mexico", "Cargando...");
         final String nameMun = mPrefs.getString("shared_munID", "");
         final String nameEdo = mPrefs.getString("shared_edoID", "");
-        Log.d("DebugGasolina method","Reloading...3");
+        webView.setWebViewClient(new WebViewClient() {
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                //Log.i(TAG, "Processing webview url click...");
+                view.loadUrl(url);
+                return true;
+            }
+
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                //Log.i(TAG, "Finished loading URL: " +url);
+                if (progressBar.isShowing()) {
+                    progressBar.dismiss();
+                }
+
+            }
+
+            public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
+
+                //Toast.makeText(, "Oh no! " + description, Toast.LENGTH_SHORT).show();
+                alertDialog.setTitle("Error");
+                alertDialog.setMessage(description);
+                alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        return;
+                    }
+                });
+                alertDialog.show();
+            }
+        });
+
         if (nameMun != "" && nameEdo != ""){
             thisurl = thisurl + "?estadoID="+nameEdo+"&municipioID="+nameMun;
-            Log.d("DebugGasolina method","Reloading...3.1");
+
         }else{
             PreferenceManager.getDefaultSharedPreferences(getBaseContext()).edit().remove("shared_munID").commit();
             PreferenceManager.getDefaultSharedPreferences(getBaseContext()).edit().remove("shared_edoID").commit();
             Log.d("DebugGasolina method","Reloading...3.2");
         }
-        Log.d("DebugGasolina method","Reloading...4");
-        Log.d("DebugGasolina method","Reloading...5"+thisurl);
+
         webView.post(new Runnable() {
             @Override
             public void run() {
                 webviewLoadURL(thisurl);
             }
         });
-        Log.d("DebugGasolina method","Reloading...6");
-        Log.d("DebugGasolina method","Done...");
+
 
 
     }
     public void webviewLoadURL(String url) {
-        Log.d("app", "now loading " + url);
+
         webView.clearHistory();
         webView.clearFormData();
         webView.clearCache(true);
@@ -409,10 +485,10 @@ public class MainActivity extends AppCompatActivity {
 
         for (int i=0; i<200;i++) {
             String s = ((MyApplication) this.getApplication()).getRegionesList(i);
-            Log.d("savedPref", "looping: " + s + "pos:"+i);
+            //Log.d("savedPref", "looping: " + s + "pos:"+i);
             if(edo == s ){
                 id =  ((MyApplication) this.getApplication()).getRegionesID(i);
-                Log.d("savedPref", "savedPref Estado ID" + s);
+                //Log.d("savedPref", "savedPref Estado ID" + s);
             }
 
         }
@@ -451,7 +527,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onNewIntent(Intent intent)   {
         super.onNewIntent(intent);
         Intent fcmIntent = getIntent();
-        Log.d("resumming","step1");
+        //Log.d("resumming","step1");
         if (fcmIntent.getExtras() != null) {
             Bundle b = getIntent().getExtras();
             boolean cameFromNotification = b.getBoolean("fromNotification",false);
@@ -483,23 +559,6 @@ public class MainActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            //Toast.makeText(MainActivity.this, "Selected", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(this, confWidget.class));
-            return true;
-        }
-        if (id == R.id.action_region) {
-            //Toast.makeText(MainActivity.this, "Selected", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(this, confRegion.class));
-            return true;
-        }
-        if (id == R.id.action_aboutus) {
-
-            MainActivity.this.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://XikmaApps.com")));
-            return true;
-        }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -508,14 +567,11 @@ public class MainActivity extends AppCompatActivity {
                 context.getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo();
 
         if (info == null) {
-            Log.d("My Activity", "no internet connection");
             return false;
         } else {
             if (info.isConnected()) {
-                Log.d("My Activity", " internet connection available...");
                 return true;
             } else {
-                Log.d("My Activity", " internet connection");
                 return true;
             }
 
@@ -541,42 +597,7 @@ public class MainActivity extends AppCompatActivity {
         adapter.addFragment(new CalculadoraActivity(), getResources().getString(R.string.lb_calculadora));
         viewPager.setAdapter(adapter);
     }
-    public String getUsername() {
-        AccountManager manager = AccountManager.get(this);
-        Account[] accounts = manager.getAccountsByType("com.google");
-        List<String> possibleEmails = new LinkedList<String>();
-
-        for (Account account : accounts) {
-
-            possibleEmails.add(account.name);
-        }
-
-        if (!possibleEmails.isEmpty() && possibleEmails.get(0) != null) {
-            String email = possibleEmails.get(0);
-            String[] parts = email.split("@");
-
-            if (parts.length > 1)
-                return parts[0];
-        }
-        return null;
-    }
-
-    public boolean saveArray(String id) {
-        Log.d("favoritos","estamos en Saved array"+id);
-        prefs= this.getSharedPreferences("Favoritos", 0);
-        SharedPreferences.Editor editor = prefs.edit();
-        Log.d("favoritos","estamos en Saved array"+prefs.getString("Favoritos", "")+","+id);
-        editor.putString("Favoritos",prefs.getString("Favoritos", "")+","+id);
-        return editor.commit();
 
 
-    }
-    public boolean removeArray(String id) {
-        mPrefs= this.getSharedPreferences("Favoritos", 0);
-        SharedPreferences.Editor editor = mPrefs.edit();
-        String finalpref =  mPrefs.getString("Favoritos", "");
-        finalpref = finalpref.replace(","+id, "");
-        editor.putString("Favoritos",finalpref);
-        return editor.commit();
-    }
+
 }
