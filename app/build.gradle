@@ -1,14 +1,14 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
 
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion '25.0.0'
+    compileSdkVersion 33
 
     defaultConfig {
         applicationId "com.ttpCorp.carlosguzman.gasolinamexico"
-        minSdkVersion 10
-        targetSdkVersion 23
+        minSdkVersion 21
+        targetSdkVersion 33
         versionCode 13
         versionName "Firebase1"
         vectorDrawables.useSupportLibrary = true
@@ -19,20 +19,26 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    buildFeatures {
+        buildConfig = true
+    }
+    namespace 'com.ttpCorp.carlosguzman.preciogasolinamexico'
 }
 repositories {
+    google()
+    mavenCentral()
     maven { url "https://jitpack.io" }
 }
 dependencies {
 
 
-    compile 'com.android.support:appcompat-v7:23.0.1'
-    compile 'com.android.support:design:23.0.1'
-    compile 'com.github.PhilJay:MPAndroidChart:v2.1.6'
-    compile 'com.google.firebase:firebase-core:10.0.1'
-    compile 'com.google.firebase:firebase-messaging:10.0.1'
-    compile 'com.google.firebase:firebase-ads:10.0.1'
-    compile 'com.google.firebase:firebase-config:10.0.1'
-    compile 'com.android.support:support-vector-drawable:23.4.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.9.0'
+    implementation 'com.github.PhilJay:MPAndroidChart:v2.1.6'
+    implementation platform('com.google.firebase:firebase-bom:32.7.0') // Existing BoM
+    implementation 'com.google.firebase:firebase-analytics-ktx' // Includes firebase-core
+    implementation 'com.google.firebase:firebase-messaging-ktx'
+    implementation 'com.google.android.gms:play-services-ads:23.0.0'
+    implementation 'com.google.firebase:firebase-config'
+    implementation 'androidx.vectordrawable:vectordrawable:1.1.0'
 }
-apply plugin: 'com.google.gms.google-services'

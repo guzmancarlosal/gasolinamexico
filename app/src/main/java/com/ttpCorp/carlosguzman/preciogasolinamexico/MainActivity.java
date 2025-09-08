@@ -15,11 +15,11 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
@@ -86,19 +86,19 @@ public class MainActivity extends AppCompatActivity {
         //get my Firebaseconnection
         mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
         FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder()
-                .setDeveloperModeEnabled(BuildConfig.DEBUG)
+                .setMinimumFetchIntervalInSeconds(BuildConfig.DEBUG ? 0 : 3600)
                 .build();
-        mFirebaseRemoteConfig.setConfigSettings(configSettings);
-        long cacheExpiration = 50;
+        mFirebaseRemoteConfig.setConfigSettingsAsync(configSettings);
         final Activity activity = this;
-        mFirebaseRemoteConfig.fetch(cacheExpiration)
-                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+        mFirebaseRemoteConfig.fetchAndActivate()
+                .addOnCompleteListener(this, new OnCompleteListener<Boolean>() {
                     @Override
-                    public void onComplete(@NonNull Task<Void> task) {
+                    public void onComplete(@NonNull Task<Boolean> task) {
                         if (task.isSuccessful()) {
-                            mFirebaseRemoteConfig.activateFetched();
+                            boolean updated = task.getResult();
+                            Log.d("FirebaseConfig", "Config params updated: " + updated);
                         } else {
-
+                            Log.d("FirebaseConfig", "Fetch failed");
                         }
                         welcomeMessage = mFirebaseRemoteConfig.getString(application_offline_message);
                         isAppOffline = mFirebaseRemoteConfig.getBoolean(gasolina_offline);
@@ -418,7 +418,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void loadApp() {
 
-        thisurl = "http://gasolina.webxikma.com/precio.cfm";
+        thisurl = "http://45.132.241.215:8888/gasolinamexico/dev/precio.cfm";
         final android.app.AlertDialog alertDialog = new android.app.AlertDialog.Builder(this).create();
         progressBar = ProgressDialog.show(this,"Precio Gasolina Mexico", "Cargando...");
         final String nameMun = mPrefs.getString("shared_munID", "");

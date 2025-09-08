@@ -43,11 +43,11 @@ public class DownloadJSON extends AsyncTask<String, Void, String[]> {
         BufferedReader reader = null;
         String forecastJsonStr = null;
         if (thisMethod == "getEstado") {
-            thisurl = "http://gasolina.webxikma.com/api.cfm?mode=getEstados";
+            thisurl = "http://45.132.241.215:8888/gasolinamexico/dev/api?mode=getEstados";
         }else if(thisMethod == "getMunicipio") {
-            thisurl = "http://areliablewindowcleaning.com/gasolina/regions.php?mode=getMunicipios&estadoID="+params[0];
+            thisurl = "http://45.132.241.215:8888/gasolinamexico/dev/api?mode=getMunicipios&estadoID="+params[0];
         }else if(thisMethod == "getFavoritos") {
-            thisurl = "http://areliablewindowcleaning.com/gasolina/regions.php?mode=getFav&municipioID=1,37";
+            thisurl = "http://45.132.241.215:8888/gasolinamexico/dev/precio.cfm?estadoid=1&municipioid="+params[0];
         }else {
 
         }

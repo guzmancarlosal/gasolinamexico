@@ -4,8 +4,8 @@ package com.ttpCorp.carlosguzman.preciogasolinamexico;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBarActivity;
+import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AppCompatActivity;
 import android.text.format.Time;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -35,7 +35,7 @@ import java.text.DateFormatSymbols;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class DetailActivity extends ActionBarActivity {
+public class DetailActivity extends AppCompatActivity {
     private static final String TAG = "MyActivity";
 
 
