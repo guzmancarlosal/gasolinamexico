@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import androidx.annotation.NonNull;
 
+import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,7 +27,9 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebChromeClient;
 import android.webkit.JavascriptInterface;
+import android.webkit.ConsoleMessage;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
@@ -38,6 +41,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -71,6 +77,17 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+                // You can optionally check the initialization status here
+                // and take actions if needed.
+                // For example, you can start loading ads once initialization is complete.
+            }
+        });
+
+
         webView = (WebView)findViewById(R.id.webview);
         Calendar c = Calendar.getInstance();
         SimpleDateFormat df = new SimpleDateFormat("MMMM-yyyy");
@@ -135,12 +152,20 @@ public class MainActivity extends AppCompatActivity {
         if (!welcomeScreen1) {
             String whatsNewTitle = getResources().getString(R.string.aviso_title);
             String whatsNewText = getResources().getString(R.string.aviso);
-            new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle(whatsNewTitle).setMessage(whatsNewText).setPositiveButton(
-                    R.string.entendido, new DialogInterface.OnClickListener() {
+            AlertDialog dialog  = new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle(whatsNewTitle).setMessage(whatsNewText).setPositiveButton(
+                    "OK", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.dismiss();
                         }
-                    }).show();
+                    }).create();
+            dialog.setOnShowListener(dlg -> {
+                // elige un color que contraste (ej. negro o tu primario)
+                int color = ContextCompat.getColor(this, android.R.color.black);
+                dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(color);
+                // opcional: negativo / neutral si los usas
+                // dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(color);
+            });
+            dialog.show();
             SharedPreferences.Editor editor = mPrefs.edit();
             editor.putBoolean("entendido", true);
             editor.commit(); // Very important to save the preference
@@ -158,7 +183,7 @@ public class MainActivity extends AppCompatActivity {
         if (!evaluanos && (counterEval % 3) ==0) {
             String whatsNewTitle = getResources().getString(R.string.gracias);
             String whatsNewText = getResources().getString(R.string.gracias_text);
-            new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle(whatsNewTitle).setMessage(whatsNewText).setPositiveButton(
+            AlertDialog dialog2 = new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle(whatsNewTitle).setMessage(whatsNewText).setPositiveButton(
                     R.string.si, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             SharedPreferences.Editor editor = mPrefs.edit();
@@ -175,7 +200,15 @@ public class MainActivity extends AppCompatActivity {
                             dialog.dismiss();
                         }
                     }
-            ).show();
+            ).create();
+            dialog2.setOnShowListener(dlg -> {
+                // elige un color que contraste (ej. negro o tu primario)
+                int color = ContextCompat.getColor(this, android.R.color.black);
+                dialog2.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(color);
+                // opcional: negativo / neutral si los usas
+                // dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(color);
+            });
+            dialog2.show();
         }//fin entendido
         //evaluanos Fin
 
@@ -192,13 +225,21 @@ public class MainActivity extends AppCompatActivity {
             loadApp();
 
         } else {
-            new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Alerta").setMessage("Necesitas Coneccion a Internet").setPositiveButton(
+            AlertDialog dialog = new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Alerta").setMessage("Necesitas Coneccion a Internet").setPositiveButton(
                     R.string.entendido, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             activity.finish();
                             System.exit(0);
                         }
-                    }).show();
+                    }).create();
+
+            dialog.setOnShowListener(dlg -> {
+                int color = ContextCompat.getColor(this, android.R.color.black);
+                dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(color);
+
+            });
+
+            dialog.show();
         }
 
         //this line removes all sharedPreferences.
@@ -324,103 +365,47 @@ public class MainActivity extends AppCompatActivity {
         }*/
 
     }
-    public class WebViewJavaScriptInterface{
-        private Context context;
-        /*
-         * Need a reference to the context in order to sent a post message
-         */
-        public WebViewJavaScriptInterface(Context context){
-            this.context = context;
+    public class WebViewJavaScriptInterface {
+        private final Activity activity;
+
+        public WebViewJavaScriptInterface(Activity activity){
+            this.activity = activity;
         }
 
         @JavascriptInterface
-        public void makeToast(String message){
-            Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+        public void loadApp() {
+            activity.runOnUiThread(() -> {
+                try {
+                    // Llama al metodo de tu Activity que refresca el WebView / UI
+                    ((MainActivity) activity).loadApp();
+                } catch (Exception e) {
+                    Log.e("JSI", "loadApp() error", e);
+                }
+            });
         }
-        //FUNCION QUE AGREGA EL ESTADO Y EL MUNICIPIO CUANDO ENTRAS POR PRIMERA VEZ.
+
         @JavascriptInterface
         public void addMyMun(String mun, String edo){
+            Log.d("addMyMun", "addMyMun here " +mun+ " " +edo );
+            try {
+                SharedPreferences.Editor editor = mPrefs.edit();
+                editor.putString("shared_edoID", edo);
+                editor.putString("shared_munID", mun);
+                editor.commit();
+                Log.d("addMyMun", "addMyMun commited " +mun+ " " +edo );
+                // (opcional) ya puedes forzar el refresh desde aquí también:
+                loadApp();
 
-            SharedPreferences.Editor editor = mPrefs.edit();
-            editor.putString("shared_edoID", edo);
-            editor.putString("shared_munID", mun);
-            editor.commit();
-            loadApp();
-        }
-        @JavascriptInterface
-        public void clearPreferences(String item){
-            Log.d("DebugGasolina method","used "+item);
-            if (item.equals("edo")) {
-                PreferenceManager.getDefaultSharedPreferences(getBaseContext()).edit().remove("shared_edoID").commit();
-            }else if (item.equals("mun")){
-                PreferenceManager.getDefaultSharedPreferences(getBaseContext()).edit().remove("shared_munID").commit();
-            }else if (item.equals("all")){
-                //Log.d("DebugGasolina method","ALL");
-                PreferenceManager.getDefaultSharedPreferences(getBaseContext()).edit().clear().apply();
-            }else{
-                //Log.d("DebugGasolina method","no action taken");
+            } catch (Exception e) {
+                Log.e("addMyMun", "addMyMun error", e);
             }
-            Map<String,?> keys = mPrefs.getAll();
-
-            for(Map.Entry<String,?> entry : keys.entrySet()){
-                //Log.d("DebugGasolina method",entry.getKey() + ": " + entry.getValue().toString());
-            }
-            loadApp();
         }
-
-        @JavascriptInterface
-        public String getUsername() {
-
-            String possibleEmail=null;
-            Account[] accounts = AccountManager.get(getApplicationContext()).getAccounts();
-            //Account[] accounts = accountManager.getAccountsByType("com.google");
-            List<String> possibleEmails = new LinkedList<String>();
-            Pattern emailPattern = Patterns.EMAIL_ADDRESS; // API level 8+
-            for (Account account : accounts) {
-
-                possibleEmails.add(account.name);
-                if (emailPattern.matcher(account.name).matches()) {
-                    possibleEmail = account.name;
-
-                }
-            }
-            if (!possibleEmails.isEmpty() && possibleEmails.get(0) != null) {
-                String email = possibleEmails.get(0);
-                String[] parts = email.split("@");
-                if (parts.length > 1)
-
-                    return parts[0];
-            }
-            return null;
-        }
-        @JavascriptInterface
-        public void saveArray(String id) {
-            Log.d("DebugGasolina","estamos en Saved array"+id);
-            String favList = mPrefs.getString("Favoritos", "0");
-            SharedPreferences.Editor editor = mPrefs.edit();
-            Log.d("DebugGasolina","estamos en Saved array"+favList+","+id);
-            editor.putString("Favoritos",favList+","+id);
-            editor.commit();
-
-
-        }
-        @JavascriptInterface
-        public void removeArray(String id) {
-
-            SharedPreferences.Editor editor = mPrefs.edit();
-            String finalpref =  mPrefs.getString("Favoritos", "");
-            finalpref = finalpref.replace(","+id, "");
-            editor.putString("Favoritos",finalpref);
-            editor.commit();
-        }
-
     }
-
     public void loadApp() {
+        thisurl = BuildConfig.BASE_URL + "/precio.cfm";
+        // final android.app.AlertDialog alertDialog = new android.app.AlertDialog.Builder(this).create(); // Removed this line
+        //progressBar = ProgressDialog.show(this,"Precio Gasolina Mexico", "Cargando...");
 
-        thisurl = "http://45.132.241.215:8888/gasolinamexico/dev/precio.cfm";
-        final android.app.AlertDialog alertDialog = new android.app.AlertDialog.Builder(this).create();
-        progressBar = ProgressDialog.show(this,"Precio Gasolina Mexico", "Cargando...");
         final String nameMun = mPrefs.getString("shared_munID", "");
         final String nameEdo = mPrefs.getString("shared_edoID", "");
         webView.setWebViewClient(new WebViewClient() {
@@ -440,16 +425,32 @@ public class MainActivity extends AppCompatActivity {
             }
 
             public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
-
                 //Toast.makeText(, "Oh no! " + description, Toast.LENGTH_SHORT).show();
-                alertDialog.setTitle("Error");
-                alertDialog.setMessage(description);
-                alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        return;
-                    }
-                });
-                alertDialog.show();
+                // Create and show a new AlertDialog on error
+                new AlertDialog.Builder(MainActivity.this)
+                        .setTitle("Error")
+                        .setMessage(description)
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // Simply dismiss the dialog, or add other error handling logic if needed.
+                                dialog.dismiss();
+                            }
+                        })
+                        .show();
+            }
+        });
+        webView.addJavascriptInterface(new WebViewJavaScriptInterface(this), "app");
+        webView.setWebContentsDebuggingEnabled(true);
+        try {
+            webView.getSettings().setJavaScriptEnabled(true);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        webView.setWebChromeClient(new WebChromeClient() {
+            @Override
+            public boolean onConsoleMessage(ConsoleMessage consoleMessage) {
+
+                return true;
             }
         });
 
@@ -505,18 +506,24 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         Intent fcmIntent = getIntent();
-        //Log.d("resumming","step1");
         if (fcmIntent.getExtras() != null) {
            Bundle b = getIntent().getExtras();
            boolean cameFromNotification = b.getBoolean("fromNotification",false);
            String alertMsj = b.getString("messageAlert");
            if (cameFromNotification) {
-                   new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Precio Gasolina").setMessage(alertMsj).setPositiveButton(
+                   AlertDialog dialog = new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Precio Gasolina").setMessage(alertMsj).setPositiveButton(
                                    R.string.ok, new DialogInterface.OnClickListener() {
                                            public void onClick(DialogInterface dialog, int which) {
                                                    dialog.dismiss();
                                                }
-                                       }).show();
+                                       }).create();
+               dialog.setOnShowListener(dlg -> {
+                   int color = ContextCompat.getColor(this, android.R.color.black);
+                   dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(color);
+
+               });
+
+               dialog.show();
                }
            }
         getIntent().removeExtra("messageAlert");
@@ -533,12 +540,19 @@ public class MainActivity extends AppCompatActivity {
             boolean cameFromNotification = b.getBoolean("fromNotification",false);
             String alertMsj = b.getString("messageAlert");
             if (cameFromNotification) {
-                new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Precio Gasolina").setMessage(alertMsj).setPositiveButton(
+                AlertDialog dialog = new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Precio Gasolina").setMessage(alertMsj).setPositiveButton(
                         R.string.ok, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.dismiss();
                             }
                         }).show();
+                dialog.setOnShowListener(dlg -> {
+                    int color = ContextCompat.getColor(this, android.R.color.black);
+                    dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(color);
+                });
+
+                dialog.show();
+
             }
         }
         getIntent().removeExtra("messageAlert");
@@ -572,7 +586,7 @@ public class MainActivity extends AppCompatActivity {
             if (info.isConnected()) {
                 return true;
             } else {
-                return true;
+                return true; // This should likely be false if not connected
             }
 
         }
