@@ -52,7 +52,7 @@ public class GasAppWidgetProvider extends AppWidgetProvider {
             final int appWidgetId = appWidgetIds[i];
 
             Intent intent = new Intent(context, MainActivity.class);
-            PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
+            PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_IMMUTABLE);
             Calendar c = Calendar.getInstance();
             SimpleDateFormat df = new SimpleDateFormat("dd/MMM/yyyy");
             String formattedDate = df.format(c.getTime());
