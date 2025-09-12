@@ -157,15 +157,8 @@ public class MainActivity extends AppCompatActivity {
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.dismiss();
                         }
-                    }).create();
-            dialog.setOnShowListener(dlg -> {
-                // elige un color que contraste (ej. negro o tu primario)
-                int color = ContextCompat.getColor(this, android.R.color.black);
-                dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(color);
-                // opcional: negativo / neutral si los usas
-                // dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(color);
-            });
-            dialog.show();
+                    }).show();
+
             SharedPreferences.Editor editor = mPrefs.edit();
             editor.putBoolean("entendido", true);
             editor.commit(); // Very important to save the preference
@@ -404,7 +397,7 @@ public class MainActivity extends AppCompatActivity {
     public void loadApp() {
         thisurl = BuildConfig.BASE_URL + "/precio.cfm";
         // final android.app.AlertDialog alertDialog = new android.app.AlertDialog.Builder(this).create(); // Removed this line
-        //progressBar = ProgressDialog.show(this,"Precio Gasolina Mexico", "Cargando...");
+        // progressBar = ProgressDialog.show(this,"Precio Gasolina Mexico", "Cargando...");
 
         final String nameMun = mPrefs.getString("shared_munID", "");
         final String nameEdo = mPrefs.getString("shared_edoID", "");
@@ -418,7 +411,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onPageFinished(WebView view, String url) {
                 //Log.i(TAG, "Finished loading URL: " +url);
-                if (progressBar.isShowing()) {
+                if (progressBar != null && progressBar.isShowing()) {
                     progressBar.dismiss();
                 }
 
@@ -511,12 +504,12 @@ public class MainActivity extends AppCompatActivity {
            boolean cameFromNotification = b.getBoolean("fromNotification",false);
            String alertMsj = b.getString("messageAlert");
            if (cameFromNotification) {
-                   AlertDialog dialog = new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Precio Gasolina").setMessage(alertMsj).setPositiveButton(
-                                   R.string.ok, new DialogInterface.OnClickListener() {
-                                           public void onClick(DialogInterface dialog, int which) {
-                                                   dialog.dismiss();
-                                               }
-                                       }).create();
+               AlertDialog dialog = new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Precio Gasolina").setMessage(alertMsj).setPositiveButton(
+                   R.string.ok, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                      dialog.dismiss();
+                                }
+               }).create();
                dialog.setOnShowListener(dlg -> {
                    int color = ContextCompat.getColor(this, android.R.color.black);
                    dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(color);
@@ -545,7 +538,7 @@ public class MainActivity extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.dismiss();
                             }
-                        }).show();
+                        }).create();
                 dialog.setOnShowListener(dlg -> {
                     int color = ContextCompat.getColor(this, android.R.color.black);
                     dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(color);
