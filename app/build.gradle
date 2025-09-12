@@ -3,20 +3,26 @@ apply plugin: 'com.google.gms.google-services'
 
 
 android {
-    compileSdkVersion 33
+    compileSdkVersion 34
 
     defaultConfig {
         applicationId "com.ttpCorp.carlosguzman.gasolinamexico"
         minSdkVersion 21
-        targetSdkVersion 33
-        versionCode 13
-        versionName "Firebase1"
+        targetSdkVersion 35
+        versionCode 19
+        versionName "Android X"
         vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "BASE_URL", "\"http://45.132.241.215:8888/gasolinamexico/dev\""
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "BASE_URL", "\"http://45.132.241.215:8888/gasolinamexico/prod\""
         }
     }
     buildFeatures {
