@@ -42,7 +42,7 @@
     <string name="selectEstado">Select your State:</string>
     <string name="selectMunicipio">Select your County:</string>
 
-    <string name="aviso">The Gasoline prices are provided by  Secretaria De Energia web page, we are not responsible if those are not applied in your zone</string>
+    <string name="aviso">Gasoline prices are provided by  Secretaria De Energia web page, we are not responsible if those are not applied in your zone</string>
     <string name="entendido">Got it</string>
 
 
