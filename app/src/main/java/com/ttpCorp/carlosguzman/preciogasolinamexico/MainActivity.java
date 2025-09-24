@@ -98,6 +98,9 @@ public class MainActivity extends AppCompatActivity {
 
         mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         webView.getSettings().setJavaScriptEnabled(true);
+        Log.d("WebViewSetup", "WebView JavaScript enabled: " + webView.getSettings().getJavaScriptEnabled());
+        webView.getSettings().setDomStorageEnabled(true); // Added this line
+        Log.d("WebViewSetup", "WebView DOM Storage enabled: " + webView.getSettings().getDomStorageEnabled()); // And a log for it
         webView.addJavascriptInterface(new WebViewJavaScriptInterface(this), "app");
         //final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         //get my Firebaseconnection
@@ -123,7 +126,6 @@ public class MainActivity extends AppCompatActivity {
                             new AlertDialog.Builder(MainActivity.this).setIcon(android.R.drawable.ic_dialog_alert).setTitle("Atención").setMessage(welcomeMessage).setPositiveButton(
                                     "Ok", new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int which) {
-
                                             dialog.dismiss();
                                             activity.finish();
                                             System.exit(0);
@@ -147,63 +149,6 @@ public class MainActivity extends AppCompatActivity {
 
         //pop up de inicio
 
-        //Entendido
-        final Boolean welcomeScreen1 = mPrefs.getBoolean("entendido", false);
-        if (!welcomeScreen1) {
-            String whatsNewTitle = getResources().getString(R.string.aviso_title);
-            String whatsNewText = getResources().getString(R.string.aviso);
-            AlertDialog dialog  = new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle(whatsNewTitle).setMessage(whatsNewText).setPositiveButton(
-                    "OK", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    }).show();
-
-            SharedPreferences.Editor editor = mPrefs.edit();
-            editor.putBoolean("entendido", true);
-            editor.commit(); // Very important to save the preference
-        }//fin entendido
-        //evaluanos inicio
-        final Boolean evaluanos = mPrefs.getBoolean("evaluanos", false);
-        int counterEval  = mPrefs.getInt("counterEval", 0);
-        if (!evaluanos){
-            counterEval++;
-            SharedPreferences.Editor editor = mPrefs.edit();
-            editor.putInt("counterEval", counterEval);
-            editor.commit();
-        }
-
-        if (!evaluanos && (counterEval % 3) ==0) {
-            String whatsNewTitle = getResources().getString(R.string.gracias);
-            String whatsNewText = getResources().getString(R.string.gracias_text);
-            AlertDialog dialog2 = new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_alert).setTitle(whatsNewTitle).setMessage(whatsNewText).setPositiveButton(
-                    R.string.si, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            SharedPreferences.Editor editor = mPrefs.edit();
-                            editor.putBoolean("evaluanos", true);
-                            editor.commit();
-                            MainActivity.this.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.ttpCorp.carlosguzman.gasolinamexico")));
-
-                            dialog.dismiss();
-                        }
-                    }).setNegativeButton(
-                    R.string.Luego, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-
-                            dialog.dismiss();
-                        }
-                    }
-            ).create();
-            dialog2.setOnShowListener(dlg -> {
-                // elige un color que contraste (ej. negro o tu primario)
-                int color = ContextCompat.getColor(this, android.R.color.black);
-                dialog2.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(color);
-                // opcional: negativo / neutral si los usas
-                // dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(color);
-            });
-            dialog2.show();
-        }//fin entendido
-        //evaluanos Fin
 
 
         //get all shared preferences and check them.
@@ -355,7 +300,7 @@ public class MainActivity extends AppCompatActivity {
 
                 }
             });
-        }*/
+        }*///fin del popup
 
     }
     public class WebViewJavaScriptInterface {
@@ -395,22 +340,25 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     public void loadApp() {
-        thisurl = BuildConfig.BASE_URL + "/precio.cfm";
+        thisurl = BuildConfig.BASE_URL;
+        Log.d("WebViewLoad", "Initial thisurl from BuildConfig.BASE_URL: " + thisurl);
         // final android.app.AlertDialog alertDialog = new android.app.AlertDialog.Builder(this).create(); // Removed this line
         // progressBar = ProgressDialog.show(this,"Precio Gasolina Mexico", "Cargando...");
 
         final String nameMun = mPrefs.getString("shared_munID", "");
         final String nameEdo = mPrefs.getString("shared_edoID", "");
+        Log.d("WebViewLoad", "nameMun: '" + nameMun + "', nameEdo: '" + nameEdo + "'");
+
         webView.setWebViewClient(new WebViewClient() {
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                //Log.i(TAG, "Processing webview url click...");
+                Log.i("W", "WebViewJS Processing webview url click: " + url);
                 view.loadUrl(url);
                 return true;
             }
 
             @Override
             public void onPageFinished(WebView view, String url) {
-                //Log.i(TAG, "Finished loading URL: " +url);
+                Log.i("W", "WebViewJS Finished loading URL: " +url);
                 if (progressBar != null && progressBar.isShowing()) {
                     progressBar.dismiss();
                 }
@@ -418,6 +366,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
+                Log.e("WebViewError", "Error Code: " + errorCode + " Description: " + description + " Failing URL: " + failingUrl);
                 //Toast.makeText(, "Oh no! " + description, Toast.LENGTH_SHORT).show();
                 // Create and show a new AlertDialog on error
                 new AlertDialog.Builder(MainActivity.this)
@@ -442,7 +391,8 @@ public class MainActivity extends AppCompatActivity {
         webView.setWebChromeClient(new WebChromeClient() {
             @Override
             public boolean onConsoleMessage(ConsoleMessage consoleMessage) {
-
+                Log.d("WebViewConsole", consoleMessage.message() + " -- From line " +
+                        consoleMessage.lineNumber() + " of " + consoleMessage.sourceId());
                 return true;
             }
         });
@@ -455,10 +405,11 @@ public class MainActivity extends AppCompatActivity {
             PreferenceManager.getDefaultSharedPreferences(getBaseContext()).edit().remove("shared_edoID").commit();
             Log.d("DebugGasolina method","Reloading...3.2");
         }
-
+        Log.d("WebViewLoad", "Attempting to load URL: " + thisurl);
         webView.post(new Runnable() {
             @Override
             public void run() {
+                Log.d("WebViewLoad", "Final URL to load in webviewLoadURL: " + thisurl);
                 webviewLoadURL(thisurl);
             }
         });
@@ -467,7 +418,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
     public void webviewLoadURL(String url) {
-
+        Log.d("WebViewLoad", "webviewLoadURL called with: " + url);
         webView.clearHistory();
         webView.clearFormData();
         webView.clearCache(true);
@@ -574,12 +525,15 @@ public class MainActivity extends AppCompatActivity {
                 context.getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo();
 
         if (info == null) {
+            Log.d("NetworkCheck", "NetworkInfo is null. No internet.");
             return false;
         } else {
             if (info.isConnected()) {
+                Log.d("NetworkCheck", "Network is connected.");
                 return true;
             } else {
-                return true; // This should likely be false if not connected
+                Log.d("NetworkCheck", "Network is not connected.");
+                return false; // This was 'true' before, corrected to 'false'
             }
 
         }

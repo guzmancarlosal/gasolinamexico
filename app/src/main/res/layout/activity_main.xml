@@ -29,7 +29,7 @@
             android:layout_above="@id/adView"
             android:layout_alignParentTop="true"
             android:orientation="vertical">
-            <WebView
+            <com.ttpCorp.carlosguzman.preciogasolinamexico.NoSuggestionsWebView
                 android:id="@+id/webview"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"

@@ -9,7 +9,7 @@ android {
         applicationId "com.ttpCorp.carlosguzman.gasolinamexico"
         minSdkVersion 21
         targetSdkVersion 35
-        versionCode 19
+        versionCode 21
         versionName "Android X"
         vectorDrawables.useSupportLibrary = true
     }
@@ -17,12 +17,12 @@ android {
         debug {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            buildConfigField "String", "BASE_URL", "\"http://45.132.241.215:8888/gasolinamexico/dev\""
+            buildConfigField "String", "BASE_URL", "\"http://45.132.241.215:8888/gasolinamexico/dev/UI/dist/index.html\""
         }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            buildConfigField "String", "BASE_URL", "\"http://45.132.241.215:8888/gasolinamexico/prod\""
+            buildConfigField "String", "BASE_URL", "\"http://45.132.241.215:8888/gasolinamexico/prod/UI/dist/index.html\""
         }
     }
     buildFeatures {
