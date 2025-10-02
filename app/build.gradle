@@ -9,7 +9,7 @@ android {
         applicationId "com.ttpCorp.carlosguzman.gasolinamexico"
         minSdkVersion 21
         targetSdkVersion 35
-        versionCode 21
+        versionCode 23
         versionName "Android X"
         vectorDrawables.useSupportLibrary = true
     }

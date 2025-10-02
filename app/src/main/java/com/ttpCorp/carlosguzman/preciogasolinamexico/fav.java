@@ -10,8 +10,6 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
 
 import java.util.Arrays;
 import java.util.List;
@@ -30,7 +28,6 @@ public class fav extends AppCompatActivity {
     }
     public static class DetailFragment extends Fragment {
         String regionID;
-        private AdView mAdView;
         SharedPreferences prefs;
         private gasAdapter mGasolinaAdapter;
         public DetailFragment() {
@@ -48,10 +45,6 @@ public class fav extends AppCompatActivity {
             }
             new DownloadJSON(getActivity(),rootView,"getFavoritos").execute(""+all_vals.substring(1));
             mGasolinaAdapter = new gasAdapter(getActivity(),R.layout.list_view_fav);
-
-            mAdView = (AdView) rootView.findViewById(R.id.adView3);
-            AdRequest adRequest = new AdRequest.Builder().build();
-            mAdView.loadAd(adRequest);
 
             return rootView;
         }

@@ -35,15 +35,10 @@ import android.webkit.WebViewClient;
 import android.widget.Toast;
 
 
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
-import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.initialization.InitializationStatus;
-import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -71,29 +66,15 @@ public class MainActivity extends AppCompatActivity {
     public WebView webView;
     public String thisurl;
     public ProgressDialog progressBar;
-    private AdView mAdView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        MobileAds.initialize(this, new OnInitializationCompleteListener() {
-            @Override
-            public void onInitializationComplete(InitializationStatus initializationStatus) {
-                // You can optionally check the initialization status here
-                // and take actions if needed.
-                // For example, you can start loading ads once initialization is complete.
-            }
-        });
-
-
         webView = (WebView)findViewById(R.id.webview);
         Calendar c = Calendar.getInstance();
         SimpleDateFormat df = new SimpleDateFormat("MMMM-yyyy");
-        mAdView = (AdView) findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
         //toolbar.setBackgroundColor((Color.parseColor("#80000000")));
 
         mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
@@ -180,128 +161,6 @@ public class MainActivity extends AppCompatActivity {
             dialog.show();
         }
 
-        //this line removes all sharedPreferences.
-        //PreferenceManager.getDefaultSharedPreferences(getBaseContext()).edit().clear().apply();
-
-
-        //Preparing views
-        /*final String getRegion = "getReg";
-        final String getEstado = "getEst";
-        final String getMunicipio = "getMun";
-        final String getLoc= "getLocation";
-        final Boolean getLocation = mPrefs.getBoolean(getLoc, false);
-        final String myRegion = mPrefs.getString("myReg", "");
-        if (!getLocation) {
-            LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
-            View layout = inflater.inflate(R.layout.dialog_layout, null);
-            final Spinner estadoBox = (Spinner) layout.findViewById(R.id.dd_estado);
-
-            //Building dialog
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setView(layout);
-            builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    //Save Estado preference
-                    SharedPreferences.Editor editor = mPrefs.edit();
-                    String savedEstado = estadoBox.getSelectedItem().toString();
-                    editor.putString(getEstado, savedEstado);
-                    editor.commit();
-                    String sstadoID = getEntityID(savedEstado);
-                    //end save Estado
-                    //prepare 2nd popup
-                    LayoutInflater inflater1 = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
-                    View layout1 = inflater1.inflate(R.layout.dialog_mun, null);
-                    final Spinner municipioBox = (Spinner) layout1.findViewById(R.id.dd_municipio);
-                    new DownloadJSON(activity, layout1, "getMunicipio").execute(sstadoID);
-                    AlertDialog.Builder builder2 = new AlertDialog.Builder(MainActivity.this);
-                    builder2.setView(layout1);
-                    builder2.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog2, int which) {
-
-                            SharedPreferences.Editor editor = mPrefs.edit();
-                            final String savedRegion = municipioBox.getSelectedItem().toString();
-                            String regionID = getEntityID(savedRegion);
-                            editor.putString(getRegion, regionID);
-                            editor.putBoolean(getLoc, true);
-                            editor.putString("myReg", savedRegion);
-                            TextView tv = (TextView)findViewById(R.id.title_Tag);
-                            tv.setText("Región: "+savedRegion);
-                            editor.commit();
-                            //Log.d("savedPref", "savedPref Municipio." +savedRegion );
-                            viewPager = (ViewPager) findViewById(R.id.viewpager);
-                            setupViewPager(viewPager);
-                            tabLayout = (TabLayout) findViewById(R.id.tabs);
-                            tabLayout.setupWithViewPager(viewPager);
-                            setupTabIcons();
-                            Log.d("favoritos2"," hola a Nah"+savedRegion);
-                            Log.d("favoritos3"," hola a Nah"+list);
-                            if (list.contains(savedRegion)) {
-                                fab.setVisibility(View.INVISIBLE);
-                            } else{
-                                fab.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-                                        if (addLike(savedRegion)) {
-                                            Snackbar.make(view, "Region Agregada a Favoritos", Snackbar.LENGTH_LONG)
-                                                    .setAction("Action", null).show();
-                                            //fab.setImageDrawable(getResources().getDrawable(R.drawable.ic_heartfull));
-                                            fab.setVisibility(View.INVISIBLE);
-                                            saveArray(savedRegion);
-                                        }
-
-                                    }
-                                });
-                            }
-                        }
-                    });
-                    AlertDialog dialog2 = builder2.create();
-                    dialog2.show();
-
-                }
-            });
-            new DownloadJSON(this,layout,"getEstado").execute();
-            AlertDialog dialog = builder.create();
-            dialog.show();
-        } else{
-
-
-            viewPager = (ViewPager) findViewById(R.id.viewpager);
-            setupViewPager(viewPager);
-            tabLayout = (TabLayout) findViewById(R.id.tabs);
-            tabLayout.setupWithViewPager(viewPager);
-            setupTabIcons();
-
-            if(myRegion != "") {
-                SharedPreferences.Editor editor = mPrefs.edit();
-                TextView tv = (TextView)findViewById(R.id.title_Tag);
-                tv.setText("Region: "+myRegion);
-                editor.putString("myReg", myRegion);
-                editor.commit();
-            }
-
-        }
-        //fin del popup
-
-        if (list.contains(myRegion)) {
-            fab.setVisibility(View.INVISIBLE);
-        } else{
-            fab.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (addLike(myRegion)) {
-                        Snackbar.make(view, "Region Agregada a Favoritos", Snackbar.LENGTH_LONG)
-                                .setAction("Action", null).show();
-                        //fab.setImageDrawable(getResources().getDrawable(R.drawable.ic_heartfull));
-                        fab.setVisibility(View.INVISIBLE);
-                        saveArray(myRegion);
-                    }
-
-                }
-            });
-        }*///fin del popup
-
     }
     public class WebViewJavaScriptInterface {
         private final Activity activity;
@@ -314,7 +173,6 @@ public class MainActivity extends AppCompatActivity {
         public void loadApp() {
             activity.runOnUiThread(() -> {
                 try {
-                    // Llama al metodo de tu Activity que refresca el WebView / UI
                     ((MainActivity) activity).loadApp();
                 } catch (Exception e) {
                     Log.e("JSI", "loadApp() error", e);
@@ -331,7 +189,6 @@ public class MainActivity extends AppCompatActivity {
                 editor.putString("shared_munID", mun);
                 editor.commit();
                 Log.d("addMyMun", "addMyMun commited " +mun+ " " +edo );
-                // (opcional) ya puedes forzar el refresh desde aquí también:
                 loadApp();
 
             } catch (Exception e) {
@@ -342,8 +199,6 @@ public class MainActivity extends AppCompatActivity {
     public void loadApp() {
         thisurl = BuildConfig.BASE_URL;
         Log.d("WebViewLoad", "Initial thisurl from BuildConfig.BASE_URL: " + thisurl);
-        // final android.app.AlertDialog alertDialog = new android.app.AlertDialog.Builder(this).create(); // Removed this line
-        // progressBar = ProgressDialog.show(this,"Precio Gasolina Mexico", "Cargando...");
 
         final String nameMun = mPrefs.getString("shared_munID", "");
         final String nameEdo = mPrefs.getString("shared_edoID", "");
@@ -351,6 +206,35 @@ public class MainActivity extends AppCompatActivity {
 
         webView.setWebViewClient(new WebViewClient() {
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                if (url.startsWith("intent://")) {
+                    try {
+                        Context context = view.getContext();
+                        Intent intent = Intent.parseUri(url, Intent.URI_INTENT_SCHEME);
+
+                        if (intent.resolveActivity(context.getPackageManager()) != null) {
+                            context.startActivity(intent);
+                            return true;
+                        }
+
+                        String fallbackUrl = intent.getStringExtra("browser_fallback_url");
+                        if (fallbackUrl != null) {
+                            view.loadUrl(fallbackUrl);
+                            return true;
+                        }
+
+                        if (intent.getPackage() != null) {
+                            Intent marketIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + intent.getPackage()));
+                            if (marketIntent.resolveActivity(context.getPackageManager()) != null) {
+                                context.startActivity(marketIntent);
+                                return true;
+                            }
+                        }
+                    } catch (Exception e) {
+                        Log.e("WebView", "Error parsing intent URL", e);
+                    }
+                    return true;
+                }
+
                 Log.i("W", "WebViewJS Processing webview url click: " + url);
                 view.loadUrl(url);
                 return true;
@@ -367,14 +251,11 @@ public class MainActivity extends AppCompatActivity {
 
             public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
                 Log.e("WebViewError", "Error Code: " + errorCode + " Description: " + description + " Failing URL: " + failingUrl);
-                //Toast.makeText(, "Oh no! " + description, Toast.LENGTH_SHORT).show();
-                // Create and show a new AlertDialog on error
                 new AlertDialog.Builder(MainActivity.this)
                         .setTitle("Error")
                         .setMessage(description)
                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                // Simply dismiss the dialog, or add other error handling logic if needed.
                                 dialog.dismiss();
                             }
                         })
@@ -430,10 +311,8 @@ public class MainActivity extends AppCompatActivity {
 
         for (int i=0; i<200;i++) {
             String s = ((MyApplication) this.getApplication()).getRegionesList(i);
-            //Log.d("savedPref", "looping: " + s + "pos:"+i);
             if(edo == s ){
                 id =  ((MyApplication) this.getApplication()).getRegionesID(i);
-                //Log.d("savedPref", "savedPref Estado ID" + s);
             }
 
         }
@@ -441,7 +320,6 @@ public class MainActivity extends AppCompatActivity {
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
@@ -478,7 +356,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onNewIntent(Intent intent)   {
         super.onNewIntent(intent);
         Intent fcmIntent = getIntent();
-        //Log.d("resumming","step1");
         if (fcmIntent.getExtras() != null) {
             Bundle b = getIntent().getExtras();
             boolean cameFromNotification = b.getBoolean("fromNotification",false);
@@ -512,9 +389,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
         return super.onOptionsItemSelected(item);
@@ -555,10 +429,7 @@ public class MainActivity extends AppCompatActivity {
 
         adapter.addFragment(firstTab, getResources().getString(R.string.lb_precio));
         adapter.addFragment(secondTab, "Favoritos");
-        adapter.addFragment(new CalculadoraActivity(), getResources().getString(R.string.lb_calculadora));
         viewPager.setAdapter(adapter);
     }
-
-
 
 }

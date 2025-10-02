@@ -16,9 +16,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -38,7 +35,6 @@ import java.util.Date;
 public class MainActivityFragment extends Fragment {
     private gasAdapter mGasolinaAdapter;
     ListView listView;
-    private AdView mAdView;
     SharedPreferences mPrefs;
 
     public MainActivityFragment() {
@@ -91,10 +87,6 @@ public class MainActivityFragment extends Fragment {
                 startActivity(intent);
             }
         });
-        //create the money thing :)
-        mAdView = (AdView) rootView.findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
         return rootView;
     }
     public void updateGasolinaPrice() {
@@ -222,7 +214,7 @@ public class MainActivityFragment extends Fragment {
                     // Since it's JSON, adding a newline isn't necessary (it won't affect parsing)
                     // But it does make debugging a *lot* easier if you print out the completed
                     // buffer for debugging.
-                    buffer.append(line + "\n");
+                    buffer.append(line + "/n");
                 }
 
                 if (buffer.length() == 0) {

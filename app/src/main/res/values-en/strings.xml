@@ -45,7 +45,8 @@
     <string name="aviso">Gasoline prices are provided by  Secretaria De Energia web page, we are not responsible if those are not applied in your zone</string>
     <string name="entendido">Got it</string>
 
-
+    <string name="banner_ad_unit_id">ca-app-pub-3403038737253823/7126344496</string>
+    <string name="banner_ad_unit_id_test">ca-app-pub-3940256099942544/6300978111</string>
     <string name="si">Yes</string>
     <string name="Luego">Later</string>
     <string name="gracias">Thank you for using our app</string>

@@ -18,8 +18,6 @@ import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -76,7 +74,6 @@ public class DetailActivity extends AppCompatActivity {
         String jsonString;
         private static final String TAG = "MyActivity";
         String forecastStr;
-        private AdView mAdView;
         public DetailFragment() {
         }
 
@@ -251,10 +248,6 @@ public class DetailActivity extends AppCompatActivity {
                 }
             };
             mTask.execute();
-            //create the money thing :)
-            mAdView = (AdView) rootView.findViewById(R.id.adView2);
-            AdRequest adRequest = new AdRequest.Builder().build();
-            mAdView.loadAd(adRequest);
             return rootView;
         }
         public String getMonth(int month) {
