@@ -9,8 +9,8 @@ android {
         applicationId "com.ttpCorp.carlosguzman.gasolinamexico"
         minSdkVersion 21
         targetSdkVersion 36
-        versionCode 25
-        versionName "2.5.0"
+        versionCode 26
+        versionName "2.6.0"
         vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
@@ -24,7 +24,7 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             buildConfigField "String", "BASE_URL", "\"file:///android_asset/dist/index.html\""
-            buildConfigField "String", "ADMOB_BANNER_ID", "\"ca-app-pub-3403038737253823/COLOCA_AQUI_TU_BANNER_ID_REAL\"" // Reemplazar con tu ID de bloque de anuncios de AdMob
+            buildConfigField "String", "ADMOB_BANNER_ID", "\"ca-app-pub-3403038737253823/5587497426\"" // Reemplazar con tu ID de bloque de anuncios de AdMob
         }
     }
     buildFeatures {

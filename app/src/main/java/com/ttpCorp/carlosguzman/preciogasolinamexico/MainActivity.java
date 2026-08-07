@@ -124,6 +124,7 @@ public class MainActivity extends AppCompatActivity {
         webView.getSettings().setAllowContentAccess(true);
         webView.getSettings().setAllowFileAccessFromFileURLs(true);
         webView.getSettings().setAllowUniversalAccessFromFileURLs(true);
+        webView.getSettings().setCacheMode(android.webkit.WebSettings.LOAD_NO_CACHE);
         webView.addJavascriptInterface(new WebViewJavaScriptInterface(this), "app");
         //final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         //get my Firebaseconnection
