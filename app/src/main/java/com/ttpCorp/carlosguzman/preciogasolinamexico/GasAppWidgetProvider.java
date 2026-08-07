@@ -80,10 +80,18 @@ public class GasAppWidgetProvider extends AppWidgetProvider {
                     //mPrefs = sharedPref.getDefaultSharedPreferences(MainActivity.this);
 
 
-                    String thisurl = "http://areliablewindowcleaning.com/gasolina/gasPrice.php?mode=gasolina&y=" +thisYear +"&m="+thisMonth+"&gasolina="+forecastStr;
-                    if (getRegion != ""){
-                        thisurl=  "http://areliablewindowcleaning.com/gasolina/regions.php?mode=getRegionPrice&regionID="+getRegion+"&gasolinaID="+forecastStr;
+                    String cachedMun = sharedPref.getString("gasApp_municipioNombre", "");
+                    String cachedPrice = sharedPref.getString("widget_lowestMagna", "");
+                    String estadoId = sharedPref.getString("shared_edoID", sharedPref.getString("gasApp_estadoId", ""));
+                    String municipioId = sharedPref.getString("shared_munID", sharedPref.getString("gasApp_municipioId", ""));
 
+                    if (!cachedPrice.isEmpty()) {
+                        return new String[]{ cachedPrice + "," + (cachedMun.isEmpty() ? forecastStr : cachedMun) };
+                    }
+
+                    String thisurl = "http://45.132.241.215/gasolinamexico/prod/?mode=getPrecio&estadoid=" + estadoId + "&municipioid=" + municipioId;
+                    if (estadoId.isEmpty() || municipioId.isEmpty()) {
+                        thisurl = "http://45.132.241.215/gasolinamexico/prod/?mode=getPrecio&estadoid=14&municipioid=14039";
                     }
                     //Log.d("urlDebug_widget", "url: "+ thisurl);
 

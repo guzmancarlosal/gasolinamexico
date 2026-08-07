@@ -5,24 +5,36 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+    android:importantForAutofill="noExcludeDescendants"
     tools:context="com.ttpCorp.carlosguzman.preciogasolinamexico.MainActivity">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:importantForAutofill="noExcludeDescendants">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_above="@+id/adView"
             android:layout_alignParentTop="true"
             android:orientation="vertical">
             <com.ttpCorp.carlosguzman.preciogasolinamexico.NoSuggestionsWebView
                 android:id="@+id/webview"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:importantForAutofill="noExcludeDescendants"/>
         </LinearLayout>
+
+        <com.google.android.gms.ads.AdView
+            android:id="@+id/adView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            app:adSize="BANNER"
+            app:adUnitId="ca-app-pub-3904073734017654/6308546110" />
 
     </RelativeLayout>
 

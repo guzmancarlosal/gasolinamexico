@@ -26,25 +26,21 @@ public class NoSuggestionsWebView extends WebView {
     //     super(context, attrs, defStyleAttr, defStyleRes);
     // }
 
+    private void disableAutofill() {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            setImportantForAutofill(IMPORTANT_FOR_AUTOFILL_NO_EXCLUDE_DESCENDANTS);
+        }
+    }
+
     @Override
     public InputConnection onCreateInputConnection(EditorInfo outAttrs) {
         InputConnection ic = super.onCreateInputConnection(outAttrs);
+        disableAutofill();
 
         if (ic != null) {
-            // Modify the EditorInfo to disable suggestions
-            // This is the primary flag to disable suggestions.
-            outAttrs.inputType |= InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS;
-
-            // Sometimes, for certain keyboards or Android versions,
-            // you might need to ensure other flags that enable suggestions are off,
-            // or explicitly set a variation that typically doesn't have suggestions.
-            // For example, TYPE_TEXT_VARIATION_VISIBLE_PASSWORD often disables suggestions.
-            // However, TYPE_TEXT_FLAG_NO_SUGGESTIONS should usually be sufficient.
-            //
-            // If you still see suggestions, you could try more aggressive flags like:
-            // outAttrs.inputType |= InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD;
-            // or ensure flags like TYPE_TEXT_FLAG_AUTO_COMPLETE are not set,
-            // but be careful as this can alter other input behaviors.
+            outAttrs.inputType = InputType.TYPE_CLASS_TEXT 
+                | InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS 
+                | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD;
         }
         return ic;
     }

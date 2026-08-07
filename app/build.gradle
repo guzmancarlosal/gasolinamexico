@@ -3,12 +3,12 @@ apply plugin: 'com.google.gms.google-services'
 
 
 android {
-    compileSdkVersion 34
+    compileSdkVersion 36
 
     defaultConfig {
         applicationId "com.ttpCorp.carlosguzman.gasolinamexico"
         minSdkVersion 21
-        targetSdkVersion 35
+        targetSdkVersion 36
         versionCode 24
         versionName "Android X"
         vectorDrawables.useSupportLibrary = true
@@ -17,7 +17,7 @@ android {
         debug {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            buildConfigField "String", "BASE_URL", "\"http://45.132.241.215:8888/gasolinamexico/dev/UI/dist/index.html\""
+            buildConfigField "String", "BASE_URL", "\"file:///android_asset/dist/index.html\""
         }
         release {
             minifyEnabled false
@@ -38,13 +38,15 @@ repositories {
 dependencies {
 
 
-    implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'com.google.android.material:material:1.9.0'
+    implementation 'androidx.appcompat:appcompat:1.7.0'
+    implementation 'com.google.android.material:material:1.12.0'
     implementation 'com.github.PhilJay:MPAndroidChart:v2.1.6'
-    implementation platform('com.google.firebase:firebase-bom:32.7.0') // Existing BoM
+    implementation platform('com.google.firebase:firebase-bom:33.7.0') // Existing BoM
     implementation 'com.google.firebase:firebase-analytics-ktx' // Includes firebase-core
     implementation 'com.google.firebase:firebase-messaging-ktx'
-    implementation 'com.google.android.gms:play-services-ads:23.0.0'
+    implementation 'com.google.android.gms:play-services-ads:23.6.0'
     implementation 'com.google.firebase:firebase-config'
+    implementation 'androidx.work:work-runtime:2.9.0'
+    implementation 'androidx.webkit:webkit:1.12.0'
     implementation 'androidx.vectordrawable:vectordrawable:1.1.0'
 }

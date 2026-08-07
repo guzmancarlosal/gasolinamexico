@@ -15,9 +15,18 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.Manifest;
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import androidx.annotation.NonNull;
-
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.work.ExistingPeriodicWorkPolicy;
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkManager;
+import java.util.concurrent.TimeUnit;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,9 +41,15 @@ import android.webkit.JavascriptInterface;
 import android.webkit.ConsoleMessage;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.webkit.WebResourceRequest;
+import android.webkit.WebResourceResponse;
+import androidx.webkit.WebViewAssetLoader;
 import android.widget.Toast;
 
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
@@ -62,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String gasolina_custom_message = "gasolina_custom_message";
     public String welcomeMessage;
     public String customMjs;
-    public Boolean isAppOffline = true;
+    public Boolean isAppOffline = false;
     public WebView webView;
     public String thisurl;
     public ProgressDialog progressBar;
@@ -78,10 +93,29 @@ public class MainActivity extends AppCompatActivity {
         //toolbar.setBackgroundColor((Color.parseColor("#80000000")));
 
         mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        int targetHour = mPrefs.getInt("notification_hour", 8);
+        if (targetHour != -1) {
+            scheduleDailyGasWorker(targetHour);
+        }
+        requestNotificationPermissionIfNeeded();
+
+        try {
+            MobileAds.initialize(this, initializationStatus -> {});
+            AdView mAdView = findViewById(R.id.adView);
+            if (mAdView != null) {
+                AdRequest adRequest = new AdRequest.Builder().build();
+                mAdView.loadAd(adRequest);
+            }
+        } catch (Exception e) {
+            Log.e("MainActivity", "AdMob initialization error", e);
+        }
+
         webView.getSettings().setJavaScriptEnabled(true);
-        Log.d("WebViewSetup", "WebView JavaScript enabled: " + webView.getSettings().getJavaScriptEnabled());
-        webView.getSettings().setDomStorageEnabled(true); // Added this line
-        Log.d("WebViewSetup", "WebView DOM Storage enabled: " + webView.getSettings().getDomStorageEnabled()); // And a log for it
+        webView.getSettings().setDomStorageEnabled(true);
+        webView.getSettings().setAllowFileAccess(true);
+        webView.getSettings().setAllowContentAccess(true);
+        webView.getSettings().setAllowFileAccessFromFileURLs(true);
+        webView.getSettings().setAllowUniversalAccessFromFileURLs(true);
         webView.addJavascriptInterface(new WebViewJavaScriptInterface(this), "app");
         //final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         //get my Firebaseconnection
@@ -195,6 +229,62 @@ public class MainActivity extends AppCompatActivity {
                 Log.e("addMyMun", "addMyMun error", e);
             }
         }
+
+        @JavascriptInterface
+        public void updateWidgetData(String stateId, String munId, String munName, String lowestMagna, String lowestPremium) {
+            try {
+                SharedPreferences.Editor editor = mPrefs.edit();
+                if (stateId != null && !stateId.isEmpty()) editor.putString("shared_edoID", stateId);
+                if (munId != null && !munId.isEmpty()) editor.putString("shared_munID", munId);
+                if (munName != null) editor.putString("gasApp_municipioNombre", munName);
+                if (lowestMagna != null) editor.putString("widget_lowestMagna", lowestMagna);
+                if (lowestPremium != null) editor.putString("widget_lowestPremium", lowestPremium);
+                editor.apply();
+
+                Intent intent = new Intent(activity, GasAppWidgetProvider.class);
+                intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+                int[] ids = AppWidgetManager.getInstance(activity.getApplication())
+                        .getAppWidgetIds(new ComponentName(activity.getApplication(), GasAppWidgetProvider.class));
+                intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids);
+                activity.sendBroadcast(intent);
+            } catch (Exception e) {
+                Log.e("JSI", "updateWidgetData error", e);
+            }
+        }
+
+        @JavascriptInterface
+        public void requestNotificationPermission() {
+            requestNotificationPermissionIfNeeded();
+        }
+
+        @JavascriptInterface
+        public void setNotificationTime(int hourOfDay) {
+            try {
+                SharedPreferences.Editor editor = mPrefs.edit();
+                editor.putInt("notification_hour", hourOfDay);
+                editor.apply();
+
+                if (hourOfDay == -1) {
+                    WorkManager.getInstance(activity).cancelUniqueWork("Daily8AMGasWork");
+                    Log.d("MainActivity", "Daily gas notification cancelled.");
+                } else {
+                    ((MainActivity) activity).scheduleDailyGasWorker(hourOfDay);
+                }
+            } catch (Exception e) {
+                Log.e("JSI", "setNotificationTime error", e);
+            }
+        }
+
+        @JavascriptInterface
+        public void openMap(String address) {
+            try {
+                String encoded = Uri.encode(address);
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com/maps/search/?api=1&query=" + encoded));
+                activity.startActivity(intent);
+            } catch (Exception e) {
+                Log.e("JSI", "openMap error", e);
+            }
+        }
     }
     public void loadApp() {
         thisurl = BuildConfig.BASE_URL;
@@ -204,7 +294,20 @@ public class MainActivity extends AppCompatActivity {
         final String nameEdo = mPrefs.getString("shared_edoID", "");
         Log.d("WebViewLoad", "nameMun: '" + nameMun + "', nameEdo: '" + nameEdo + "'");
 
+        final WebViewAssetLoader assetLoader = new WebViewAssetLoader.Builder()
+                .addPathHandler("/assets/", new WebViewAssetLoader.AssetsPathHandler(this))
+                .build();
+
         webView.setWebViewClient(new WebViewClient() {
+            @Override
+            public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
+                WebResourceResponse response = assetLoader.shouldInterceptRequest(request.getUrl());
+                if (response != null) {
+                    return response;
+                }
+                return super.shouldInterceptRequest(view, request);
+            }
+
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 if (url.startsWith("intent://")) {
                     try {
@@ -278,9 +381,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        if (nameMun != "" && nameEdo != ""){
-            thisurl = thisurl + "?estadoID="+nameEdo+"&municipioID="+nameMun;
-
+        if (nameMun != null && !nameMun.isEmpty() && nameEdo != null && !nameEdo.isEmpty()){
+            if (thisurl.startsWith("file://") || thisurl.startsWith("https://appassets")) {
+                thisurl = thisurl + "#/?estadoID="+nameEdo+"&municipioID="+nameMun;
+            } else {
+                thisurl = thisurl + "?estadoID="+nameEdo+"&municipioID="+nameMun;
+            }
         }else{
             PreferenceManager.getDefaultSharedPreferences(getBaseContext()).edit().remove("shared_munID").commit();
             PreferenceManager.getDefaultSharedPreferences(getBaseContext()).edit().remove("shared_edoID").commit();
@@ -421,15 +527,57 @@ public class MainActivity extends AppCompatActivity {
         firstTab.setArguments(bundle);
 
         fav.DetailFragment secondTab = new fav.DetailFragment();
-        Bundle bundle2 = new Bundle();
-        bundle2.putString("EXTRA_TITLE", "favoritos");
-        secondTab.setArguments(bundle2);
-
-
-
         adapter.addFragment(firstTab, getResources().getString(R.string.lb_precio));
         adapter.addFragment(secondTab, "Favoritos");
         viewPager.setAdapter(adapter);
     }
 
+    public void scheduleDailyGasWorker(int targetHour) {
+        try {
+            Calendar currentDate = Calendar.getInstance();
+            Calendar dueDate = Calendar.getInstance();
+            dueDate.set(Calendar.HOUR_OF_DAY, targetHour);
+            dueDate.set(Calendar.MINUTE, 0);
+            dueDate.set(Calendar.SECOND, 0);
+
+            if (dueDate.before(currentDate)) {
+                dueDate.add(Calendar.HOUR_OF_DAY, 24);
+            }
+
+            long timeDiff = dueDate.getTimeInMillis() - currentDate.getTimeInMillis();
+
+            PeriodicWorkRequest dailyWorkRequest = new PeriodicWorkRequest.Builder(
+                    DailyGasWorker.class,
+                    24, TimeUnit.HOURS
+            )
+            .setInitialDelay(timeDiff, TimeUnit.MILLISECONDS)
+            .build();
+
+            WorkManager.getInstance(this).enqueueUniquePeriodicWork(
+                    "Daily8AMGasWork",
+                    ExistingPeriodicWorkPolicy.REPLACE,
+                    dailyWorkRequest
+            );
+            Log.d("MainActivity", "Daily Gas Work scheduled for hour: " + targetHour);
+        } catch (Exception e) {
+            Log.e("MainActivity", "Error scheduling daily gas work", e);
+        }
+    }
+
+    private void requestNotificationPermissionIfNeeded() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.POST_NOTIFICATIONS}, 101);
+            }
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (webView != null && webView.canGoBack()) {
+            webView.goBack();
+        } else {
+            super.onBackPressed();
+        }
+    }
 }
