@@ -103,8 +103,16 @@ public class MainActivity extends AppCompatActivity {
             MobileAds.initialize(this, initializationStatus -> {});
             AdView mAdView = findViewById(R.id.adView);
             if (mAdView != null) {
-                AdRequest adRequest = new AdRequest.Builder().build();
-                mAdView.loadAd(adRequest);
+                if (BuildConfig.DEBUG) {
+                    // En local (debug), ocultamos el AdView para que no aparezcan anuncios
+                    mAdView.setVisibility(View.GONE);
+                } else {
+                    // En producción (release), asignamos el ID real de AdMob y cargamos anuncios
+                    mAdView.setVisibility(View.VISIBLE);
+                    mAdView.setAdUnitId(BuildConfig.ADMOB_BANNER_ID);
+                    AdRequest adRequest = new AdRequest.Builder().build();
+                    mAdView.loadAd(adRequest);
+                }
             }
         } catch (Exception e) {
             Log.e("MainActivity", "AdMob initialization error", e);
@@ -309,10 +317,15 @@ public class MainActivity extends AppCompatActivity {
             }
 
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                if (url.startsWith("intent://")) {
+                if (url.startsWith("intent://") || url.startsWith("whatsapp://") || url.startsWith("https://api.whatsapp.com") || url.startsWith("https://wa.me")) {
                     try {
                         Context context = view.getContext();
-                        Intent intent = Intent.parseUri(url, Intent.URI_INTENT_SCHEME);
+                        Intent intent;
+                        if (url.startsWith("intent://")) {
+                            intent = Intent.parseUri(url, Intent.URI_INTENT_SCHEME);
+                        } else {
+                            intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                        }
 
                         if (intent.resolveActivity(context.getPackageManager()) != null) {
                             context.startActivity(intent);
@@ -333,7 +346,7 @@ public class MainActivity extends AppCompatActivity {
                             }
                         }
                     } catch (Exception e) {
-                        Log.e("WebView", "Error parsing intent URL", e);
+                        Log.e("WebView", "Error parsing intent or whatsapp URL", e);
                     }
                     return true;
                 }

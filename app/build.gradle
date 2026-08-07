@@ -18,11 +18,13 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             buildConfigField "String", "BASE_URL", "\"file:///android_asset/dist/index.html\""
+            buildConfigField "String", "ADMOB_BANNER_ID", "\"ca-app-pub-3904073734017654/6308546110\"" // ID de prueba oficial de Google
         }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             buildConfigField "String", "BASE_URL", "\"http://45.132.241.215:8888/gasolinamexico/prod/UI/dist/index.html\""
+            buildConfigField "String", "ADMOB_BANNER_ID", "\"ca-app-pub-3403038737253823/COLOCA_AQUI_TU_BANNER_ID_REAL\"" // Reemplazar con tu ID de bloque de anuncios de AdMob
         }
     }
     buildFeatures {
