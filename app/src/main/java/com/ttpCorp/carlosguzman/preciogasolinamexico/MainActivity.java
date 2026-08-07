@@ -103,16 +103,10 @@ public class MainActivity extends AppCompatActivity {
             MobileAds.initialize(this, initializationStatus -> {});
             AdView mAdView = findViewById(R.id.adView);
             if (mAdView != null) {
-                if (BuildConfig.DEBUG) {
-                    // En local (debug), ocultamos el AdView para que no aparezcan anuncios
-                    mAdView.setVisibility(View.GONE);
-                } else {
-                    // En producción (release), asignamos el ID real de AdMob y cargamos anuncios
-                    mAdView.setVisibility(View.VISIBLE);
-                    mAdView.setAdUnitId(BuildConfig.ADMOB_BANNER_ID);
-                    AdRequest adRequest = new AdRequest.Builder().build();
-                    mAdView.loadAd(adRequest);
-                }
+                mAdView.setVisibility(View.VISIBLE);
+                mAdView.setAdUnitId(BuildConfig.ADMOB_BANNER_ID);
+                AdRequest adRequest = new AdRequest.Builder().build();
+                mAdView.loadAd(adRequest);
             }
         } catch (Exception e) {
             Log.e("MainActivity", "AdMob initialization error", e);
