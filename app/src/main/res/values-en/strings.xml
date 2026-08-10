@@ -42,7 +42,7 @@
     <string name="selectEstado">Select your State:</string>
     <string name="selectMunicipio">Select your County:</string>
 
-    <string name="aviso">Gasoline prices are provided by  Secretaria De Energia web page, we are not responsible if those are not applied in your zone</string>
+    <string name="aviso">Fuel prices are obtained from public data published by Mexico\'s Energy Regulatory Commission (CRE): https://www.gob.mx/cre\n\nThis app and its developers (XiKma / Carlos Guzman) do NOT represent, are NOT affiliated with, and are NOT operated by the CRE or any government entity. We are not responsible for any differences between the prices shown and the actual prices at each gas station.</string>
     <string name="entendido">Got it</string>
 
     <string name="si">Yes</string>
@@ -53,7 +53,7 @@
     <string name="topbarText">Region: Mexico</string>
     <string name="lb_configRegion">Change region</string>
     <string name="lb_aboutus">About us</string>
-    <string name="aviso_title">Notice</string>
+    <string name="aviso_title">Important Notice</string>
 
     <string name="lbchartguidance">From Jan 2017, we are showing only average price per month</string>
     <string name="lb_MunSelect">By official disposition only the municipalities with more than two gas stations are published</string>

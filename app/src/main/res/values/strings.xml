@@ -44,8 +44,8 @@
     <string name="selectEstado">Selecciona tu Estado:</string>
     <string name="selectMunicipio">Selecciona tu Municipio:</string>
 
-    <string name="aviso_title">Aviso</string>
-    <string name="aviso">Los Precios Mostrados son los proporcionados en la página de la Secretaria De Energía, no nos hacemos responsables de la NO aplicación de los precios en tu zona</string>
+    <string name="aviso_title">Aviso importante</string>
+    <string name="aviso">Los precios mostrados provienen de datos públicos de la Comisión Reguladora de Energía (CRE): https://www.gob.mx/cre\n\nEsta aplicación y sus desarrolladores (XiKma / Carlos Guzman) NO representan, NO están afiliados ni son operados por la CRE ni por ninguna entidad gubernamental. No nos hacemos responsables de diferencias entre los precios mostrados y los precios reales en cada estación de servicio.</string>
     <string name="entendido">Entendido</string>
 
     <string name="si">Si</string>
