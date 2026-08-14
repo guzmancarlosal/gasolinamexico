@@ -36,58 +36,39 @@ public class DailyGasWorker extends Worker {
     @NonNull
     @Override
     public Result doWork() {
-        Log.d(TAG, "DailyGasWorker starting 8:00 AM price check...");
+        Log.d(TAG, "DailyGasWorker starting price check...");
         Context context = getApplicationContext();
         SharedPreferences mPrefs = PreferenceManager.getDefaultSharedPreferences(context);
 
         String estadoId = mPrefs.getString("shared_edoID", "");
         if (estadoId.isEmpty()) {
-            estadoId = mPrefs.getString("gasApp_estadoId", "");
+            estadoId = mPrefs.getString("gasApp_estadoId", "14");
         }
 
         String municipioId = mPrefs.getString("shared_munID", "");
         if (municipioId.isEmpty()) {
-            municipioId = mPrefs.getString("gasApp_municipioId", "");
+            municipioId = mPrefs.getString("gasApp_municipioId", "14039");
         }
 
         String municipioNombre = mPrefs.getString("gasApp_municipioNombre", "tu ciudad");
 
-        if (estadoId.isEmpty() || municipioId.isEmpty()) {
-            Log.d(TAG, "No municipality configured yet for daily notification.");
+        String primaryApiUrl = "http://45.132.241.215:8888/gasolinamexico/dev/api.cfm?mode=getPrecio&estadoid=" + estadoId + "&municipioid=" + municipioId;
+        String fallbackApiUrl = "http://45.132.241.215/gasolinamexico/prod/?mode=getPrecio&estadoid=" + estadoId + "&municipioid=" + municipioId;
+
+        String jsonStr = fetchUrlData(primaryApiUrl);
+        if (jsonStr == null || jsonStr.isEmpty()) {
+            jsonStr = fetchUrlData(fallbackApiUrl);
+        }
+
+        if (jsonStr == null || jsonStr.isEmpty()) {
+            Log.w(TAG, "Failed to fetch price data from both API endpoints.");
             return Result.success();
         }
 
-        String apiUrl = "http://45.132.241.215/gasolinamexico/prod/?mode=getPrecio&estadoid=" + estadoId + "&municipioid=" + municipioId;
-
-        HttpURLConnection urlConnection = null;
-        BufferedReader reader = null;
-        String cheapestStationName = "";
-        double cheapestMagna = Double.MAX_VALUE;
-        double cheapestPremium = 0.0;
-
         try {
-            URL url = new URL(apiUrl);
-            urlConnection = (HttpURLConnection) url.openConnection();
-            urlConnection.setConnectTimeout(10000);
-            urlConnection.setReadTimeout(10000);
-            urlConnection.connect();
-
-            InputStream inputStream = urlConnection.getInputStream();
-            if (inputStream == null) {
-                return Result.success();
-            }
-
-            StringBuilder buffer = new StringBuilder();
-            reader = new BufferedReader(new InputStreamReader(inputStream));
-            String line;
-            while ((line = reader.readLine()) != null) {
-                buffer.append(line).append("\n");
-            }
-
-            String jsonStr = buffer.toString();
-            if (jsonStr.isEmpty()) {
-                return Result.success();
-            }
+            String cheapestStationName = "";
+            double cheapestMagna = Double.MAX_VALUE;
+            double cheapestPremium = 0.0;
 
             JSONObject rootObj = new JSONObject(jsonStr);
             Iterator<String> keys = rootObj.keys();
@@ -106,29 +87,69 @@ public class DailyGasWorker extends Worker {
                     while (pKeys.hasNext()) {
                         String pKey = pKeys.next();
                         String normKey = pKey.toLowerCase();
-                        double pVal = Double.parseDouble(pricesObj.getString(pKey));
+                        double pVal = 0.0;
+                        try {
+                            String priceStr = pricesObj.getString(pKey).replaceAll("[^0-9.]", "");
+                            if (!priceStr.isEmpty()) {
+                                pVal = Double.parseDouble(priceStr);
+                            }
+                        } catch (Exception ignored) {}
 
-                        if (normKey.contains("regular") || normKey.contains("magna")) {
-                            magnaPrice = pVal;
-                        } else if (normKey.contains("premium")) {
-                            premiumPrice = pVal;
+                        if (pVal > 0) {
+                            if (normKey.contains("regular") || normKey.contains("magna") || normKey.contains("87")) {
+                                magnaPrice = pVal;
+                            } else if (normKey.contains("premium") || normKey.contains("roja") || normKey.contains("91")) {
+                                premiumPrice = pVal;
+                            }
                         }
                     }
 
                     if (magnaPrice > 0 && magnaPrice < cheapestMagna) {
                         cheapestMagna = magnaPrice;
                         cheapestPremium = premiumPrice;
-                        cheapestStationName = stationName.replace("S.A. DE C.V.", "").trim();
+                        cheapestStationName = stationName.replaceAll("(?i)\\s*S\\.?A\\.?\\s*DE\\s*C\\.?V\\.?", "").trim();
                     }
                 }
             }
 
             if (cheapestMagna < Double.MAX_VALUE && !cheapestStationName.isEmpty()) {
                 sendSmartNotification(context, municipioNombre, cheapestStationName, cheapestMagna, cheapestPremium);
+            } else {
+                Log.d(TAG, "No cheaper station found or empty price list.");
             }
 
         } catch (Exception e) {
-            Log.e(TAG, "Error checking daily gas prices", e);
+            Log.e(TAG, "Error parsing daily gas prices JSON", e);
+        }
+
+        return Result.success();
+    }
+
+    private String fetchUrlData(String urlString) {
+        HttpURLConnection urlConnection = null;
+        BufferedReader reader = null;
+        try {
+            URL url = new URL(urlString);
+            urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection.setConnectTimeout(8000);
+            urlConnection.setReadTimeout(8000);
+            urlConnection.connect();
+
+            InputStream inputStream = urlConnection.getInputStream();
+            if (inputStream == null) {
+                return null;
+            }
+
+            StringBuilder buffer = new StringBuilder();
+            reader = new BufferedReader(new InputStreamReader(inputStream));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                buffer.append(line).append("\n");
+            }
+            return buffer.toString();
+        } catch (Exception e) {
+            Log.e(TAG, "Error fetching URL: " + urlString, e);
+            return null;
         } finally {
             if (urlConnection != null) {
                 urlConnection.disconnect();
@@ -139,8 +160,6 @@ public class DailyGasWorker extends Worker {
                 } catch (Exception ignored) {}
             }
         }
-
-        return Result.success();
     }
 
     private void sendSmartNotification(Context context, String municipio, String stationName, double magna, double premium) {
@@ -150,7 +169,7 @@ public class DailyGasWorker extends Worker {
             NotificationChannel channel = new NotificationChannel(
                     CHANNEL_ID,
                     "Precios Diario 8 AM",
-                    NotificationManager.IMPORTANCE_DEFAULT
+                    NotificationManager.IMPORTANCE_HIGH
             );
             channel.setDescription("Notificaciones diarias del mejor precio de gasolina");
             if (notificationManager != null) {
@@ -181,6 +200,7 @@ public class DailyGasWorker extends Worker {
                 .setContentTitle(title)
                 .setContentText(contentText)
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(contentText))
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setAutoCancel(true)
                 .setContentIntent(pendingIntent);
 

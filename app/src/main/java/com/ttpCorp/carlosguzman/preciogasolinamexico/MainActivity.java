@@ -271,7 +271,7 @@ public class MainActivity extends AppCompatActivity {
                     WorkManager.getInstance(activity).cancelUniqueWork("Daily8AMGasWork");
                     Log.d("MainActivity", "Daily gas notification cancelled.");
                 } else {
-                    ((MainActivity) activity).scheduleDailyGasWorker(hourOfDay);
+                    ((MainActivity) activity).scheduleDailyGasWorker(hourOfDay, true);
                 }
             } catch (Exception e) {
                 Log.e("JSI", "setNotificationTime error", e);
@@ -548,6 +548,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void scheduleDailyGasWorker(int targetHour) {
+        scheduleDailyGasWorker(targetHour, false);
+    }
+
+    public void scheduleDailyGasWorker(int targetHour, boolean forceReplace) {
         try {
             Calendar currentDate = Calendar.getInstance();
             Calendar dueDate = Calendar.getInstance();
@@ -568,12 +572,14 @@ public class MainActivity extends AppCompatActivity {
             .setInitialDelay(timeDiff, TimeUnit.MILLISECONDS)
             .build();
 
+            ExistingPeriodicWorkPolicy policy = forceReplace ? ExistingPeriodicWorkPolicy.REPLACE : ExistingPeriodicWorkPolicy.KEEP;
+
             WorkManager.getInstance(this).enqueueUniquePeriodicWork(
                     "Daily8AMGasWork",
-                    ExistingPeriodicWorkPolicy.REPLACE,
+                    policy,
                     dailyWorkRequest
             );
-            Log.d("MainActivity", "Daily Gas Work scheduled for hour: " + targetHour);
+            Log.d("MainActivity", "Daily Gas Work scheduled for hour: " + targetHour + " with policy: " + policy);
         } catch (Exception e) {
             Log.e("MainActivity", "Error scheduling daily gas work", e);
         }
