@@ -45,9 +45,10 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
 import androidx.webkit.WebViewAssetLoader;
 import android.widget.Toast;
-
+import android.widget.FrameLayout;
 
 import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -101,10 +102,12 @@ public class MainActivity extends AppCompatActivity {
 
         try {
             MobileAds.initialize(this, initializationStatus -> {});
-            AdView mAdView = findViewById(R.id.adView);
-            if (mAdView != null) {
-                mAdView.setVisibility(View.VISIBLE);
+            FrameLayout adContainerView = findViewById(R.id.adContainerView);
+            if (adContainerView != null) {
+                AdView mAdView = new AdView(this);
                 mAdView.setAdUnitId(BuildConfig.ADMOB_BANNER_ID);
+                mAdView.setAdSize(AdSize.BANNER);
+                adContainerView.addView(mAdView);
                 AdRequest adRequest = new AdRequest.Builder().build();
                 mAdView.loadAd(adRequest);
             }

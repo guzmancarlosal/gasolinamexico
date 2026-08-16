@@ -16,7 +16,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@+id/adView"
+            android:layout_above="@+id/adContainerView"
             android:layout_alignParentTop="true"
             android:orientation="vertical">
             <com.ttpCorp.carlosguzman.preciogasolinamexico.NoSuggestionsWebView
@@ -27,13 +27,12 @@
                 android:importantForAutofill="noExcludeDescendants"/>
         </LinearLayout>
 
-        <com.google.android.gms.ads.AdView
-            android:id="@+id/adView"
+        <FrameLayout
+            android:id="@+id/adContainerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            app:adSize="BANNER" />
+            android:layout_centerHorizontal="true" />
 
     </RelativeLayout>
 
