@@ -96,7 +96,11 @@ public class MainActivity extends AppCompatActivity {
         mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         int targetHour = mPrefs.getInt("notification_hour", 8);
         if (targetHour != -1) {
-            scheduleDailyGasWorker(targetHour);
+            DailyGasScheduler.scheduleDaily(this, targetHour);
+            int currentHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+            if (currentHour >= targetHour) {
+                new Thread(() -> DailyGasNotifier.checkPricesAndNotify(MainActivity.this, false)).start();
+            }
         }
         requestNotificationPermissionIfNeeded();
 
@@ -266,15 +270,11 @@ public class MainActivity extends AppCompatActivity {
         @JavascriptInterface
         public void setNotificationTime(int hourOfDay) {
             try {
-                SharedPreferences.Editor editor = mPrefs.edit();
-                editor.putInt("notification_hour", hourOfDay);
-                editor.apply();
-
                 if (hourOfDay == -1) {
-                    WorkManager.getInstance(activity).cancelUniqueWork("Daily8AMGasWork");
+                    DailyGasScheduler.cancelDaily(activity);
                     Log.d("MainActivity", "Daily gas notification cancelled.");
                 } else {
-                    ((MainActivity) activity).scheduleDailyGasWorker(hourOfDay, true);
+                    DailyGasScheduler.scheduleDaily(activity, hourOfDay, true);
                 }
             } catch (Exception e) {
                 Log.e("JSI", "setNotificationTime error", e);
@@ -285,11 +285,35 @@ public class MainActivity extends AppCompatActivity {
         public void openMap(String address) {
             try {
                 String encoded = Uri.encode(address);
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com/maps/search/?api=1&query=" + encoded));
-                activity.startActivity(intent);
+                // 1. Intentar abrir en la aplicación oficial de Google Maps
+                try {
+                    Uri gmmIntentUri = Uri.parse("geo:0,0?q=" + encoded);
+                    Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+                    mapIntent.setPackage("com.google.android.apps.maps");
+                    mapIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    activity.startActivity(mapIntent);
+                    return;
+                } catch (Exception e) {
+                    Log.d("MainActivity", "Google Maps app not installed or could not be launched directly, falling back to browser.");
+                }
+
+                // 2. Fallback al navegador web
+                Intent webIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com/maps/search/?api=1&query=" + encoded));
+                webIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                activity.startActivity(webIntent);
             } catch (Exception e) {
                 Log.e("JSI", "openMap error", e);
             }
+        }
+
+        @JavascriptInterface
+        public boolean isBatteryOptimizationIgnored() {
+            return DailyGasScheduler.isBatteryOptimizationIgnored(activity);
+        }
+
+        @JavascriptInterface
+        public void requestIgnoreBatteryOptimization() {
+            activity.runOnUiThread(() -> DailyGasScheduler.requestIgnoreBatteryOptimization(activity));
         }
     }
     public void loadApp() {
@@ -555,37 +579,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void scheduleDailyGasWorker(int targetHour, boolean forceReplace) {
-        try {
-            Calendar currentDate = Calendar.getInstance();
-            Calendar dueDate = Calendar.getInstance();
-            dueDate.set(Calendar.HOUR_OF_DAY, targetHour);
-            dueDate.set(Calendar.MINUTE, 0);
-            dueDate.set(Calendar.SECOND, 0);
-
-            if (dueDate.before(currentDate)) {
-                dueDate.add(Calendar.HOUR_OF_DAY, 24);
-            }
-
-            long timeDiff = dueDate.getTimeInMillis() - currentDate.getTimeInMillis();
-
-            PeriodicWorkRequest dailyWorkRequest = new PeriodicWorkRequest.Builder(
-                    DailyGasWorker.class,
-                    24, TimeUnit.HOURS
-            )
-            .setInitialDelay(timeDiff, TimeUnit.MILLISECONDS)
-            .build();
-
-            ExistingPeriodicWorkPolicy policy = forceReplace ? ExistingPeriodicWorkPolicy.REPLACE : ExistingPeriodicWorkPolicy.KEEP;
-
-            WorkManager.getInstance(this).enqueueUniquePeriodicWork(
-                    "Daily8AMGasWork",
-                    policy,
-                    dailyWorkRequest
-            );
-            Log.d("MainActivity", "Daily Gas Work scheduled for hour: " + targetHour + " with policy: " + policy);
-        } catch (Exception e) {
-            Log.e("MainActivity", "Error scheduling daily gas work", e);
-        }
+        DailyGasScheduler.scheduleDaily(this, targetHour, forceReplace);
     }
 
     private void requestNotificationPermissionIfNeeded() {

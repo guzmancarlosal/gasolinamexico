@@ -9,8 +9,8 @@ android {
         applicationId "com.ttpCorp.carlosguzman.gasolinamexico"
         minSdkVersion 21
         targetSdkVersion 36
-        versionCode 30
-        versionName "2.8.2"
+        versionCode 31
+        versionName "2.8.3"
         vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
