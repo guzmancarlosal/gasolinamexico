@@ -9,3 +9,5 @@
 *.hprof
 *.apk
 *.aab
+/release/
+app/release/
