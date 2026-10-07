@@ -45,11 +45,16 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
 import androidx.webkit.WebViewAssetLoader;
 import android.widget.Toast;
+import android.graphics.Rect;
+import android.util.DisplayMetrics;
+import android.view.WindowMetrics;
 import android.widget.FrameLayout;
 
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -82,6 +87,8 @@ public class MainActivity extends AppCompatActivity {
     public WebView webView;
     public String thisurl;
     public ProgressDialog progressBar;
+    private AdView mAdView;
+    private FrameLayout adContainerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,14 +113,9 @@ public class MainActivity extends AppCompatActivity {
 
         try {
             MobileAds.initialize(this, initializationStatus -> {});
-            FrameLayout adContainerView = findViewById(R.id.adContainerView);
+            adContainerView = findViewById(R.id.adContainerView);
             if (adContainerView != null) {
-                AdView mAdView = new AdView(this);
-                mAdView.setAdUnitId(BuildConfig.ADMOB_BANNER_ID);
-                mAdView.setAdSize(AdSize.BANNER);
-                adContainerView.addView(mAdView);
-                AdRequest adRequest = new AdRequest.Builder().build();
-                mAdView.loadAd(adRequest);
+                loadAdaptiveBanner();
             }
         } catch (Exception e) {
             Log.e("MainActivity", "AdMob initialization error", e);
@@ -475,6 +477,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        if (mAdView != null) {
+            mAdView.resume();
+        }
         Intent fcmIntent = getIntent();
         if (fcmIntent.getExtras() != null) {
            Bundle b = getIntent().getExtras();
@@ -530,6 +535,9 @@ public class MainActivity extends AppCompatActivity {
     }
     @Override
     protected void onPause() {
+        if (mAdView != null) {
+            mAdView.pause();
+        }
         super.onPause();
         Log.w("MainActivity", "onPause");
 
@@ -588,6 +596,71 @@ public class MainActivity extends AppCompatActivity {
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.POST_NOTIFICATIONS}, 101);
             }
         }
+    }
+
+    private void loadAdaptiveBanner() {
+        if (adContainerView == null) {
+            return;
+        }
+
+        if (mAdView != null) {
+            mAdView.destroy();
+            adContainerView.removeAllViews();
+        }
+
+        mAdView = new AdView(this);
+        mAdView.setAdUnitId(BuildConfig.ADMOB_BANNER_ID);
+        adContainerView.addView(mAdView);
+
+        AdSize adSize = getAdSize();
+        mAdView.setAdSize(adSize);
+
+        mAdView.setAdListener(new AdListener() {
+            @Override
+            public void onAdLoaded() {
+                super.onAdLoaded();
+                if (adContainerView != null) {
+                    adContainerView.setVisibility(View.VISIBLE);
+                }
+                Log.d("MainActivity", "Adaptive banner loaded successfully.");
+            }
+
+            @Override
+            public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                super.onAdFailedToLoad(loadAdError);
+                if (adContainerView != null) {
+                    adContainerView.setVisibility(View.GONE);
+                }
+                Log.w("MainActivity", "Adaptive banner failed to load: " + loadAdError.getMessage());
+            }
+        });
+
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+    }
+
+    private AdSize getAdSize() {
+        DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+        int adWidthPixels = displayMetrics.widthPixels;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            WindowMetrics windowMetrics = getWindowManager().getCurrentWindowMetrics();
+            Rect bounds = windowMetrics.getBounds();
+            adWidthPixels = bounds.width();
+        }
+
+        float density = displayMetrics.density;
+        int adWidth = (int) (adWidthPixels / density);
+        return AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(this, adWidth);
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (mAdView != null) {
+            mAdView.destroy();
+            mAdView = null;
+        }
+        super.onDestroy();
     }
 
     @Override
