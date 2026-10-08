@@ -1,0 +1,11 @@
+{
+  "appId": "com.ttpCorp.carlosguzman.gasolinamexico",
+  "appName": "Gasolina México",
+  "webDir": "app/src/main/assets/dist",
+  "server": {
+    "cleartext": true
+  },
+  "ios": {
+    "scheme": "GasolinaMexico"
+  }
+}

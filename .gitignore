@@ -11,3 +11,7 @@
 *.aab
 /release/
 app/release/
+keystore.properties
+*.jks
+*.keystore
+*.pepk
