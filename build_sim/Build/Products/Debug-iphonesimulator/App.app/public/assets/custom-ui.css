@@ -9,6 +9,13 @@
   --admob-offset: 120px;
 }
 
+/* En Android el banner de AdMob es un widget nativo ubicado fuera y debajo del WebView */
+html.is-android,
+body.is-android,
+.is-android {
+  --admob-offset: 0px !important;
+}
+
 /* =========================================================
    1. ESTRUCTURA DE PANTALLA COMPLETA (SIN HUECOS BLANCOS)
    ========================================================= */
@@ -225,6 +232,14 @@ html:has(#app-container.dark-mode) {
   background-color: #f0f2f5 !important;
 }
 
+/* Reducción exclusiva para Android del pie de página */
+html.is-android .app-footer,
+body.is-android .app-footer,
+.is-android .app-footer {
+  padding: 8px 16px 10px !important;
+  margin-top: auto !important;
+}
+
 .privacy-link {
   color: #94a3b8 !important;
   text-decoration: none !important;
@@ -232,6 +247,13 @@ html:has(#app-container.dark-mode) {
   font-weight: 600 !important;
   letter-spacing: 0.2px !important;
   transition: color 0.2s ease !important;
+}
+
+html.is-android .privacy-link,
+body.is-android .privacy-link,
+.is-android .privacy-link {
+  font-size: 0.78rem !important;
+  opacity: 0.85;
 }
 
 .privacy-link:hover, .privacy-link:active {
@@ -414,6 +436,15 @@ html:has(#app-container.dark-mode) {
 .savings-main-card,
 .settings-container {
   padding-bottom: var(--admob-offset) !important;
+}
+
+html.is-android .savings-main-card,
+body.is-android .savings-main-card,
+.is-android .savings-main-card,
+html.is-android .settings-container,
+body.is-android .settings-container,
+.is-android .settings-container {
+  padding-bottom: 16px !important;
 }
 
 .savings-main-card {
@@ -860,6 +891,13 @@ html:has(#app-container.dark-mode) {
 #app-container.dark-mode .no-results-container,
 #app-container.dark-mode .settings-container {
   background-color: #080c14 !important;
+}
+
+html.is-android #app-container.dark-mode .app-footer,
+body.is-android #app-container.dark-mode .app-footer,
+.is-android #app-container.dark-mode .app-footer {
+  background-color: #080c14 !important;
+  padding: 8px 16px 10px !important;
 }
 
 /* Header en Dark Mode */

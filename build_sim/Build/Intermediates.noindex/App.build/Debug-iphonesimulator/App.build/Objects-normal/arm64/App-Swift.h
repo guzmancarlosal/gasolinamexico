@@ -348,6 +348,8 @@ extern "C" {
 @import Foundation;
 @import GoogleMobileAds;
 @import UIKit;
+@import UserNotifications;
+@import WebKit;
 #endif
 
 #endif // defined(__OBJC__)
@@ -395,14 +397,20 @@ SWIFT_CLASS("_TtC3App11AppDelegate")
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
+@class WKUserContentController;
+@class WKScriptMessage;
+@class UNUserNotificationCenter;
+@class UNNotification;
 @class GADBannerView;
 @class NSString;
 @class NSBundle;
 @class NSCoder;
 SWIFT_CLASS("_TtC3App18MainViewController")
-@interface MainViewController : CAPBridgeViewController <GADBannerViewDelegate>
+@interface MainViewController : CAPBridgeViewController <GADBannerViewDelegate, UNUserNotificationCenterDelegate, WKScriptMessageHandler>
 - (void)viewDidLoad;
 - (void)viewDidAppear:(BOOL)animated;
+- (void)userContentController:(WKUserContentController * _Nonnull)userContentController didReceiveScriptMessage:(WKScriptMessage * _Nonnull)message;
+- (void)userNotificationCenter:(UNUserNotificationCenter * _Nonnull)center willPresentNotification:(UNNotification * _Nonnull)notification withCompletionHandler:(void (^ _Nonnull)(UNNotificationPresentationOptions))completionHandler;
 - (void)bannerViewDidReceiveAd:(GADBannerView * _Nonnull)bannerView;
 - (void)bannerView:(GADBannerView * _Nonnull)bannerView didFailToReceiveAdWithError:(NSError * _Nonnull)error;
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
