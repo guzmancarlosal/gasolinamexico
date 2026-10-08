@@ -42,10 +42,45 @@
       "description": "Aplicación para comparar precios de combustible Magna, Premium y Diesel en México en tiempo real."
     }
     </script>
+    <!-- Pre-init dark mode from system preference before Vue boots -->
+    <script>
+      (function() {
+        try {
+          if (localStorage.getItem("gasApp_darkMode") === null && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            localStorage.setItem("gasApp_darkMode", "true");
+          }
+          if (localStorage.getItem("gasApp_darkMode") === "true") {
+            document.documentElement.classList.add("dark-mode");
+          }
+        } catch(e) {}
+      })();
+    </script>
     <script type="module" crossorigin src="./assets/index-DobDw62X.js"></script>
     <link rel="stylesheet" crossorigin href="./assets/index-DNPtFv61.css">
+    <link rel="stylesheet" href="./assets/custom-ui.css">
   </head>
   <body>
     <div id="app"></div>
+    <script>
+      (function() {
+        function syncTheme() {
+          var isDark = localStorage.getItem('gasApp_darkMode') === 'true' || 
+            (document.getElementById('app-container') && document.getElementById('app-container').classList.contains('dark-mode'));
+          if (isDark) {
+            document.documentElement.classList.add('dark-mode');
+            if (document.body) document.body.classList.add('dark-mode');
+          } else {
+            document.documentElement.classList.remove('dark-mode');
+            if (document.body) document.body.classList.remove('dark-mode');
+          }
+        }
+        syncTheme();
+        var target = document.getElementById('app') || document.body;
+        if (target) {
+          var observer = new MutationObserver(syncTheme);
+          observer.observe(target, { attributes: true, subtree: true, attributeFilter: ['class'] });
+        }
+      })();
+    </script>
   </body>
 </html>

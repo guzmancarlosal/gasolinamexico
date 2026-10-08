@@ -1,0 +1,954 @@
+/* =========================================================
+   PRECIO GASOLINA MÉXICO - REDISEÑO UI/UX COMPLETO
+   Estándar Apple Human Interface Guidelines + Fintech 2026
+   ========================================================= */
+
+:root {
+  --safe-top: env(safe-area-inset-top, 48px);
+  --safe-bottom: env(safe-area-inset-bottom, 24px);
+  --admob-offset: 120px;
+}
+
+/* =========================================================
+   1. ESTRUCTURA DE PANTALLA COMPLETA (SIN HUECOS BLANCOS)
+   ========================================================= */
+html, body {
+  margin: 0 !important;
+  padding: 0 !important;
+  min-height: 100% !important;
+  height: 100% !important;
+  width: 100% !important;
+  background-color: #f0f2f5 !important;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html.dark-mode,
+body.dark-mode,
+#app.dark-mode,
+body:has(#app-container.dark-mode),
+html:has(#app-container.dark-mode) {
+  background-color: #080c14 !important;
+}
+
+#app-container.dark-mode {
+  background-color: #080c14 !important;
+  color: #f8fafc !important;
+}
+
+#app {
+  min-height: 100% !important;
+  height: 100% !important;
+  width: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  flex: 1 1 auto !important;
+  background-color: transparent !important;
+}
+
+#app-container {
+  min-height: 100% !important;
+  height: 100% !important;
+  width: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  flex: 1 1 auto !important;
+  background-color: #f0f2f5 !important;
+  color: #1e293b !important;
+}
+
+#app-container:not(.dark-mode) {
+  color: #1e293b !important;
+}
+
+#app-container:not(.dark-mode) .card,
+#app-container:not(.dark-mode) .savings-main-card,
+#app-container:not(.dark-mode) .settings-container .card {
+  background-color: #ffffff !important;
+  color: #1e293b !important;
+}
+
+#app-container:not(.dark-mode) .savings-title,
+#app-container:not(.dark-mode) h1,
+#app-container:not(.dark-mode) h2,
+#app-container:not(.dark-mode) h3,
+#app-container:not(.dark-mode) h4,
+#app-container:not(.dark-mode) h5 {
+  color: #0f172a !important;
+}
+
+#app-container:not(.dark-mode) .form-label,
+#app-container:not(.dark-mode) label {
+  color: #1e293b !important;
+}
+
+#app-container:not(.dark-mode) .text-muted,
+#app-container:not(.dark-mode) p.text-muted,
+#app-container:not(.dark-mode) .savings-header-area p {
+  color: #64748b !important;
+}
+
+.app-view {
+  min-height: 100% !important;
+  height: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  flex: 1 1 auto !important;
+  background-color: #f0f2f5 !important;
+}
+
+.main-content {
+  flex: 1 1 auto !important;
+  display: flex !important;
+  flex-direction: column !important;
+  background-color: #f0f2f5 !important;
+  padding-bottom: 20px !important;
+}
+
+.main-content > div {
+  flex: 1 1 auto !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+/* =========================================================
+   2. HEADER Y NOTCH / DYNAMIC ISLAND (RESPETO DE STATUS BAR)
+   ========================================================= */
+.header {
+  padding-top: calc(env(safe-area-inset-top, 44px) + 12px) !important;
+  background: linear-gradient(135deg, #059669, #047857) !important;
+  box-shadow: 0 2px 10px rgba(4, 120, 87, 0.15) !important;
+  position: relative !important;
+  z-index: 10 !important;
+}
+
+.header-top {
+  padding: 8px 16px 10px !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+.header-title {
+  font-size: 1.25rem !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.3px !important;
+}
+
+.location-bar {
+  background: rgba(0, 0, 0, 0.14) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  padding: 9px 16px !important;
+  font-size: 0.85rem !important;
+}
+
+.change-location-btn {
+  border-radius: 20px !important;
+  padding: 5px 14px !important;
+  font-weight: 600 !important;
+  font-size: 0.78rem !important;
+}
+
+/* Barra de Navegación de Tabs */
+.navigation {
+  background: #ffffff !important;
+  border-bottom: 1px solid #e2e8f0 !important;
+  padding: 2px 0 !important;
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 9 !important;
+}
+
+.navigation button {
+  font-size: 0.95rem !important;
+  font-weight: 600 !important;
+  color: #64748b !important;
+  padding: 11px 14px !important;
+  transition: all 0.2s ease !important;
+}
+
+.navigation button.active {
+  color: #059669 !important;
+}
+
+.navigation button.active::after {
+  background-color: #059669 !important;
+  height: 3px !important;
+  border-radius: 3px !important;
+  bottom: 0 !important;
+}
+
+/* =========================================================
+   3. ESTADO VACÍO DE FAVORITOS Y AVISO DE PRIVACIDAD
+   ========================================================= */
+.no-results-container {
+  flex: 1 1 auto !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 40px 24px !important;
+  text-align: center !important;
+  min-height: 50vh !important;
+}
+
+.no-results-container p:first-of-type {
+  font-size: 3.5rem !important;
+  margin-top: 0 !important;
+  margin-bottom: 16px !important;
+  line-height: 1 !important;
+  filter: drop-shadow(0 4px 14px rgba(239, 68, 68, 0.45));
+}
+
+.no-results-container p:nth-of-type(2) {
+  font-size: 1.15rem !important;
+  font-weight: 700 !important;
+  color: #1e293b;
+  margin-top: 0 !important;
+  margin-bottom: 8px !important;
+  max-width: 320px !important;
+  line-height: 1.35 !important;
+}
+
+.no-results-container p:last-of-type {
+  font-size: 0.9rem !important;
+  color: #64748b !important;
+  max-width: 290px !important;
+  line-height: 1.45 !important;
+  margin-bottom: 0 !important;
+}
+
+.app-footer {
+  margin-top: auto !important;
+  padding: 20px 16px calc(var(--admob-offset) - 10px) !important;
+  text-align: center !important;
+  background-color: #f0f2f5 !important;
+}
+
+.privacy-link {
+  color: #94a3b8 !important;
+  text-decoration: none !important;
+  font-size: 0.85rem !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.2px !important;
+  transition: color 0.2s ease !important;
+}
+
+.privacy-link:hover, .privacy-link:active {
+  color: #059669 !important;
+  text-decoration: underline !important;
+}
+
+/* =========================================================
+   4. TARJETAS DE ESTACIONES (PESTAÑA "LISTA" Y "FAVORITOS")
+   ========================================================= */
+.filter-bar {
+  padding: 12px 14px 6px !important;
+  gap: 8px !important;
+}
+
+.filter-btn {
+  background-color: #ffffff !important;
+  color: #475569 !important;
+  border: 1px solid #cbd5e1 !important;
+  border-radius: 20px !important;
+  padding: 6px 14px !important;
+  font-size: 0.82rem !important;
+  font-weight: 700 !important;
+}
+
+.filter-btn.active {
+  background-color: #059669 !important;
+  color: #ffffff !important;
+  border-color: #059669 !important;
+  box-shadow: 0 2px 8px rgba(5, 150, 105, 0.25) !important;
+}
+
+.brand-select {
+  padding: 6px 14px !important;
+  border-radius: 20px !important;
+  border: 1px solid #cbd5e1 !important;
+  background-color: #ffffff !important;
+  color: #334155 !important;
+  font-size: 0.82rem !important;
+  font-weight: 700 !important;
+}
+
+.gas-station-list {
+  padding: 8px 12px var(--admob-offset) !important;
+  gap: 12px !important;
+}
+
+.gas-station-card {
+  background: #ffffff !important;
+  border-radius: 18px !important;
+  border: 1px solid rgba(15, 23, 42, 0.08) !important;
+  box-shadow: 0 4px 18px -2px rgba(15, 23, 42, 0.05), 0 2px 6px -1px rgba(15, 23, 42, 0.02) !important;
+  padding: 14px 14px !important;
+  position: relative !important;
+}
+
+.station-logo {
+  width: 46px !important;
+  height: 46px !important;
+  object-fit: contain !important;
+  border-radius: 12px !important;
+  background: #ffffff !important;
+  padding: 4px !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06) !important;
+  border: 1px solid #f1f5f9 !important;
+  margin-bottom: 6px !important;
+}
+
+.cheapest-tag {
+  background: linear-gradient(135deg, #10b981, #059669) !important;
+  color: #ffffff !important;
+  font-size: 0.65rem !important;
+  font-weight: 800 !important;
+  border-radius: 6px !important;
+  padding: 3px 6px !important;
+  letter-spacing: 0.4px !important;
+  box-shadow: 0 2px 6px rgba(16, 185, 129, 0.3) !important;
+  border: none !important;
+  display: inline-block !important;
+  text-align: center !important;
+}
+
+.station-name {
+  font-size: 0.98rem !important;
+  font-weight: 700 !important;
+  color: #0f172a !important;
+  margin: 0 0 2px 0 !important;
+  line-height: 1.35 !important;
+}
+
+.station-address {
+  font-size: 0.78rem !important;
+  color: #64748b !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.2px !important;
+  margin: 0 0 10px 0 !important;
+  line-height: 1.25 !important;
+}
+
+.card-action-btns {
+  display: flex !important;
+  gap: 8px !important;
+  align-items: center !important;
+}
+
+.get-directions-btn {
+  background-color: #007aff !important;
+  color: #ffffff !important;
+  padding: 7px 14px !important;
+  border-radius: 10px !important;
+  font-size: 0.8rem !important;
+  font-weight: 600 !important;
+  border: none !important;
+  box-shadow: 0 2px 6px rgba(0, 122, 255, 0.2) !important;
+  cursor: pointer !important;
+}
+
+.whatsapp-btn {
+  background-color: #ecfdf5 !important;
+  color: #059669 !important;
+  border: 1px solid #a7f3d0 !important;
+  padding: 7px 12px !important;
+  border-radius: 10px !important;
+  font-size: 0.8rem !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+}
+
+.fav-btn {
+  font-size: 1.35rem !important;
+  line-height: 1 !important;
+  cursor: pointer !important;
+}
+
+.prices {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 4px !important;
+  align-items: flex-end !important;
+}
+
+.price-item {
+  width: auto !important;
+}
+
+.price-badge {
+  font-size: 0.88rem !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.2px !important;
+  padding: 4px 9px !important;
+  border-radius: 8px !important;
+  box-shadow: none !important;
+  width: auto !important;
+  min-width: 68px !important;
+  display: inline-block !important;
+  text-align: center !important;
+}
+
+.regular-bg {
+  background-color: #ecfdf5 !important;
+  color: #047857 !important;
+  border: 1px solid #a7f3d0 !important;
+}
+
+.premium-bg {
+  background-color: #fef2f2 !important;
+  color: #b91c1c !important;
+  border: 1px solid #fecaca !important;
+}
+
+.diesel-bg {
+  background-color: #f3f4f6 !important;
+  color: #1f2937 !important;
+  border: 1px solid #e5e7eb !important;
+}
+
+/* =========================================================
+   5. PESTAÑA AHORRO (CALCULADORA)
+   ========================================================= */
+.savings-main-card,
+.settings-container {
+  padding-bottom: var(--admob-offset) !important;
+}
+
+.savings-main-card {
+  color: #1e293b !important;
+}
+
+.savings-title {
+  color: #0f172a !important;
+  font-weight: 800 !important;
+}
+
+.savings-header-area p {
+  color: #64748b !important;
+}
+
+.savings-main-card .form-label {
+  color: #1e293b !important;
+  font-weight: 700 !important;
+}
+
+.savings-station-card {
+  background: #ffffff !important;
+  border-radius: 18px !important;
+  border: 1px solid rgba(15, 23, 42, 0.08) !important;
+  box-shadow: 0 4px 16px -2px rgba(15, 23, 42, 0.05) !important;
+  padding: 16px !important;
+  margin-bottom: 14px !important;
+}
+
+.savings-station-card.best-station-card {
+  border: 1.5px solid #10b981 !important;
+  box-shadow: 0 6px 20px -2px rgba(16, 185, 129, 0.16) !important;
+}
+
+.rank-badge {
+  font-size: 0.72rem !important;
+  font-weight: 700 !important;
+  padding: 4px 10px !important;
+  border-radius: 20px !important;
+}
+
+.rank-1 {
+  background: linear-gradient(135deg, #10b981, #059669) !important;
+  color: #ffffff !important;
+}
+
+.rank-2, .rank-3, .rank-other {
+  background: #f1f5f9 !important;
+  color: #334155 !important;
+  border: 1px solid #cbd5e1 !important;
+}
+
+.savings-badge {
+  font-size: 1.25rem !important;
+  font-weight: 800 !important;
+  padding: 4px 10px !important;
+  border-radius: 10px !important;
+}
+
+.savings-station-name {
+  font-size: 1.05rem !important;
+  font-weight: 700 !important;
+  color: #0f172a !important;
+}
+
+.savings-station-address {
+  font-size: 0.78rem !important;
+  color: #64748b !important;
+}
+
+.tank-cost-row {
+  background: #f8fafc !important;
+  border-radius: 10px !important;
+  border: 1px solid #f1f5f9 !important;
+  padding: 9px 12px !important;
+  margin-bottom: 10px !important;
+  display: flex !important;
+  justify-content: space-between !important;
+}
+
+.savings-tag {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  padding: 7px 11px !important;
+  border-radius: 10px !important;
+  font-size: 0.82rem !important;
+  margin-bottom: 6px !important;
+}
+
+.savings-tag-avg {
+  background-color: #ecfdf5 !important;
+  color: #065f46 !important;
+  border: 1px solid #a7f3d0 !important;
+}
+
+.savings-tag-max {
+  background-color: #eff6ff !important;
+  color: #1e40af !important;
+  border: 1px solid #bfdbfe !important;
+}
+
+.savings-map-btn {
+  flex: 1.4 !important;
+  background-color: #007aff !important;
+  color: #ffffff !important;
+  font-weight: 600 !important;
+  font-size: 0.88rem !important;
+  padding: 10px 14px !important;
+  border-radius: 12px !important;
+  text-decoration: none !important;
+  box-shadow: 0 3px 8px rgba(0, 122, 255, 0.22) !important;
+}
+
+.savings-share-btn {
+  flex: 1 !important;
+  background-color: #ecfdf5 !important;
+  color: #059669 !important;
+  border: 1px solid #a7f3d0 !important;
+  font-weight: 600 !important;
+  font-size: 0.85rem !important;
+  padding: 10px 12px !important;
+  border-radius: 12px !important;
+}
+
+/* =========================================================
+   6. PESTAÑA AJUSTES (SETTINGS)
+   ========================================================= */
+.settings-container .card {
+  border-radius: 18px !important;
+  border: 1px solid rgba(15, 23, 42, 0.08) !important;
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05) !important;
+  padding: 20px 18px !important;
+  margin-bottom: 16px !important;
+  background: #ffffff !important;
+  color: #1e293b !important;
+}
+
+.settings-container .card h3 {
+  color: #0f172a !important;
+  font-weight: 700 !important;
+}
+
+.settings-container .card p.text-muted,
+.settings-container .card p {
+  color: #64748b !important;
+}
+
+.settings-container .card span.font-weight-bold {
+  color: #0f172a !important;
+  font-weight: 700 !important;
+}
+
+.time-btn {
+  padding: 10px 6px !important;
+  border-radius: 12px !important;
+  font-size: 0.85rem !important;
+  font-weight: 600 !important;
+  border: 1px solid #cbd5e1 !important;
+  background: #f8fafc !important;
+  color: #334155 !important;
+}
+
+.time-btn.active {
+  background: #007aff !important;
+  color: #ffffff !important;
+  border-color: #007aff !important;
+  box-shadow: 0 3px 10px rgba(0, 122, 255, 0.25) !important;
+}
+
+/* ==========================================================================
+   7. MODO OSCURO (DARK MODE) PREMIUM - TOTALMENTE INTEGRADO Y SIN ESPACIOS BLANCOS
+   ========================================================================== */
+body:has(#app-container.dark-mode),
+html:has(#app-container.dark-mode) {
+  background-color: #080c14 !important;
+}
+
+#app-container.dark-mode {
+  background-color: #080c14 !important;
+  color: #f8fafc !important;
+}
+
+#app-container.dark-mode .app-view,
+#app-container.dark-mode .main-content,
+#app-container.dark-mode .app-footer,
+#app-container.dark-mode .no-results-container,
+#app-container.dark-mode .settings-container {
+  background-color: #080c14 !important;
+}
+
+/* Header en Dark Mode */
+#app-container.dark-mode .header {
+  background: linear-gradient(180deg, #064e3b 0%, #022c22 100%) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45) !important;
+}
+
+#app-container.dark-mode .header-title {
+  color: #ffffff !important;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+/* Barra de Búsqueda Translúcida en Header */
+#app-container.dark-mode .search-bar {
+  background: rgba(255, 255, 255, 0.14) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.22) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2) !important;
+}
+
+#app-container.dark-mode .search-input {
+  color: #ffffff !important;
+  background: transparent !important;
+}
+
+#app-container.dark-mode .search-input::placeholder {
+  color: rgba(255, 255, 255, 0.65) !important;
+}
+
+#app-container.dark-mode .search-icon {
+  filter: brightness(0) invert(1) !important;
+  opacity: 0.8 !important;
+}
+
+/* Barra de Ubicación en Dark Mode */
+#app-container.dark-mode .location-bar {
+  background: rgba(0, 0, 0, 0.25) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.06) !important;
+  color: #e2e8f0 !important;
+}
+
+#app-container.dark-mode .change-location-btn {
+  background: rgba(255, 255, 255, 0.12) !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  color: #ffffff !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Barra de Tabs en Dark Mode */
+#app-container.dark-mode .navigation {
+  background: #0d1321 !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
+}
+
+#app-container.dark-mode .navigation button {
+  color: #94a3b8 !important;
+}
+
+#app-container.dark-mode .navigation button.active {
+  color: #34d399 !important;
+}
+
+#app-container.dark-mode .navigation button.active::after {
+  background-color: #34d399 !important;
+  box-shadow: 0 0 8px rgba(52, 211, 153, 0.6) !important;
+}
+
+/* Filtros en Dark Mode */
+#app-container.dark-mode .filter-btn {
+  background-color: #141e30 !important;
+  color: #cbd5e1 !important;
+  border-color: #334155 !important;
+}
+
+#app-container.dark-mode .filter-btn.active {
+  background-color: #10b981 !important;
+  color: #ffffff !important;
+  border-color: #10b981 !important;
+  box-shadow: 0 2px 10px rgba(16, 185, 129, 0.35) !important;
+}
+
+#app-container.dark-mode .brand-select {
+  background-color: #141e30 !important;
+  color: #cbd5e1 !important;
+  border-color: #334155 !important;
+}
+
+/* Tarjetas de Lista en Dark Mode */
+#app-container.dark-mode .gas-station-card {
+  background: #141e30 !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45) !important;
+}
+
+#app-container.dark-mode .station-name {
+  color: #f8fafc !important;
+}
+
+#app-container.dark-mode .station-address {
+  color: #94a3b8 !important;
+}
+
+#app-container.dark-mode .station-logo {
+  background: #0f172a !important;
+  border-color: #334155 !important;
+  box-shadow: none !important;
+}
+
+#app-container.dark-mode .whatsapp-btn {
+  background-color: #064e3b !important;
+  color: #a7f3d0 !important;
+  border-color: #047857 !important;
+}
+
+/* Precios en Dark Mode */
+#app-container.dark-mode .regular-bg {
+  background-color: #064e3b !important;
+  color: #a7f3d0 !important;
+  border: 1px solid #047857 !important;
+}
+
+#app-container.dark-mode .premium-bg {
+  background-color: #7f1d1d !important;
+  color: #fecaca !important;
+  border: 1px solid #991b1b !important;
+}
+
+#app-container.dark-mode .diesel-bg {
+  background-color: #1e293b !important;
+  color: #e2e8f0 !important;
+  border: 1px solid #334155 !important;
+}
+
+/* Estado Vacío de Favoritos y Búsqueda en Dark Mode */
+#app-container.dark-mode .no-results-container p:first-of-type {
+  filter: drop-shadow(0 4px 16px rgba(239, 68, 68, 0.5)) !important;
+}
+
+#app-container.dark-mode .no-results-container p:nth-of-type(2) {
+  color: #f8fafc !important;
+}
+
+#app-container.dark-mode .no-results-container p:last-of-type {
+  color: #94a3b8 !important;
+}
+
+#app-container.dark-mode .privacy-link {
+  color: #64748b !important;
+}
+
+#app-container.dark-mode .privacy-link:hover,
+#app-container.dark-mode .privacy-link:active {
+  color: #34d399 !important;
+}
+
+/* Tarjetas de Ajustes y Ahorro en Dark Mode */
+#app-container.dark-mode .settings-container .card,
+#app-container.dark-mode .savings-station-card,
+#app-container.dark-mode .savings-main-card,
+#app-container.dark-mode .savings-main-card.bg-white,
+#app-container.dark-mode .card.bg-white,
+#app-container.dark-mode .card {
+  background: #141e30 !important;
+  background-color: #141e30 !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45) !important;
+}
+
+#app-container.dark-mode .settings-container .card h3,
+#app-container.dark-mode .savings-station-name,
+#app-container.dark-mode .savings-title {
+  color: #f8fafc !important;
+}
+
+#app-container.dark-mode .form-label {
+  color: #cbd5e1 !important;
+}
+
+#app-container.dark-mode .savings-summary-banner {
+  background: linear-gradient(135deg, #064e3b, #022c22) !important;
+  border: 1px solid #047857 !important;
+  color: #a7f3d0 !important;
+}
+
+#app-container.dark-mode .summary-big-savings {
+  color: #34d399 !important;
+}
+
+#app-container.dark-mode .settings-container .card p.text-muted,
+#app-container.dark-mode .savings-station-address,
+#app-container.dark-mode .savings-header-area p {
+  color: #94a3b8 !important;
+}
+
+#app-container.dark-mode .time-btn {
+  background: #0f172a !important;
+  border-color: #334155 !important;
+  color: #cbd5e1 !important;
+}
+
+#app-container.dark-mode .time-btn.active {
+  background: #007aff !important;
+  border-color: #007aff !important;
+  color: #ffffff !important;
+  box-shadow: 0 3px 12px rgba(0, 122, 255, 0.45) !important;
+}
+
+#app-container.dark-mode p.mt-3.text-success {
+  background: #064e3b !important;
+  color: #a7f3d0 !important;
+  border-color: #047857 !important;
+}
+
+#app-container.dark-mode .tank-cost-row {
+  background: #0d1321 !important;
+  border-color: #1e293b !important;
+}
+
+#app-container.dark-mode .tank-cost-label {
+  color: #94a3b8 !important;
+}
+
+#app-container.dark-mode .tank-cost-value {
+  color: #f8fafc !important;
+}
+
+#app-container.dark-mode .rank-2,
+#app-container.dark-mode .rank-3,
+#app-container.dark-mode .rank-other {
+  background: #0d1321 !important;
+  color: #cbd5e1 !important;
+  border-color: #1e293b !important;
+}
+
+#app-container.dark-mode .station-brand-pill {
+  background: #0d1321 !important;
+  color: #94a3b8 !important;
+  border-color: #1e293b !important;
+}
+
+#app-container.dark-mode .savings-tag-avg {
+  background-color: #064e3b !important;
+  color: #a7f3d0 !important;
+  border-color: #047857 !important;
+}
+
+#app-container.dark-mode .savings-tag-max {
+  background-color: #1e3a8a !important;
+  color: #bfdbfe !important;
+  border-color: #1d4ed8 !important;
+}
+
+#app-container.dark-mode .savings-share-btn {
+  background-color: #064e3b !important;
+  color: #a7f3d0 !important;
+  border-color: #047857 !important;
+}
+
+/* Modal de Ubicación en Dark Mode */
+#app-container.dark-mode .modal-overlay {
+  background-color: rgba(0, 0, 0, 0.78) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+}
+
+#app-container.dark-mode .modal-container {
+  background-color: #141e30 !important;
+  color: #f8fafc !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6) !important;
+  border-radius: 20px !important;
+}
+
+#app-container.dark-mode .modal-header-custom {
+  border-bottom: 1px solid #1e293b !important;
+}
+
+#app-container.dark-mode .card-title {
+  color: #f8fafc !important;
+}
+
+#app-container.dark-mode .card-text {
+  color: #94a3b8 !important;
+}
+
+#app-container.dark-mode .modal-container .form-label {
+  color: #cbd5e1 !important;
+}
+
+#app-container.dark-mode .modal-container .form-control {
+  background-color: #0f172a !important;
+  color: #f8fafc !important;
+  border: 1px solid #334155 !important;
+  border-radius: 12px !important;
+}
+
+#app-container.dark-mode .modal-container .form-control:focus {
+  border-color: #10b981 !important;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.25) !important;
+}
+
+#app-container.dark-mode .list-group {
+  background-color: #0f172a !important;
+  border: 1px solid #334155 !important;
+  border-radius: 12px !important;
+}
+
+#app-container.dark-mode .list-group-item {
+  background-color: #0f172a !important;
+  color: #e2e8f0 !important;
+  border-bottom: 1px solid #1e293b !important;
+}
+
+#app-container.dark-mode .list-group-item:hover,
+#app-container.dark-mode .list-group-item:active {
+  background-color: #1e293b !important;
+  color: #34d399 !important;
+}
+
+#app-container.dark-mode .close-button {
+  color: #cbd5e1 !important;
+}
+
+/* Pantalla Aviso de Privacidad en Dark Mode */
+#app-container.dark-mode .aviso-container {
+  background-color: #141e30 !important;
+  color: #cbd5e1 !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4) !important;
+  border-radius: 18px !important;
+}
+
+#app-container.dark-mode .aviso-container h2,
+#app-container.dark-mode .aviso-container h3 {
+  color: #f8fafc !important;
+  border-color: #334155 !important;
+}
+
+#app-container.dark-mode .aviso-container p {
+  color: #cbd5e1 !important;
+}
+
+#app-container.dark-mode .aviso-container .last-updated {
+  color: #94a3b8 !important;
+}

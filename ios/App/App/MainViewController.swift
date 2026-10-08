@@ -12,8 +12,22 @@ class MainViewController: CAPBridgeViewController, BannerViewDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureAppearance()
         setupJSBridge()
         setupAdMobBanner()
+    }
+
+    private func configureAppearance() {
+        // Fondo nativo dinámico adaptado al modo de la interfaz (Midnight Slate #080c14 o Soft Gray #f0f2f5)
+        view.backgroundColor = UIColor { trait in
+            trait.userInterfaceStyle == .dark
+                ? UIColor(red: 8/255.0, green: 12/255.0, blue: 20/255.0, alpha: 1.0)
+                : UIColor(red: 240/255.0, green: 242/255.0, blue: 245/255.0, alpha: 1.0)
+        }
+        guard let webView = self.webView else { return }
+        webView.isOpaque = false
+        webView.backgroundColor = .clear
+        webView.scrollView.backgroundColor = .clear
     }
 
     override func viewDidAppear(_ animated: Bool) {

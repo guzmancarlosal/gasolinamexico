@@ -5,7 +5,9 @@
   "server": {
     "cleartext": true
   },
-  "ios": {
-    "scheme": "GasolinaMexico"
+  "plugins": {
+    "CapacitorHttp": {
+      "enabled": true
+    }
   }
 }
