@@ -42,10 +42,13 @@
       "description": "Aplicación para comparar precios de combustible Magna, Premium y Diesel en México en tiempo real."
     }
     </script>
-    <!-- Pre-init dark mode from system preference before Vue boots -->
+    <!-- Pre-init dark mode and platform detection from system preference before Vue boots -->
     <script>
       (function() {
         try {
+          if (/android/i.test(navigator.userAgent) || window.app) {
+            document.documentElement.classList.add("is-android");
+          }
           if (localStorage.getItem("gasApp_darkMode") === null && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
             localStorage.setItem("gasApp_darkMode", "true");
           }
@@ -72,6 +75,10 @@
           } else {
             document.documentElement.classList.remove('dark-mode');
             if (document.body) document.body.classList.remove('dark-mode');
+          }
+          if (/android/i.test(navigator.userAgent) || window.app) {
+            document.documentElement.classList.add('is-android');
+            if (document.body) document.body.classList.add('is-android');
           }
         }
         syncTheme();

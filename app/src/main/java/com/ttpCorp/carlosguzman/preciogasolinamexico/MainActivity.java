@@ -386,6 +386,7 @@ public class MainActivity extends AppCompatActivity {
                 if (progressBar != null && progressBar.isShowing()) {
                     progressBar.dismiss();
                 }
+                view.evaluateJavascript("document.documentElement.classList.add('is-android'); if(document.body) document.body.classList.add('is-android');", null);
 
             }
 
