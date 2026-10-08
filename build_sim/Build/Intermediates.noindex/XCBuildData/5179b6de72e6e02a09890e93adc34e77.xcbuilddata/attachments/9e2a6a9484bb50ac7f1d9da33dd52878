@@ -1,0 +1,4 @@
+
+module CapacitorCommunityAdmob.Swift {
+  header "CapacitorCommunityAdmob-Swift.h"
+}

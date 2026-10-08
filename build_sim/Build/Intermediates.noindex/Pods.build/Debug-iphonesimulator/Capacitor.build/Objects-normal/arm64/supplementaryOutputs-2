@@ -1,0 +1,37 @@
+{
+  "/Users/Carlos/dev/gasolinamexico/node_modules/@capacitor/ios/Capacitor/Capacitor/CAPApplicationDelegateProxy.swift" : {
+    "const-values" : "/Users/Carlos/dev/gasolinamexico/build_sim/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPApplicationDelegateProxy.swiftconstvalues",
+    "dependencies" : "/Users/Carlos/dev/gasolinamexico/build_sim/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPApplicationDelegateProxy.d",
+    "diagnostics" : "/Users/Carlos/dev/gasolinamexico/build_sim/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPApplicationDelegateProxy.dia",
+    "object" : "/Users/Carlos/dev/gasolinamexico/build_sim/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPApplicationDelegateProxy.o",
+    "swift-dependencies" : "/Users/Carlos/dev/gasolinamexico/build_sim/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPApplicationDelegateProxy.swiftdeps"
+  },
+  "/Users/Carlos/dev/gasolinamexico/node_modules/@capacitor/ios/Capacitor/Capacitor/CAPBridge.swift" : {
+    "const-values" : "/Users/Carlos/dev/gasolinamexico/build_sim/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPBridge.swiftconstvalues",
+    "dependencies" : "/Users/Carlos/dev/gasolinamexico/build_sim/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPBridge.d",
+    "diagnostics" : "/Users/Carlos/dev/gasolinamexico/build_sim/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPBridge.dia",
+    "object" : "/Users/Carlos/dev/gasolinamexico/build_sim/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPBridge.o",
+    "swift-dependencies" : "/Users/Carlos/dev/gasolinamexico/build_sim/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CAPBridge.swiftdeps"
+  },
+  "/Users/Carlos/dev/gasolinamexico/node_modules/@capacitor/ios/Capacitor/Capacitor/CapacitorExtension.swift" : {
+    "const-values" : "/Users/Carlos/dev/gasolinamexico/build_sim/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CapacitorExtension.swiftconstvalues",
+    "dependencies" : "/Users/Carlos/dev/gasolinamexico/build_sim/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CapacitorExtension.d",
+    "diagnostics" : "/Users/Carlos/dev/gasolinamexico/build_sim/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CapacitorExtension.dia",
+    "object" : "/Users/Carlos/dev/gasolinamexico/build_sim/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CapacitorExtension.o",
+    "swift-dependencies" : "/Users/Carlos/dev/gasolinamexico/build_sim/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CapacitorExtension.swiftdeps"
+  },
+  "/Users/Carlos/dev/gasolinamexico/node_modules/@capacitor/ios/Capacitor/Capacitor/Plugins/CapacitorHttp.swift" : {
+    "const-values" : "/Users/Carlos/dev/gasolinamexico/build_sim/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CapacitorHttp.swiftconstvalues",
+    "dependencies" : "/Users/Carlos/dev/gasolinamexico/build_sim/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CapacitorHttp.d",
+    "diagnostics" : "/Users/Carlos/dev/gasolinamexico/build_sim/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CapacitorHttp.dia",
+    "object" : "/Users/Carlos/dev/gasolinamexico/build_sim/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CapacitorHttp.o",
+    "swift-dependencies" : "/Users/Carlos/dev/gasolinamexico/build_sim/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CapacitorHttp.swiftdeps"
+  },
+  "/Users/Carlos/dev/gasolinamexico/node_modules/@capacitor/ios/Capacitor/Capacitor/Plugins/CapacitorUrlRequest.swift" : {
+    "const-values" : "/Users/Carlos/dev/gasolinamexico/build_sim/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CapacitorUrlRequest.swiftconstvalues",
+    "dependencies" : "/Users/Carlos/dev/gasolinamexico/build_sim/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CapacitorUrlRequest.d",
+    "diagnostics" : "/Users/Carlos/dev/gasolinamexico/build_sim/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CapacitorUrlRequest.dia",
+    "object" : "/Users/Carlos/dev/gasolinamexico/build_sim/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CapacitorUrlRequest.o",
+    "swift-dependencies" : "/Users/Carlos/dev/gasolinamexico/build_sim/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Capacitor.build/Objects-normal/arm64/CapacitorUrlRequest.swiftdeps"
+  }
+}

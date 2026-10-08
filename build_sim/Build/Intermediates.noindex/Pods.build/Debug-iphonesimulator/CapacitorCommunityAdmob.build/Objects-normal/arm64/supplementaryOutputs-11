@@ -1,0 +1,23 @@
+{
+  "/Users/Carlos/dev/gasolinamexico/node_modules/@capacitor-community/admob/ios/Sources/AdMobPlugin/AdMobPlugin.swift" : {
+    "const-values" : "/Users/Carlos/dev/gasolinamexico/build_sim/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/CapacitorCommunityAdmob.build/Objects-normal/arm64/AdMobPlugin.swiftconstvalues",
+    "dependencies" : "/Users/Carlos/dev/gasolinamexico/build_sim/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/CapacitorCommunityAdmob.build/Objects-normal/arm64/AdMobPlugin.d",
+    "diagnostics" : "/Users/Carlos/dev/gasolinamexico/build_sim/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/CapacitorCommunityAdmob.build/Objects-normal/arm64/AdMobPlugin.dia",
+    "object" : "/Users/Carlos/dev/gasolinamexico/build_sim/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/CapacitorCommunityAdmob.build/Objects-normal/arm64/AdMobPlugin.o",
+    "swift-dependencies" : "/Users/Carlos/dev/gasolinamexico/build_sim/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/CapacitorCommunityAdmob.build/Objects-normal/arm64/AdMobPlugin.swiftdeps"
+  },
+  "/Users/Carlos/dev/gasolinamexico/node_modules/@capacitor-community/admob/ios/Sources/AdMobPlugin/Interstitial/AdInterstitialExecutor.swift" : {
+    "const-values" : "/Users/Carlos/dev/gasolinamexico/build_sim/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/CapacitorCommunityAdmob.build/Objects-normal/arm64/AdInterstitialExecutor.swiftconstvalues",
+    "dependencies" : "/Users/Carlos/dev/gasolinamexico/build_sim/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/CapacitorCommunityAdmob.build/Objects-normal/arm64/AdInterstitialExecutor.d",
+    "diagnostics" : "/Users/Carlos/dev/gasolinamexico/build_sim/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/CapacitorCommunityAdmob.build/Objects-normal/arm64/AdInterstitialExecutor.dia",
+    "object" : "/Users/Carlos/dev/gasolinamexico/build_sim/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/CapacitorCommunityAdmob.build/Objects-normal/arm64/AdInterstitialExecutor.o",
+    "swift-dependencies" : "/Users/Carlos/dev/gasolinamexico/build_sim/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/CapacitorCommunityAdmob.build/Objects-normal/arm64/AdInterstitialExecutor.swiftdeps"
+  },
+  "/Users/Carlos/dev/gasolinamexico/node_modules/@capacitor-community/admob/ios/Sources/AdMobPlugin/Rewarded/AdRewardExecutor.swift" : {
+    "const-values" : "/Users/Carlos/dev/gasolinamexico/build_sim/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/CapacitorCommunityAdmob.build/Objects-normal/arm64/AdRewardExecutor.swiftconstvalues",
+    "dependencies" : "/Users/Carlos/dev/gasolinamexico/build_sim/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/CapacitorCommunityAdmob.build/Objects-normal/arm64/AdRewardExecutor.d",
+    "diagnostics" : "/Users/Carlos/dev/gasolinamexico/build_sim/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/CapacitorCommunityAdmob.build/Objects-normal/arm64/AdRewardExecutor.dia",
+    "object" : "/Users/Carlos/dev/gasolinamexico/build_sim/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/CapacitorCommunityAdmob.build/Objects-normal/arm64/AdRewardExecutor.o",
+    "swift-dependencies" : "/Users/Carlos/dev/gasolinamexico/build_sim/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/CapacitorCommunityAdmob.build/Objects-normal/arm64/AdRewardExecutor.swiftdeps"
+  }
+}

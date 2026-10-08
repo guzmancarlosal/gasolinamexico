@@ -1,0 +1,20 @@
+moduledependenciestarget: \
+  /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/SDKSettings.json \
+  /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/usr/include/Darwin.modulemap \
+  /Users/Carlos/dev/gasolinamexico/build_sim/Build/Intermediates.noindex/ExplicitPrecompiledModules/_DarwinFoundation1-E06SDSHVLR4YB13ZASNNGTODQ.pcm \
+  /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/usr/include/DarwinFoundation1.modulemap \
+  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/21/include/module.modulemap \
+  /Users/Carlos/dev/gasolinamexico/build_sim/Build/Intermediates.noindex/ExplicitPrecompiledModules/os_object-4DF0EZEDVQUTVSWGFKUCZBOPA.pcm \
+  /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/usr/include/DarwinFoundation2.modulemap \
+  /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/usr/include/DarwinFoundation3.modulemap \
+  /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/usr/include/os.modulemap \
+  /Users/Carlos/dev/gasolinamexico/build_sim/Build/Intermediates.noindex/ExplicitPrecompiledModules/Dispatch-C38SQND4UUKMVJLOFFTYOCNVT.pcm \
+  /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/usr/include/dispatch.modulemap \
+  /Users/Carlos/dev/gasolinamexico/build_sim/Build/Intermediates.noindex/ExplicitPrecompiledModules/dnssd-7LZ5CRJABESR87CNWIGJY6GE0.pcm \
+  /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/usr/include/dnssd.modulemap \
+  /Users/Carlos/dev/gasolinamexico/build_sim/Build/Intermediates.noindex/ExplicitPrecompiledModules/CoreFoundation-E37OX6LN500EZ9MFC0H5YBFLE.pcm \
+  /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/CoreFoundation.framework/Modules/module.modulemap \
+  /Users/Carlos/dev/gasolinamexico/build_sim/Build/Intermediates.noindex/ExplicitPrecompiledModules/Security-D8MV4V72NNNSI4X3PZTIRT5YD.pcm \
+  /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/Security.framework/Modules/module.modulemap \
+  /Users/Carlos/dev/gasolinamexico/build_sim/Build/Intermediates.noindex/ExplicitPrecompiledModules/Foundation-BGHSPCPH6KVT73RORMO828SJQ.pcm \
+  /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/Foundation.framework/Modules/module.modulemap

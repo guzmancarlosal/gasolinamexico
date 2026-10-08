@@ -1,0 +1,23 @@
+{
+  "version": 0,
+  "use-external-names": false,
+  "case-sensitive": false,
+  "roots": [{
+    "type": "directory",
+    "name": "/Users/Carlos/dev/gasolinamexico/build_sim/Build/Products/Debug-iphonesimulator/Google-Mobile-Ads-SDK/Google_Mobile_Ads_SDK.framework/Modules",
+    "contents": [{
+      "type": "file",
+      "name": "module.modulemap",
+      "external-contents": "/Users/Carlos/dev/gasolinamexico/build_sim/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Google-Mobile-Ads-SDK.build/unextended-module.modulemap",
+    }]
+    },
+    {
+    "type": "directory",
+    "name": "/Users/Carlos/dev/gasolinamexico/build_sim/Build/Products/Debug-iphonesimulator/Google-Mobile-Ads-SDK/Google_Mobile_Ads_SDK.framework/Headers",
+    "contents": [{
+      "type": "file",
+      "name": "Google_Mobile_Ads_SDK-Swift.h",
+      "external-contents": "/Users/Carlos/dev/gasolinamexico/build_sim/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/Google-Mobile-Ads-SDK.build/unextended-interface-header.h",
+    }]
+  }]
+}

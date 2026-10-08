@@ -1,0 +1,23 @@
+{
+  "/Users/Carlos/dev/gasolinamexico/node_modules/@capacitor-community/admob/ios/Sources/AdMobPlugin/AppOpen/AppOpenAdPluginEvents.swift" : {
+    "const-values" : "/Users/Carlos/dev/gasolinamexico/build_sim/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/CapacitorCommunityAdmob.build/Objects-normal/arm64/AppOpenAdPluginEvents.swiftconstvalues",
+    "dependencies" : "/Users/Carlos/dev/gasolinamexico/build_sim/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/CapacitorCommunityAdmob.build/Objects-normal/arm64/AppOpenAdPluginEvents.d",
+    "diagnostics" : "/Users/Carlos/dev/gasolinamexico/build_sim/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/CapacitorCommunityAdmob.build/Objects-normal/arm64/AppOpenAdPluginEvents.dia",
+    "object" : "/Users/Carlos/dev/gasolinamexico/build_sim/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/CapacitorCommunityAdmob.build/Objects-normal/arm64/AppOpenAdPluginEvents.o",
+    "swift-dependencies" : "/Users/Carlos/dev/gasolinamexico/build_sim/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/CapacitorCommunityAdmob.build/Objects-normal/arm64/AppOpenAdPluginEvents.swiftdeps"
+  },
+  "/Users/Carlos/dev/gasolinamexico/node_modules/@capacitor-community/admob/ios/Sources/AdMobPlugin/Banner/BannerAdPluginEvents.swift" : {
+    "const-values" : "/Users/Carlos/dev/gasolinamexico/build_sim/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/CapacitorCommunityAdmob.build/Objects-normal/arm64/BannerAdPluginEvents.swiftconstvalues",
+    "dependencies" : "/Users/Carlos/dev/gasolinamexico/build_sim/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/CapacitorCommunityAdmob.build/Objects-normal/arm64/BannerAdPluginEvents.d",
+    "diagnostics" : "/Users/Carlos/dev/gasolinamexico/build_sim/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/CapacitorCommunityAdmob.build/Objects-normal/arm64/BannerAdPluginEvents.dia",
+    "object" : "/Users/Carlos/dev/gasolinamexico/build_sim/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/CapacitorCommunityAdmob.build/Objects-normal/arm64/BannerAdPluginEvents.o",
+    "swift-dependencies" : "/Users/Carlos/dev/gasolinamexico/build_sim/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/CapacitorCommunityAdmob.build/Objects-normal/arm64/BannerAdPluginEvents.swiftdeps"
+  },
+  "/Users/Carlos/dev/gasolinamexico/node_modules/@capacitor-community/admob/ios/Sources/AdMobPlugin/Helper/AuthorizationStatusEnum.swift" : {
+    "const-values" : "/Users/Carlos/dev/gasolinamexico/build_sim/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/CapacitorCommunityAdmob.build/Objects-normal/arm64/AuthorizationStatusEnum.swiftconstvalues",
+    "dependencies" : "/Users/Carlos/dev/gasolinamexico/build_sim/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/CapacitorCommunityAdmob.build/Objects-normal/arm64/AuthorizationStatusEnum.d",
+    "diagnostics" : "/Users/Carlos/dev/gasolinamexico/build_sim/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/CapacitorCommunityAdmob.build/Objects-normal/arm64/AuthorizationStatusEnum.dia",
+    "object" : "/Users/Carlos/dev/gasolinamexico/build_sim/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/CapacitorCommunityAdmob.build/Objects-normal/arm64/AuthorizationStatusEnum.o",
+    "swift-dependencies" : "/Users/Carlos/dev/gasolinamexico/build_sim/Build/Intermediates.noindex/Pods.build/Debug-iphonesimulator/CapacitorCommunityAdmob.build/Objects-normal/arm64/AuthorizationStatusEnum.swiftdeps"
+  }
+}

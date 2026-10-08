@@ -1,0 +1,27 @@
+Target dependency graph (9 targets)
+Target 'App' in project 'App'
+➜ Implicit dependency on target 'Pods-App' in project 'Pods' via file 'Pods_App.framework' in build phase 'Link Binary'
+➜ Implicit dependency on target 'Capacitor' in project 'Pods' via options '-framework Capacitor' in build setting 'OTHER_LDFLAGS'
+➜ Implicit dependency on target 'CapacitorCommunityAdmob' in project 'Pods' via options '-framework CapacitorCommunityAdmob' in build setting 'OTHER_LDFLAGS'
+➜ Implicit dependency on target 'CapacitorCordova' in project 'Pods' via options '-framework Cordova' in build setting 'OTHER_LDFLAGS'
+➜ Implicit dependency on target 'Google-Mobile-Ads-SDK' in project 'Pods' via options '-framework Google_Mobile_Ads_SDK' in build setting 'OTHER_LDFLAGS'
+Target 'Pods-App' in project 'Pods'
+➜ Explicit dependency on target 'Capacitor' in project 'Pods'
+➜ Explicit dependency on target 'CapacitorCommunityAdmob' in project 'Pods'
+➜ Explicit dependency on target 'CapacitorCordova' in project 'Pods'
+➜ Explicit dependency on target 'Google-Mobile-Ads-SDK' in project 'Pods'
+➜ Explicit dependency on target 'GoogleUserMessagingPlatform' in project 'Pods'
+Target 'CapacitorCommunityAdmob' in project 'Pods'
+➜ Explicit dependency on target 'Capacitor' in project 'Pods'
+➜ Explicit dependency on target 'Google-Mobile-Ads-SDK' in project 'Pods'
+➜ Explicit dependency on target 'GoogleUserMessagingPlatform' in project 'Pods'
+Target 'Google-Mobile-Ads-SDK' in project 'Pods'
+➜ Explicit dependency on target 'Google-Mobile-Ads-SDK-GoogleMobileAdsResources' in project 'Pods'
+➜ Explicit dependency on target 'GoogleUserMessagingPlatform' in project 'Pods'
+Target 'GoogleUserMessagingPlatform' in project 'Pods'
+➜ Explicit dependency on target 'GoogleUserMessagingPlatform-UserMessagingPlatformResources' in project 'Pods'
+Target 'GoogleUserMessagingPlatform-UserMessagingPlatformResources' in project 'Pods' (no dependencies)
+Target 'Google-Mobile-Ads-SDK-GoogleMobileAdsResources' in project 'Pods' (no dependencies)
+Target 'Capacitor' in project 'Pods'
+➜ Explicit dependency on target 'CapacitorCordova' in project 'Pods'
+Target 'CapacitorCordova' in project 'Pods' (no dependencies)

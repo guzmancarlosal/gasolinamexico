@@ -1,0 +1,26 @@
+moduledependenciestarget: \
+  /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/SDKSettings.json \
+  /Users/Carlos/dev/gasolinamexico/build_sim/Build/Intermediates.noindex/ExplicitPrecompiledModules/Foundation-BGHSPCPH6KVT73RORMO828SJQ.pcm \
+  /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/usr/include/DarwinFoundation1.modulemap \
+  /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/CoreFoundation.framework/Modules/module.modulemap \
+  /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/Foundation.framework/Modules/module.modulemap \
+  /Users/Carlos/dev/gasolinamexico/build_sim/Build/Intermediates.noindex/ExplicitPrecompiledModules/UIUtilities-7332VABW3MH63FBQIQEKVE3DF.pcm \
+  /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/SubFrameworks/UIUtilities.framework/Modules/module.modulemap \
+  /Users/Carlos/dev/gasolinamexico/build_sim/Build/Intermediates.noindex/ExplicitPrecompiledModules/CoreGraphics-5ELPP75S81Q474DIB5KJ3NLC3.pcm \
+  /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/CoreGraphics.framework/Modules/module.modulemap \
+  /Users/Carlos/dev/gasolinamexico/build_sim/Build/Intermediates.noindex/ExplicitPrecompiledModules/CoreText-34MWHL39ZJSBWNK32VYULIQO8.pcm \
+  /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/CoreText.framework/Modules/module.modulemap \
+  /Users/Carlos/dev/gasolinamexico/build_sim/Build/Intermediates.noindex/ExplicitPrecompiledModules/CoreImage-3180D6QQOMPQNSXMNX0I29425.pcm \
+  /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/CoreImage.framework/Modules/module.modulemap \
+  /Users/Carlos/dev/gasolinamexico/build_sim/Build/Intermediates.noindex/ExplicitPrecompiledModules/QuartzCore-MU7ZSCTF15ZAB0XVV02AY1LD.pcm \
+  /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/QuartzCore.framework/Modules/module.modulemap \
+  /Users/Carlos/dev/gasolinamexico/build_sim/Build/Intermediates.noindex/ExplicitPrecompiledModules/CoreLocation-2GVM2MW6X10Z0REAJ8HFCFRDS.pcm \
+  /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/CoreLocation.framework/Modules/module.modulemap \
+  /Users/Carlos/dev/gasolinamexico/build_sim/Build/Intermediates.noindex/ExplicitPrecompiledModules/CoreMotion-4PXARCE83XFL0NMAZC03K816W.pcm \
+  /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/CoreMotion.framework/Modules/module.modulemap \
+  /Users/Carlos/dev/gasolinamexico/build_sim/Build/Intermediates.noindex/ExplicitPrecompiledModules/Symbols-4N9VJM8UTJ9HB1UWS2X3RNJTZ.pcm \
+  /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/Symbols.framework/Modules/module.modulemap \
+  /Users/Carlos/dev/gasolinamexico/build_sim/Build/Intermediates.noindex/ExplicitPrecompiledModules/FileProvider-CQ2QN4U6IARY3XDI9RS69KW25.pcm \
+  /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/FileProvider.framework/Modules/module.modulemap \
+  /Users/Carlos/dev/gasolinamexico/build_sim/Build/Intermediates.noindex/ExplicitPrecompiledModules/UserNotifications-5HJ2RAK24H4CRGAM0RVM82TUQ.pcm \
+  /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator27.0.sdk/System/Library/Frameworks/UserNotifications.framework/Modules/module.modulemap
