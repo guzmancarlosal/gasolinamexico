@@ -1,0 +1,10 @@
+framework module CapacitorCommunityAdmob {
+  umbrella header "CapacitorCommunityAdmob-umbrella.h"
+
+  export *
+  module * { export * }
+}
+
+module CapacitorCommunityAdmob.Swift {
+  header "CapacitorCommunityAdmob-Swift.h"
+}

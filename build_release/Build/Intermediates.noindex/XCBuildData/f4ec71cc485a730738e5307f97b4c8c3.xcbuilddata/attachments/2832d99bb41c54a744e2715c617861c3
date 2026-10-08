@@ -1,0 +1,126 @@
+{
+  "" : {
+    "const-values" : "/Users/Carlos/dev/gasolinamexico/build_release/Build/Intermediates.noindex/Pods.build/Release-iphoneos/CapacitorCommunityAdmob.build/Objects-normal/arm64/CapacitorCommunityAdmob-primary.swiftconstvalues",
+    "dependencies" : "/Users/Carlos/dev/gasolinamexico/build_release/Build/Intermediates.noindex/Pods.build/Release-iphoneos/CapacitorCommunityAdmob.build/Objects-normal/arm64/CapacitorCommunityAdmob-primary.d",
+    "diagnostics" : "/Users/Carlos/dev/gasolinamexico/build_release/Build/Intermediates.noindex/Pods.build/Release-iphoneos/CapacitorCommunityAdmob.build/Objects-normal/arm64/CapacitorCommunityAdmob-primary.dia",
+    "emit-module-dependencies" : "/Users/Carlos/dev/gasolinamexico/build_release/Build/Intermediates.noindex/Pods.build/Release-iphoneos/CapacitorCommunityAdmob.build/Objects-normal/arm64/CapacitorCommunityAdmob-primary-emit-module.d",
+    "emit-module-diagnostics" : "/Users/Carlos/dev/gasolinamexico/build_release/Build/Intermediates.noindex/Pods.build/Release-iphoneos/CapacitorCommunityAdmob.build/Objects-normal/arm64/CapacitorCommunityAdmob-primary-emit-module.dia",
+    "pch" : "/Users/Carlos/dev/gasolinamexico/build_release/Build/Intermediates.noindex/Pods.build/Release-iphoneos/CapacitorCommunityAdmob.build/Objects-normal/arm64/CapacitorCommunityAdmob-primary-Bridging-header.pch",
+    "swift-dependencies" : "/Users/Carlos/dev/gasolinamexico/build_release/Build/Intermediates.noindex/Pods.build/Release-iphoneos/CapacitorCommunityAdmob.build/Objects-normal/arm64/CapacitorCommunityAdmob-primary.swiftdeps"
+  },
+  "/Users/Carlos/dev/gasolinamexico/node_modules/@capacitor-community/admob/ios/Sources/AdMobPlugin/AdMobPlugin.swift" : {
+    "index-unit-output-path" : "/Pods.build/Release-iphoneos/CapacitorCommunityAdmob.build/Objects-normal/arm64/AdMobPlugin.o",
+    "llvm-bc" : "/Users/Carlos/dev/gasolinamexico/build_release/Build/Intermediates.noindex/Pods.build/Release-iphoneos/CapacitorCommunityAdmob.build/Objects-normal/arm64/AdMobPlugin.bc",
+    "object" : "/Users/Carlos/dev/gasolinamexico/build_release/Build/Intermediates.noindex/Pods.build/Release-iphoneos/CapacitorCommunityAdmob.build/Objects-normal/arm64/AdMobPlugin.o"
+  },
+  "/Users/Carlos/dev/gasolinamexico/node_modules/@capacitor-community/admob/ios/Sources/AdMobPlugin/AppOpen/AppOpenAdManager.swift" : {
+    "index-unit-output-path" : "/Pods.build/Release-iphoneos/CapacitorCommunityAdmob.build/Objects-normal/arm64/AppOpenAdManager.o",
+    "llvm-bc" : "/Users/Carlos/dev/gasolinamexico/build_release/Build/Intermediates.noindex/Pods.build/Release-iphoneos/CapacitorCommunityAdmob.build/Objects-normal/arm64/AppOpenAdManager.bc",
+    "object" : "/Users/Carlos/dev/gasolinamexico/build_release/Build/Intermediates.noindex/Pods.build/Release-iphoneos/CapacitorCommunityAdmob.build/Objects-normal/arm64/AppOpenAdManager.o"
+  },
+  "/Users/Carlos/dev/gasolinamexico/node_modules/@capacitor-community/admob/ios/Sources/AdMobPlugin/AppOpen/AppOpenAdPlugin.swift" : {
+    "index-unit-output-path" : "/Pods.build/Release-iphoneos/CapacitorCommunityAdmob.build/Objects-normal/arm64/AppOpenAdPlugin.o",
+    "llvm-bc" : "/Users/Carlos/dev/gasolinamexico/build_release/Build/Intermediates.noindex/Pods.build/Release-iphoneos/CapacitorCommunityAdmob.build/Objects-normal/arm64/AppOpenAdPlugin.bc",
+    "object" : "/Users/Carlos/dev/gasolinamexico/build_release/Build/Intermediates.noindex/Pods.build/Release-iphoneos/CapacitorCommunityAdmob.build/Objects-normal/arm64/AppOpenAdPlugin.o"
+  },
+  "/Users/Carlos/dev/gasolinamexico/node_modules/@capacitor-community/admob/ios/Sources/AdMobPlugin/AppOpen/AppOpenAdPluginEvents.swift" : {
+    "index-unit-output-path" : "/Pods.build/Release-iphoneos/CapacitorCommunityAdmob.build/Objects-normal/arm64/AppOpenAdPluginEvents.o",
+    "llvm-bc" : "/Users/Carlos/dev/gasolinamexico/build_release/Build/Intermediates.noindex/Pods.build/Release-iphoneos/CapacitorCommunityAdmob.build/Objects-normal/arm64/AppOpenAdPluginEvents.bc",
+    "object" : "/Users/Carlos/dev/gasolinamexico/build_release/Build/Intermediates.noindex/Pods.build/Release-iphoneos/CapacitorCommunityAdmob.build/Objects-normal/arm64/AppOpenAdPluginEvents.o"
+  },
+  "/Users/Carlos/dev/gasolinamexico/node_modules/@capacitor-community/admob/ios/Sources/AdMobPlugin/Banner/BannerAdPluginEvents.swift" : {
+    "index-unit-output-path" : "/Pods.build/Release-iphoneos/CapacitorCommunityAdmob.build/Objects-normal/arm64/BannerAdPluginEvents.o",
+    "llvm-bc" : "/Users/Carlos/dev/gasolinamexico/build_release/Build/Intermediates.noindex/Pods.build/Release-iphoneos/CapacitorCommunityAdmob.build/Objects-normal/arm64/BannerAdPluginEvents.bc",
+    "object" : "/Users/Carlos/dev/gasolinamexico/build_release/Build/Intermediates.noindex/Pods.build/Release-iphoneos/CapacitorCommunityAdmob.build/Objects-normal/arm64/BannerAdPluginEvents.o"
+  },
+  "/Users/Carlos/dev/gasolinamexico/node_modules/@capacitor-community/admob/ios/Sources/AdMobPlugin/Banner/BannerAdSizeEnum.swift" : {
+    "index-unit-output-path" : "/Pods.build/Release-iphoneos/CapacitorCommunityAdmob.build/Objects-normal/arm64/BannerAdSizeEnum.o",
+    "llvm-bc" : "/Users/Carlos/dev/gasolinamexico/build_release/Build/Intermediates.noindex/Pods.build/Release-iphoneos/CapacitorCommunityAdmob.build/Objects-normal/arm64/BannerAdSizeEnum.bc",
+    "object" : "/Users/Carlos/dev/gasolinamexico/build_release/Build/Intermediates.noindex/Pods.build/Release-iphoneos/CapacitorCommunityAdmob.build/Objects-normal/arm64/BannerAdSizeEnum.o"
+  },
+  "/Users/Carlos/dev/gasolinamexico/node_modules/@capacitor-community/admob/ios/Sources/AdMobPlugin/Banner/BannerExecutor.swift" : {
+    "index-unit-output-path" : "/Pods.build/Release-iphoneos/CapacitorCommunityAdmob.build/Objects-normal/arm64/BannerExecutor.o",
+    "llvm-bc" : "/Users/Carlos/dev/gasolinamexico/build_release/Build/Intermediates.noindex/Pods.build/Release-iphoneos/CapacitorCommunityAdmob.build/Objects-normal/arm64/BannerExecutor.bc",
+    "object" : "/Users/Carlos/dev/gasolinamexico/build_release/Build/Intermediates.noindex/Pods.build/Release-iphoneos/CapacitorCommunityAdmob.build/Objects-normal/arm64/BannerExecutor.o"
+  },
+  "/Users/Carlos/dev/gasolinamexico/node_modules/@capacitor-community/admob/ios/Sources/AdMobPlugin/Consent/ConsentExecutor.swift" : {
+    "index-unit-output-path" : "/Pods.build/Release-iphoneos/CapacitorCommunityAdmob.build/Objects-normal/arm64/ConsentExecutor.o",
+    "llvm-bc" : "/Users/Carlos/dev/gasolinamexico/build_release/Build/Intermediates.noindex/Pods.build/Release-iphoneos/CapacitorCommunityAdmob.build/Objects-normal/arm64/ConsentExecutor.bc",
+    "object" : "/Users/Carlos/dev/gasolinamexico/build_release/Build/Intermediates.noindex/Pods.build/Release-iphoneos/CapacitorCommunityAdmob.build/Objects-normal/arm64/ConsentExecutor.o"
+  },
+  "/Users/Carlos/dev/gasolinamexico/node_modules/@capacitor-community/admob/ios/Sources/AdMobPlugin/Helper/AuthorizationStatusEnum.swift" : {
+    "index-unit-output-path" : "/Pods.build/Release-iphoneos/CapacitorCommunityAdmob.build/Objects-normal/arm64/AuthorizationStatusEnum.o",
+    "llvm-bc" : "/Users/Carlos/dev/gasolinamexico/build_release/Build/Intermediates.noindex/Pods.build/Release-iphoneos/CapacitorCommunityAdmob.build/Objects-normal/arm64/AuthorizationStatusEnum.bc",
+    "object" : "/Users/Carlos/dev/gasolinamexico/build_release/Build/Intermediates.noindex/Pods.build/Release-iphoneos/CapacitorCommunityAdmob.build/Objects-normal/arm64/AuthorizationStatusEnum.o"
+  },
+  "/Users/Carlos/dev/gasolinamexico/node_modules/@capacitor-community/admob/ios/Sources/AdMobPlugin/Interstitial/AdInterstitialExecutor.swift" : {
+    "index-unit-output-path" : "/Pods.build/Release-iphoneos/CapacitorCommunityAdmob.build/Objects-normal/arm64/AdInterstitialExecutor.o",
+    "llvm-bc" : "/Users/Carlos/dev/gasolinamexico/build_release/Build/Intermediates.noindex/Pods.build/Release-iphoneos/CapacitorCommunityAdmob.build/Objects-normal/arm64/AdInterstitialExecutor.bc",
+    "object" : "/Users/Carlos/dev/gasolinamexico/build_release/Build/Intermediates.noindex/Pods.build/Release-iphoneos/CapacitorCommunityAdmob.build/Objects-normal/arm64/AdInterstitialExecutor.o"
+  },
+  "/Users/Carlos/dev/gasolinamexico/node_modules/@capacitor-community/admob/ios/Sources/AdMobPlugin/Interstitial/InterstitialAdPluginEvents.swift" : {
+    "index-unit-output-path" : "/Pods.build/Release-iphoneos/CapacitorCommunityAdmob.build/Objects-normal/arm64/InterstitialAdPluginEvents.o",
+    "llvm-bc" : "/Users/Carlos/dev/gasolinamexico/build_release/Build/Intermediates.noindex/Pods.build/Release-iphoneos/CapacitorCommunityAdmob.build/Objects-normal/arm64/InterstitialAdPluginEvents.bc",
+    "object" : "/Users/Carlos/dev/gasolinamexico/build_release/Build/Intermediates.noindex/Pods.build/Release-iphoneos/CapacitorCommunityAdmob.build/Objects-normal/arm64/InterstitialAdPluginEvents.o"
+  },
+  "/Users/Carlos/dev/gasolinamexico/node_modules/@capacitor-community/admob/ios/Sources/AdMobPlugin/Models/FullScreenAdEventName.swift" : {
+    "index-unit-output-path" : "/Pods.build/Release-iphoneos/CapacitorCommunityAdmob.build/Objects-normal/arm64/FullScreenAdEventName.o",
+    "llvm-bc" : "/Users/Carlos/dev/gasolinamexico/build_release/Build/Intermediates.noindex/Pods.build/Release-iphoneos/CapacitorCommunityAdmob.build/Objects-normal/arm64/FullScreenAdEventName.bc",
+    "object" : "/Users/Carlos/dev/gasolinamexico/build_release/Build/Intermediates.noindex/Pods.build/Release-iphoneos/CapacitorCommunityAdmob.build/Objects-normal/arm64/FullScreenAdEventName.o"
+  },
+  "/Users/Carlos/dev/gasolinamexico/node_modules/@capacitor-community/admob/ios/Sources/AdMobPlugin/NativeAds/NativeAdExecutor.swift" : {
+    "index-unit-output-path" : "/Pods.build/Release-iphoneos/CapacitorCommunityAdmob.build/Objects-normal/arm64/NativeAdExecutor.o",
+    "llvm-bc" : "/Users/Carlos/dev/gasolinamexico/build_release/Build/Intermediates.noindex/Pods.build/Release-iphoneos/CapacitorCommunityAdmob.build/Objects-normal/arm64/NativeAdExecutor.bc",
+    "object" : "/Users/Carlos/dev/gasolinamexico/build_release/Build/Intermediates.noindex/Pods.build/Release-iphoneos/CapacitorCommunityAdmob.build/Objects-normal/arm64/NativeAdExecutor.o"
+  },
+  "/Users/Carlos/dev/gasolinamexico/node_modules/@capacitor-community/admob/ios/Sources/AdMobPlugin/NativeAds/NativeAdFeedSessions.swift" : {
+    "index-unit-output-path" : "/Pods.build/Release-iphoneos/CapacitorCommunityAdmob.build/Objects-normal/arm64/NativeAdFeedSessions.o",
+    "llvm-bc" : "/Users/Carlos/dev/gasolinamexico/build_release/Build/Intermediates.noindex/Pods.build/Release-iphoneos/CapacitorCommunityAdmob.build/Objects-normal/arm64/NativeAdFeedSessions.bc",
+    "object" : "/Users/Carlos/dev/gasolinamexico/build_release/Build/Intermediates.noindex/Pods.build/Release-iphoneos/CapacitorCommunityAdmob.build/Objects-normal/arm64/NativeAdFeedSessions.o"
+  },
+  "/Users/Carlos/dev/gasolinamexico/node_modules/@capacitor-community/admob/ios/Sources/AdMobPlugin/NativeAds/NativeAdPlacementValue.swift" : {
+    "index-unit-output-path" : "/Pods.build/Release-iphoneos/CapacitorCommunityAdmob.build/Objects-normal/arm64/NativeAdPlacementValue.o",
+    "llvm-bc" : "/Users/Carlos/dev/gasolinamexico/build_release/Build/Intermediates.noindex/Pods.build/Release-iphoneos/CapacitorCommunityAdmob.build/Objects-normal/arm64/NativeAdPlacementValue.bc",
+    "object" : "/Users/Carlos/dev/gasolinamexico/build_release/Build/Intermediates.noindex/Pods.build/Release-iphoneos/CapacitorCommunityAdmob.build/Objects-normal/arm64/NativeAdPlacementValue.o"
+  },
+  "/Users/Carlos/dev/gasolinamexico/node_modules/@capacitor-community/admob/ios/Sources/AdMobPlugin/NativeAds/NativeAdPluginEvents.swift" : {
+    "index-unit-output-path" : "/Pods.build/Release-iphoneos/CapacitorCommunityAdmob.build/Objects-normal/arm64/NativeAdPluginEvents.o",
+    "llvm-bc" : "/Users/Carlos/dev/gasolinamexico/build_release/Build/Intermediates.noindex/Pods.build/Release-iphoneos/CapacitorCommunityAdmob.build/Objects-normal/arm64/NativeAdPluginEvents.bc",
+    "object" : "/Users/Carlos/dev/gasolinamexico/build_release/Build/Intermediates.noindex/Pods.build/Release-iphoneos/CapacitorCommunityAdmob.build/Objects-normal/arm64/NativeAdPluginEvents.o"
+  },
+  "/Users/Carlos/dev/gasolinamexico/node_modules/@capacitor-community/admob/ios/Sources/AdMobPlugin/NativeAds/NativeAdScrollTracker.swift" : {
+    "index-unit-output-path" : "/Pods.build/Release-iphoneos/CapacitorCommunityAdmob.build/Objects-normal/arm64/NativeAdScrollTracker.o",
+    "llvm-bc" : "/Users/Carlos/dev/gasolinamexico/build_release/Build/Intermediates.noindex/Pods.build/Release-iphoneos/CapacitorCommunityAdmob.build/Objects-normal/arm64/NativeAdScrollTracker.bc",
+    "object" : "/Users/Carlos/dev/gasolinamexico/build_release/Build/Intermediates.noindex/Pods.build/Release-iphoneos/CapacitorCommunityAdmob.build/Objects-normal/arm64/NativeAdScrollTracker.o"
+  },
+  "/Users/Carlos/dev/gasolinamexico/node_modules/@capacitor-community/admob/ios/Sources/AdMobPlugin/NativeAds/NativeAdValues.swift" : {
+    "index-unit-output-path" : "/Pods.build/Release-iphoneos/CapacitorCommunityAdmob.build/Objects-normal/arm64/NativeAdValues.o",
+    "llvm-bc" : "/Users/Carlos/dev/gasolinamexico/build_release/Build/Intermediates.noindex/Pods.build/Release-iphoneos/CapacitorCommunityAdmob.build/Objects-normal/arm64/NativeAdValues.bc",
+    "object" : "/Users/Carlos/dev/gasolinamexico/build_release/Build/Intermediates.noindex/Pods.build/Release-iphoneos/CapacitorCommunityAdmob.build/Objects-normal/arm64/NativeAdValues.o"
+  },
+  "/Users/Carlos/dev/gasolinamexico/node_modules/@capacitor-community/admob/ios/Sources/AdMobPlugin/NativeAds/PluginNativeAdView.swift" : {
+    "index-unit-output-path" : "/Pods.build/Release-iphoneos/CapacitorCommunityAdmob.build/Objects-normal/arm64/PluginNativeAdView.o",
+    "llvm-bc" : "/Users/Carlos/dev/gasolinamexico/build_release/Build/Intermediates.noindex/Pods.build/Release-iphoneos/CapacitorCommunityAdmob.build/Objects-normal/arm64/PluginNativeAdView.bc",
+    "object" : "/Users/Carlos/dev/gasolinamexico/build_release/Build/Intermediates.noindex/Pods.build/Release-iphoneos/CapacitorCommunityAdmob.build/Objects-normal/arm64/PluginNativeAdView.o"
+  },
+  "/Users/Carlos/dev/gasolinamexico/node_modules/@capacitor-community/admob/ios/Sources/AdMobPlugin/Rewarded/AdRewardExecutor.swift" : {
+    "index-unit-output-path" : "/Pods.build/Release-iphoneos/CapacitorCommunityAdmob.build/Objects-normal/arm64/AdRewardExecutor.o",
+    "llvm-bc" : "/Users/Carlos/dev/gasolinamexico/build_release/Build/Intermediates.noindex/Pods.build/Release-iphoneos/CapacitorCommunityAdmob.build/Objects-normal/arm64/AdRewardExecutor.bc",
+    "object" : "/Users/Carlos/dev/gasolinamexico/build_release/Build/Intermediates.noindex/Pods.build/Release-iphoneos/CapacitorCommunityAdmob.build/Objects-normal/arm64/AdRewardExecutor.o"
+  },
+  "/Users/Carlos/dev/gasolinamexico/node_modules/@capacitor-community/admob/ios/Sources/AdMobPlugin/Rewarded/RewardAdPluginEvents.swift" : {
+    "index-unit-output-path" : "/Pods.build/Release-iphoneos/CapacitorCommunityAdmob.build/Objects-normal/arm64/RewardAdPluginEvents.o",
+    "llvm-bc" : "/Users/Carlos/dev/gasolinamexico/build_release/Build/Intermediates.noindex/Pods.build/Release-iphoneos/CapacitorCommunityAdmob.build/Objects-normal/arm64/RewardAdPluginEvents.bc",
+    "object" : "/Users/Carlos/dev/gasolinamexico/build_release/Build/Intermediates.noindex/Pods.build/Release-iphoneos/CapacitorCommunityAdmob.build/Objects-normal/arm64/RewardAdPluginEvents.o"
+  },
+  "/Users/Carlos/dev/gasolinamexico/node_modules/@capacitor-community/admob/ios/Sources/AdMobPlugin/RewardedInterstitial/AdRewardInterstitialExecutor.swift" : {
+    "index-unit-output-path" : "/Pods.build/Release-iphoneos/CapacitorCommunityAdmob.build/Objects-normal/arm64/AdRewardInterstitialExecutor.o",
+    "llvm-bc" : "/Users/Carlos/dev/gasolinamexico/build_release/Build/Intermediates.noindex/Pods.build/Release-iphoneos/CapacitorCommunityAdmob.build/Objects-normal/arm64/AdRewardInterstitialExecutor.bc",
+    "object" : "/Users/Carlos/dev/gasolinamexico/build_release/Build/Intermediates.noindex/Pods.build/Release-iphoneos/CapacitorCommunityAdmob.build/Objects-normal/arm64/AdRewardInterstitialExecutor.o"
+  },
+  "/Users/Carlos/dev/gasolinamexico/node_modules/@capacitor-community/admob/ios/Sources/AdMobPlugin/RewardedInterstitial/RewardInterstitialAdPluginEvents.swift" : {
+    "index-unit-output-path" : "/Pods.build/Release-iphoneos/CapacitorCommunityAdmob.build/Objects-normal/arm64/RewardInterstitialAdPluginEvents.o",
+    "llvm-bc" : "/Users/Carlos/dev/gasolinamexico/build_release/Build/Intermediates.noindex/Pods.build/Release-iphoneos/CapacitorCommunityAdmob.build/Objects-normal/arm64/RewardInterstitialAdPluginEvents.bc",
+    "object" : "/Users/Carlos/dev/gasolinamexico/build_release/Build/Intermediates.noindex/Pods.build/Release-iphoneos/CapacitorCommunityAdmob.build/Objects-normal/arm64/RewardInterstitialAdPluginEvents.o"
+  }
+}

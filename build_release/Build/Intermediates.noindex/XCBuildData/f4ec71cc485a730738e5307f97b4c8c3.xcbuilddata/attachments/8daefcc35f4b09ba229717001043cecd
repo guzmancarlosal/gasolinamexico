@@ -1,0 +1,23 @@
+{
+  "version": 0,
+  "use-external-names": false,
+  "case-sensitive": false,
+  "roots": [{
+    "type": "directory",
+    "name": "/Users/Carlos/dev/gasolinamexico/build_release/Build/Products/Release-iphoneos/CapacitorCommunityAdmob/CapacitorCommunityAdmob.framework/Modules",
+    "contents": [{
+      "type": "file",
+      "name": "module.modulemap",
+      "external-contents": "/Users/Carlos/dev/gasolinamexico/build_release/Build/Intermediates.noindex/Pods.build/Release-iphoneos/CapacitorCommunityAdmob.build/unextended-module.modulemap",
+    }]
+    },
+    {
+    "type": "directory",
+    "name": "/Users/Carlos/dev/gasolinamexico/build_release/Build/Products/Release-iphoneos/CapacitorCommunityAdmob/CapacitorCommunityAdmob.framework/Headers",
+    "contents": [{
+      "type": "file",
+      "name": "CapacitorCommunityAdmob-Swift.h",
+      "external-contents": "/Users/Carlos/dev/gasolinamexico/build_release/Build/Intermediates.noindex/Pods.build/Release-iphoneos/CapacitorCommunityAdmob.build/unextended-interface-header.h",
+    }]
+  }]
+}

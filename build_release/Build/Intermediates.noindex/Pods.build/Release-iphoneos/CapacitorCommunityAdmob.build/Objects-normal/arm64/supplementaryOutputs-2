@@ -1,0 +1,12 @@
+{
+  "/Users/Carlos/dev/gasolinamexico/node_modules/@capacitor-community/admob/ios/Sources/AdMobPlugin/Interstitial/AdInterstitialExecutor.swift" : {
+    "abi-baseline-json" : "/Users/Carlos/dev/gasolinamexico/build_release/Build/Intermediates.noindex/Pods.build/Release-iphoneos/CapacitorCommunityAdmob.build/Objects-normal/arm64/CapacitorCommunityAdmob.abi.json",
+    "const-values" : "/Users/Carlos/dev/gasolinamexico/build_release/Build/Intermediates.noindex/Pods.build/Release-iphoneos/CapacitorCommunityAdmob.build/Objects-normal/arm64/CapacitorCommunityAdmob-primary.swiftconstvalues",
+    "dependencies" : "/Users/Carlos/dev/gasolinamexico/build_release/Build/Intermediates.noindex/Pods.build/Release-iphoneos/CapacitorCommunityAdmob.build/Objects-normal/arm64/CapacitorCommunityAdmob-primary.d",
+    "diagnostics" : "/Users/Carlos/dev/gasolinamexico/build_release/Build/Intermediates.noindex/Pods.build/Release-iphoneos/CapacitorCommunityAdmob.build/Objects-normal/arm64/CapacitorCommunityAdmob-primary.dia",
+    "objc-header" : "/Users/Carlos/dev/gasolinamexico/build_release/Build/Intermediates.noindex/Pods.build/Release-iphoneos/CapacitorCommunityAdmob.build/Objects-normal/arm64/CapacitorCommunityAdmob-Swift.h",
+    "swiftdoc" : "/Users/Carlos/dev/gasolinamexico/build_release/Build/Intermediates.noindex/Pods.build/Release-iphoneos/CapacitorCommunityAdmob.build/Objects-normal/arm64/CapacitorCommunityAdmob.swiftdoc",
+    "swiftmodule" : "/Users/Carlos/dev/gasolinamexico/build_release/Build/Intermediates.noindex/Pods.build/Release-iphoneos/CapacitorCommunityAdmob.build/Objects-normal/arm64/CapacitorCommunityAdmob.swiftmodule",
+    "swiftsourceinfo" : "/Users/Carlos/dev/gasolinamexico/build_release/Build/Intermediates.noindex/Pods.build/Release-iphoneos/CapacitorCommunityAdmob.build/Objects-normal/arm64/CapacitorCommunityAdmob.swiftsourceinfo"
+  }
+}

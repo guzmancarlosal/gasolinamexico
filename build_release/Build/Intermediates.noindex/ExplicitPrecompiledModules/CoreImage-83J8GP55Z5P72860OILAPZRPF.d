@@ -1,0 +1,19 @@
+moduledependenciestarget: \
+  /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS27.0.sdk/SDKSettings.json \
+  /Users/Carlos/dev/gasolinamexico/build_release/Build/Intermediates.noindex/ExplicitPrecompiledModules/_DarwinFoundation1-50MGKS7749LL0YQSCW4IOEQFE.pcm \
+  /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS27.0.sdk/usr/include/DarwinFoundation1.modulemap \
+  /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/21/include/module.modulemap \
+  /Users/Carlos/dev/gasolinamexico/build_release/Build/Intermediates.noindex/ExplicitPrecompiledModules/_Builtin_stdbool-CN8NKJHNOSMNK8FZYZH30IHY3.pcm \
+  /Users/Carlos/dev/gasolinamexico/build_release/Build/Intermediates.noindex/ExplicitPrecompiledModules/_Builtin_stdint-5LKA8KKZW9D3U0BI9642KN9BO.pcm \
+  /Users/Carlos/dev/gasolinamexico/build_release/Build/Intermediates.noindex/ExplicitPrecompiledModules/CoreGraphics-5NTVLZOJL3K6WT8FV0EY2HT.pcm \
+  /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS27.0.sdk/usr/include/ObjectiveC.modulemap \
+  /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS27.0.sdk/System/Library/Frameworks/CoreGraphics.framework/Modules/module.modulemap \
+  /Users/Carlos/dev/gasolinamexico/build_release/Build/Intermediates.noindex/ExplicitPrecompiledModules/Foundation-4NHDTMLW4VPX01BTLP3PTS750.pcm \
+  /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS27.0.sdk/System/Library/Frameworks/Foundation.framework/Modules/module.modulemap \
+  /Users/Carlos/dev/gasolinamexico/build_release/Build/Intermediates.noindex/ExplicitPrecompiledModules/CoreVideo-A364Y8KLLPBXAG0119Z7N98GV.pcm \
+  /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS27.0.sdk/System/Library/Frameworks/IOSurface.framework/Modules/module.modulemap \
+  /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS27.0.sdk/System/Library/Frameworks/OpenGLES.framework/Modules/module.modulemap \
+  /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS27.0.sdk/System/Library/Frameworks/Metal.framework/Modules/module.modulemap \
+  /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS27.0.sdk/System/Library/Frameworks/CoreVideo.framework/Modules/module.modulemap \
+  /Users/Carlos/dev/gasolinamexico/build_release/Build/Intermediates.noindex/ExplicitPrecompiledModules/ImageIO-3ZUY4X53RZ3CA2JX7982YKNF0.pcm \
+  /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS27.0.sdk/System/Library/Frameworks/ImageIO.framework/Modules/module.modulemap
