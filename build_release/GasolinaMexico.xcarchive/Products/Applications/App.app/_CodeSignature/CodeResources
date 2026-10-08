@@ -6,15 +6,15 @@
 	<dict>
 		<key>AppIcon60x60@2x.png</key>
 		<data>
-		f9trlFfVkCLtOWOowNcBsDPZtBk=
+		qmffvNo2QZbveSb+fRX2LqXLslQ=
 		</data>
 		<key>AppIcon76x76@2x~ipad.png</key>
 		<data>
-		0q1mpFZ5Qb+SpIlYdn/l1sbd5PE=
+		vXEKhj2+HF0ydq+PNM2myaFz0y8=
 		</data>
 		<key>Assets.car</key>
 		<data>
-		7+zTrWbirCR6gn2iAIOvmEDDPUQ=
+		XFqHmnGYEVWvKp/nN+K8Emdy9Kw=
 		</data>
 		<key>Base.lproj/LaunchScreen.storyboardc/01J-lp-oVM-view-snD-IY-ifK.nib</key>
 		<data>
@@ -38,7 +38,7 @@
 		</data>
 		<key>Frameworks/Capacitor.framework/Capacitor</key>
 		<data>
-		a6iLoUOj7m5FmYqsr85p5DKbFh8=
+		uCEMQySblvHN2J/VyVwddN+qWUc=
 		</data>
 		<key>Frameworks/Capacitor.framework/Info.plist</key>
 		<data>
@@ -58,7 +58,7 @@
 		</data>
 		<key>Frameworks/Cordova.framework/Cordova</key>
 		<data>
-		mW1f6Bh+sJgi7zyxoo39fKR5ipk=
+		3K93oIIv62ZBNbftCe6Mhrs9vqg=
 		</data>
 		<key>Frameworks/Cordova.framework/Info.plist</key>
 		<data>
@@ -82,7 +82,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		U+kEL4Kry/LeMuC9I2Pq3eBtLNM=
+		mdjCviZKrqrdMEAxsb9jUzRx0e8=
 		</data>
 		<key>PkgInfo</key>
 		<data>
@@ -171,21 +171,21 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			JyEMlDM5J7TkDb4SsCce4S5w7ojVYkxcHctS4ST+2p8=
+			QCdZYo/TFQsehoXeENmRKvyCiRpm9kvZdKFm0YwFDCM=
 			</data>
 		</dict>
 		<key>AppIcon76x76@2x~ipad.png</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			XmeLHCx/n87aOwYEDdhEneuhUqLFKMEzVQDn8mSyGwQ=
+			A7XBJ61zLV3lOtpCH4WXrKh0z45acpUGXQ7UmMRqMj0=
 			</data>
 		</dict>
 		<key>Assets.car</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			aQxVGpqHfzdkBZ18RKlr30YSbsQ6aEUtwu9P8UyYxlU=
+			Icv6bHhyD3zvEhIhOuMFzyDHg8qcOU9HTgJYGhnD/AI=
 			</data>
 		</dict>
 		<key>Base.lproj/LaunchScreen.storyboardc/01J-lp-oVM-view-snD-IY-ifK.nib</key>
@@ -227,7 +227,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			qnEraH0t2Pc5W5Yi9NDG1yYdVLFSzklKkpM9WYX8qBM=
+			sZAUdCJlzyoDakFIGG/mC6H9jUYGWiPGTUsUe8FbjUQ=
 			</data>
 		</dict>
 		<key>Frameworks/Capacitor.framework/Info.plist</key>
@@ -262,7 +262,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			bRXlfs6+J3fj2LK+t+S+wHsU4SZY49MqAGwAC/D5L3Y=
+			aFGkdUItboBE8zWDlE8JTOZKh7BZj5f7KsTIZEATwks=
 			</data>
 		</dict>
 		<key>Frameworks/Cordova.framework/Info.plist</key>
