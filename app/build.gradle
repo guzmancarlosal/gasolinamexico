@@ -23,11 +23,23 @@ android {
 
     signingConfigs {
         release {
-            if (keystoreProperties['storeFile'] != null && new File(keystoreProperties['storeFile']).exists()) {
-                storeFile file(keystoreProperties['storeFile'])
-                storePassword keystoreProperties['storePassword']
-                keyAlias keystoreProperties['keyAlias']
-                keyPassword keystoreProperties['keyPassword']
+            def storePath = keystoreProperties['storeFile'] ?: "gasolinaMexico.jks"
+            def storeF = null
+            if (rootProject.file(storePath).exists()) {
+                storeF = rootProject.file(storePath)
+            } else if (file(storePath).exists()) {
+                storeF = file(storePath)
+            } else if (rootProject.file("gasolinaMexico.jks").exists()) {
+                storeF = rootProject.file("gasolinaMexico.jks")
+            } else if (file("../gasolinaMexico.jks").exists()) {
+                storeF = file("../gasolinaMexico.jks")
+            }
+
+            if (storeF != null && storeF.exists()) {
+                storeFile storeF
+                storePassword keystoreProperties['storePassword'] ?: "Carlos10"
+                keyAlias keystoreProperties['keyAlias'] ?: "gasolinamexico"
+                keyPassword keystoreProperties['keyPassword'] ?: "Carlos10"
             }
         }
     }
@@ -52,9 +64,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             buildConfigField "String", "BASE_URL", "\"file:///android_asset/dist/index.html\""
             buildConfigField "String", "ADMOB_BANNER_ID", "\"ca-app-pub-3403038737253823/5587497426\"" // Reemplazar con tu ID de bloque de anuncios de AdMob
-            if (keystoreProperties['storeFile'] != null && new File(keystoreProperties['storeFile']).exists()) {
-                signingConfig signingConfigs.release
-            }
+            signingConfig signingConfigs.release
         }
     }
     buildFeatures {
