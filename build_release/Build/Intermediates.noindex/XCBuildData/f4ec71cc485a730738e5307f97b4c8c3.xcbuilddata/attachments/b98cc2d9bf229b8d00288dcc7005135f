@@ -1,4 +1,0 @@
-
-module CapacitorCommunityAdmob.__Swift {
-  exclude header "CapacitorCommunityAdmob-Swift.h"
-}
